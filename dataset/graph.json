@@ -1,0 +1,6578 @@
+[
+  {
+    "drug_name": "盐酸二甲双胍片 (普通片/缓释片)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "乳酸性酸中毒极高风险"
+      },
+      {
+        "indicator": "血清肌酐",
+        "operator": ">",
+        "threshold": 1.5,
+        "unit": "mg/dL",
+        "reason": "肾功能不全"
+      }
+    ],
+    "disease_excludes": [
+      "失代偿性心力衰竭",
+      "严重肝功能损害",
+      "急性酒精中毒",
+      "糖尿病酮症酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "减量50%",
+        "note": "最大剂量不应超过1000mg/日"
+      },
+      {
+        "condition": "使用碘造影剂前",
+        "action": "停药48小时",
+        "note": "防止急性肾损伤引起蓄积中毒"
+      }
+    ]
+  },
+  {
+    "drug_name": "恩格列净 (欧唐静)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "药效丧失且增加肾损害风险"
+      }
+    ],
+    "disease_excludes": [
+      "透析患者",
+      "终末期肾病",
+      "反复发生的尿路感染"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "剂量上限10mg",
+        "note": "加强肾功监测"
+      },
+      {
+        "condition": "高龄患者",
+        "action": "起始5mg",
+        "note": "防范脱水及体位性低血压"
+      }
+    ]
+  },
+  {
+    "drug_name": "达格列净 (安达唐)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "临床数据不支持用于控糖"
+      }
+    ],
+    "disease_excludes": [
+      "重度肾损害",
+      "低血容量状态",
+      "坏死性筋膜炎病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肝功能不全(Child-Pugh C)",
+        "action": "起始5mg",
+        "note": "观察药物耐受性"
+      }
+    ]
+  },
+  {
+    "drug_name": "卡格列净 (怡可安)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "糖尿病酮症酸中毒",
+      "截肢风险高危人群",
+      "下肢血管疾病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-60",
+        "action": "剂量上限100mg",
+        "note": "注意高钾血症风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "司美格鲁肽注射液 (诺和泰)",
+    "contraindications": [],
+    "disease_excludes": [
+      "甲状腺髓样癌家族史",
+      "多发性内分泌腺瘤病2型",
+      "妊娠期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "伴有视网膜病变",
+        "action": "慎用并密切检查",
+        "note": "早期可能导致视网膜症状加重"
+      },
+      {
+        "condition": "胃肠道反应严重",
+        "action": "暂停加量",
+        "note": "分步骤滴定 0.25 -> 0.5 -> 1.0mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "司美格鲁肽片 (诺和忻)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃瘫",
+      "炎症性肠病",
+      "甲状腺髓样癌"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "清晨服药条件不符",
+        "action": "改为注射剂型",
+        "note": "必须空腹并用不超过120ml白水服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "替尔泊肽 (Tirzepatide/穆峰达)",
+    "contraindications": [],
+    "disease_excludes": [
+      "重度胃肠道疾病",
+      "甲状腺髓样癌(MTC)病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "胰腺炎病史",
+        "action": "禁用",
+        "note": "双激动剂对胰腺刺激性强"
+      }
+    ]
+  },
+  {
+    "drug_name": "利拉鲁肽 (诺和力)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重心力衰竭(NYHA IV级)",
+      "炎症性肠病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能不全",
+        "action": "无需调整剂量",
+        "note": "但不建议用于终末期肾病"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀 (捷诺维)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "严重肾损害需超低剂量"
+      }
+    ],
+    "disease_excludes": [
+      "超敏反应病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "减量至50mg/日",
+        "note": "常规为100mg"
+      },
+      {
+        "condition": "eGFR < 30",
+        "action": "减量至25mg/日",
+        "note": "含透析患者"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀 (安立泽)",
+    "contraindications": [],
+    "disease_excludes": [
+      "慢性心力衰竭",
+      "急性胰腺炎病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾损害",
+        "action": "减量至2.5mg/日",
+        "note": "注意心衰住院风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀 (欧糖宁)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏性休克病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "各类肾功能不全",
+        "action": "无需调整",
+        "note": "该药不经肾脏排泄，肾病患者首选"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿格列汀 (尼欣那)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重过敏",
+      "急性胰腺炎"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损害",
+        "action": "剂量减半12.5mg",
+        "note": "监测淀粉酶指标"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀 (佳维乐)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肝功能损害(ALT/AST>3xULN)",
+      "中重度心力衰竭"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能不全",
+        "action": "剂量上限50mg/日",
+        "note": "分次服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列美脲 (亚莫利)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "极高低血糖风险"
+      }
+    ],
+    "disease_excludes": [
+      "1型糖尿病",
+      "糖尿病酮症酸中毒",
+      "严重肝功能障碍"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年患者",
+        "action": "起始1mg/日",
+        "note": "严格防范无意识低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列齐特缓释片 (达美康)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "应用咪康唑治疗者",
+      "重度肝不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度肾功不全",
+        "action": "无需调整",
+        "note": "但需餐前服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列喹酮 (糖适平)",
+    "contraindications": [],
+    "disease_excludes": [
+      "糖尿病合并妊娠",
+      "重度感染性疾病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾病",
+        "action": "谨慎使用",
+        "note": "95%经胆道排泄，是肾功受损者可选的磺脲类"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (唐力)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "进餐不固定",
+        "action": "不进餐不服药",
+        "note": "防止餐后低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈 (诺和龙)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "联合应用吉非罗齐"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "重度肾损害",
+        "action": "起始0.5mg",
+        "note": "缓慢加量"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮 (艾汀)",
+    "contraindications": [],
+    "disease_excludes": [
+      "心力衰竭(NYHA I-IV级)",
+      "活动性肝病",
+      "现患或既往膀胱癌"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "存在骨质疏松风险",
+        "action": "慎用",
+        "note": "增加女性骨折风险"
+      },
+      {
+        "condition": "黄斑水肿",
+        "action": "停药",
+        "note": "该类药可能引起全身水肿"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿卡波糖 (拜唐苹)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "血药浓度大幅升高"
+      }
+    ],
+    "disease_excludes": [
+      "炎症性肠病",
+      "结肠溃疡",
+      "慢性肠道疾病伴有消化吸收障碍"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肠道排气过多",
+        "action": "减少淀粉摄入",
+        "note": "随第一口饭嚼碎服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "伏格列波糖 (倍欣)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重疝气",
+      "Roemheld综合征",
+      "肠梗阻"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年人",
+        "action": "从小剂量0.2mg起始",
+        "note": "副作用较阿卡波糖轻"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素 (来得时/长秀霖)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对成分过敏者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能受损",
+        "action": "减量25%",
+        "note": "胰岛素在体内清除减慢"
+      },
+      {
+        "condition": "剧烈运动后",
+        "action": "减少剂量",
+        "note": "防止夜间低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷胰岛素 (诺和达)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "注射时间变动",
+        "action": "间隔至少8小时",
+        "note": "超长效平稳，允许一定范围的时间弹性"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素 (诺和锐)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏性体质"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐前未及时进食",
+        "action": "立即补充葡萄糖",
+        "note": "起效极快，必须餐前即刻注射"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀二甲双胍片 (捷诺达)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方制剂中二甲双胍成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "急性酒精中毒",
+      "心源性休克",
+      "严重肝功能不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "胃肠道耐受差",
+        "action": "随餐服用",
+        "note": "建议从低剂量开始逐步增加"
+      }
+    ]
+  },
+  {
+    "drug_name": "达格列净二甲双胍缓释片 (安达释)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "肾功受限"
+      }
+    ],
+    "disease_excludes": [
+      "重度脱水",
+      "近期大手术"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年患者",
+        "action": "监测eGFR",
+        "note": "每3-6个月复查肾功"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮二甲双胍片 (卡双平)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "多成分累积风险"
+      }
+    ],
+    "disease_excludes": [
+      "膀胱癌既往史",
+      "心衰",
+      "肝损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "绝经后女性",
+        "action": "告知骨折风险",
+        "note": "定期骨密度检查"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷门冬双胰岛素 (诺和佳)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由基础胰岛素转换",
+        "action": "1:1剂量转换",
+        "note": "随主餐注射，每日1-2次"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素利司那肽 (赛益宁)",
+    "contraindications": [],
+    "disease_excludes": [
+      "甲状腺癌病史",
+      "胃瘫",
+      "严重肠道疾病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "首次启动",
+        "action": "从10个剂量单位开始",
+        "note": "观察消化道反应"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈二甲双胍片",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方对肾功能要求更高"
+      }
+    ],
+    "disease_excludes": [
+      "严重感染",
+      "外伤"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖波动大",
+        "action": "调整瑞格列奈配比",
+        "note": "注意餐间低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "度拉糖肽 (杜拉鲁肽/真知安)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重胃肠道疾病",
+      "甲状腺髓样癌病史",
+      "胰腺炎病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损害",
+        "action": "无需调整",
+        "note": "eGFR < 15时临床数据有限，需谨慎"
+      },
+      {
+        "condition": "首次使用",
+        "action": "0.75mg/周 起始",
+        "note": "若血糖控制不佳可增加至1.5mg/周"
+      }
+    ]
+  },
+  {
+    "drug_name": "艾塞那肽注射液 (百泌达)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "肾清除率显著降低，易蓄积"
+      }
+    ],
+    "disease_excludes": [
+      "严重胃瘫",
+      "炎症性肠病",
+      "严重肾损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "首次使用",
+        "action": "5mcg/次，每日2次",
+        "note": "1个月后可增加至10mcg/次"
+      }
+    ]
+  },
+  {
+    "drug_name": "艾塞那肽微球 (百妥恩/周剂)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "甲状腺髓样癌病史",
+      "过敏性休克"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-50",
+        "action": "谨慎使用",
+        "note": "监测肾功能变化"
+      }
+    ]
+  },
+  {
+    "drug_name": "聚乙二醇洛塞那肽 (孚来美)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胰腺炎病史",
+      "甲状腺髓样癌家族史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能不全",
+        "action": "无需调整剂量",
+        "note": "国产长效GLP-1，每周给药一次"
+      }
+    ]
+  },
+  {
+    "drug_name": "贝那鲁肽注射液 (谊生泰)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃瘫",
+      "恶性肿瘤",
+      "1型糖尿病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖控制",
+        "action": "每日3次，餐前5分钟",
+        "note": "短效人源GLP-1，注意注射频次"
+      }
+    ]
+  },
+  {
+    "drug_name": "曲格列汀 (Wedica/日本周剂)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "药物清除受阻"
+      }
+    ],
+    "disease_excludes": [
+      "重度肾损害",
+      "急性感染"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-60",
+        "action": "减量至50mg/周",
+        "note": "常规剂量为100mg/周"
+      },
+      {
+        "condition": "eGFR 15-30",
+        "action": "减量至25mg/周",
+        "note": "极低剂量给药"
+      }
+    ]
+  },
+  {
+    "drug_name": "考格列汀 (倍特力)",
+    "contraindications": [],
+    "disease_excludes": [
+      "急性胰腺炎",
+      "严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻中度肾损害",
+        "action": "无需调整",
+        "note": "中国首款自主研发DPP-4周剂"
+      }
+    ]
+  },
+  {
+    "drug_name": "恒格列净 (瑞沁)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "控糖疗效显著下降"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝损",
+      "糖尿病酮症酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "高龄患者",
+        "action": "起始剂量5mg",
+        "note": "注意观察低血压风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列本脲 (优降糖)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 50,
+        "unit": "ml/min/1.73m2",
+        "reason": "代谢产物具有活性且经肾排泄，极易诱发致命性低血糖"
+      }
+    ],
+    "disease_excludes": [
+      "老年患者(相对禁止)",
+      "严重肝肾功能不全",
+      "孕妇"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "体弱及营养不良",
+        "action": "极小剂量起始",
+        "note": "临床已趋于淘汰，风险极大"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列吡嗪 (美吡达/秦苏)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝肾损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能轻度受损",
+        "action": "无需调整",
+        "note": "代谢产物无活性，相对安全"
+      },
+      {
+        "condition": "餐前血糖过高",
+        "action": "餐前30分钟服用",
+        "note": "模仿第一相胰岛素分泌"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列吡嗪控释片 (瑞易宁)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃肠道梗阻",
+      "严重肝功能不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "服药方式",
+        "action": "不可整片吞服",
+        "note": "不可嚼碎或压碎，否则失去控释效果"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列喹酮 (糖适平/泛得糖)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "严重肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功不全(CKD 1-4期)",
+        "action": "无需调整",
+        "note": "仅5%经肾排泄，是肾病患者首选磺脲类"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇 (奥恬苹)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 2.0,
+        "unit": "mg/dL",
+        "reason": "药物蓄积风险"
+      }
+    ],
+    "disease_excludes": [
+      "炎症性肠病",
+      "慢性肠道功能障碍"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "初次使用",
+        "action": "25mg/次",
+        "note": "随餐第一口服，减小胃肠道副作用"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列奈钙片 (唐力)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "严重感染"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻中度肾损害",
+        "action": "无需调整",
+        "note": "起效极快，适合控制餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "罗格列酮 (文迪雅)",
+    "contraindications": [],
+    "disease_excludes": [
+      "心力衰竭(NYHA II-IV级)",
+      "缺血性心脏病",
+      "活动性肝病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "存在水肿迹象",
+        "action": "减量或停药",
+        "note": "增加心脏负荷，心血管风险需严密监测"
+      }
+    ]
+  },
+  {
+    "drug_name": "罗格列酮二甲双胍片 (文达敏)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "双重肾功限制"
+      }
+    ],
+    "disease_excludes": [
+      "心衰",
+      "酗酒",
+      "严重贫血"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合胰岛素",
+        "action": "慎用",
+        "note": "显著增加水肿和心衰风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀二甲双胍缓释片 (安立格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍累积风险"
+      }
+    ],
+    "disease_excludes": [
+      "心力衰竭",
+      "乳酸酸中毒史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "剂量上限5mg/1000mg",
+        "note": "注意水肿及心血管症状"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀二甲双胍片 (宜合瑞)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "维格列汀成分在低eGFR下排泄受阻"
+      }
+    ],
+    "disease_excludes": [
+      "肝功能异常",
+      "急性酒精中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "转氨酶升高",
+        "action": "停药",
+        "note": "需在服药首年每3个月监测肝功"
+      }
+    ]
+  },
+  {
+    "drug_name": "地特胰岛素 (诺和平)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对本品过敏者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "体重调节",
+        "action": "根据体重滴定",
+        "note": "长效人胰岛素类似物，低血糖风险低于NPH"
+      },
+      {
+        "condition": "妊娠期",
+        "action": "可用",
+        "note": "FDA B级，适合妊娠糖尿病"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素 (优泌乐)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后注射",
+        "action": "仅限特殊情况",
+        "note": "通常餐前15分钟注射，超短效"
+      }
+    ]
+  },
+  {
+    "drug_name": "谷赖胰岛素 (艾倍得)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "BMI > 30",
+        "action": "剂量可能需增加",
+        "note": "肥胖患者吸收较快，起效更稳定"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素 (优泌林N/甘舒霖N)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重低血糖史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "凌晨低血糖",
+        "action": "睡前给药",
+        "note": "中效胰岛素，峰值在给药后4-12小时，需防范夜间低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素混合注射液 (70/30)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对成分过敏者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖升高",
+        "action": "调整比例至50/50",
+        "note": "预混胰岛素，必须餐前30分钟注射"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌门冬胰岛素混合注射液 (30/50/70)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重过敏反应"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "注射时间",
+        "action": "餐前即刻",
+        "note": "含超短效组分，禁止餐前过早注射"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌赖脯胰岛素混合注射液 (25/50)",
+    "contraindications": [],
+    "disease_excludes": [
+      "静脉给药(禁止)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由中效转入",
+        "action": "1:1起始",
+        "note": "注意餐后2小时血糖监测"
+      }
+    ]
+  },
+  {
+    "drug_name": "厄格列净 (Steglatro)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝损",
+      "经常性真菌性生殖器感染"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "启动前",
+        "action": "检查容量状态",
+        "note": "高龄或服用利尿剂者易发生脱水"
+      }
+    ]
+  },
+  {
+    "drug_name": "依格列净 (Suglat/日本)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "疗效不佳"
+      }
+    ],
+    "disease_excludes": [
+      "重度脱水状态",
+      "高龄"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "夏季或高温环境",
+        "action": "增加饮水",
+        "note": "防范非酮症性高渗状态"
+      }
+    ]
+  },
+  {
+    "drug_name": "露塞恩格列净 (Lusefi/日本)",
+    "contraindications": [],
+    "disease_excludes": [
+      "透析",
+      "严重酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能正常",
+        "action": "5mg/次",
+        "note": "剂量可根据血糖增加至10mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "托格列净 (Deberza/日本)",
+    "contraindications": [],
+    "disease_excludes": [
+      "中重度肾损害(不推荐)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "心血管病史",
+        "action": "慎用",
+        "note": "该药在日本临床数据较多，注意观察尿路安全"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列汀二甲双胍片 (复方)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "由于二甲双胍限制"
+      }
+    ],
+    "disease_excludes": [
+      "急性酸中毒",
+      "手术期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "医生评估",
+        "note": "需频繁监测血肌酐"
+      }
+    ]
+  },
+  {
+    "drug_name": "伊格列明 (Imeglimin/Twymeeg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "缺乏安全性数据且排泄受阻"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝功能损害",
+      "不稳定型心力衰竭",
+      "酮症酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-45",
+        "action": "建议减量或慎用",
+        "note": "新型线粒体机制药物，目前在日本研究较多"
+      },
+      {
+        "condition": "联合二甲双胍",
+        "action": "注意胃肠道反应",
+        "note": "两者机制互补但累积消化道压力"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀二甲双胍片 (欧双宁)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "急性酒精中毒",
+      "心源性休克",
+      "严重脱水"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功不全 eGFR > 45",
+        "action": "无需调整利格列汀成分",
+        "note": "但需按二甲双胍要求监测"
+      },
+      {
+        "condition": "手术期",
+        "action": "停药48小时",
+        "note": "恢复后根据肾功决定启用"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿格列汀二甲双胍片 (尼欣乐)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方对肾功要求严格"
+      }
+    ],
+    "disease_excludes": [
+      "糖尿病酮症酸中毒",
+      "慢性活动性肝病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度肾损害",
+        "action": "监测eGFR",
+        "note": "不建议在中重度肾损患者中使用此复方"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀达格列净片 (Qtern)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "达格列净成分控糖效能受限"
+      }
+    ],
+    "disease_excludes": [
+      "心力衰竭病史",
+      "反复尿路感染"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "容量不足",
+        "action": "先补液再启动",
+        "note": "SGLT2i成分具有渗透性利尿作用"
+      }
+    ]
+  },
+  {
+    "drug_name": "恩格列净利格列汀片 (Glyxambi)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "透析患者",
+      "急性胰腺炎病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "不推荐启动",
+        "note": "利格列汀成分安全但恩格列净组分无效"
+      }
+    ]
+  },
+  {
+    "drug_name": "利司那肽 (利必通)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "重度胃瘫",
+      "甲状腺髓样癌病史",
+      "克罗恩病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-30",
+        "action": "极谨慎使用",
+        "note": "监测恶心、呕吐等胃肠道反应"
+      }
+    ]
+  },
+  {
+    "drug_name": "艾塞那肽 (百泌达/3次版)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "增加肾损伤风险"
+      }
+    ],
+    "disease_excludes": [
+      "严重的胃肠道疾病",
+      "胰腺炎风险"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合磺脲类",
+        "action": "减量磺脲类",
+        "note": "预防低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素混合注射液 (50/50)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期",
+      "严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖显著升高",
+        "action": "餐前15-30分钟注射",
+        "note": "增加短效成分占比以覆盖餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷胰岛素利拉鲁肽注射液 (诺和益)",
+    "contraindications": [],
+    "disease_excludes": [
+      "甲状腺髓样癌病史",
+      "胃瘫",
+      "胰腺炎"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "转换自基础胰岛素",
+        "action": "起始10剂量单位",
+        "note": "最大剂量50剂量单位"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素 (赛诺菲/来得时)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏性体质"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肝功能不全",
+        "action": "可能需减量",
+        "note": "胰岛素在肝脏代谢减少"
+      }
+    ]
+  },
+  {
+    "drug_name": "地特胰岛素 (诺和诺德/诺和平)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由中效胰岛素转换",
+        "action": "1:1或减量20%",
+        "note": "每日一次或两次给药"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇 (赛格列汀)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 2.0,
+        "unit": "mg/dL",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "肠梗阻",
+      "慢性腹泻",
+      "疝气"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "排气过多",
+        "action": "维持25mg小剂量",
+        "note": "耐受后再滴定至50mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列本脲二甲双胍片 (消渴丸成分类似物)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "极高低血糖风险"
+      }
+    ],
+    "disease_excludes": [
+      "高龄患者(>70岁)",
+      "严重肝功受损",
+      "酗酒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "运动量增加",
+        "action": "停服一次或减量",
+        "note": "格列本脲半衰期长，极易发生持久性低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "罗格列酮钠片 (文迪雅)",
+    "contraindications": [],
+    "disease_excludes": [
+      "NYHA III/IV级心力衰竭",
+      "活动性肝病",
+      "严重的贫血"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "伴有水肿",
+        "action": "立即停药",
+        "note": "增加心血管风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀二甲双胍片 (II) (捷诺达新版)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍禁忌指标"
+      }
+    ],
+    "disease_excludes": [
+      "近期心肌梗死",
+      "败血症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "上限 50mg/1000mg 每日两次",
+        "note": "常规剂量需减半"
+      }
+    ]
+  },
+  {
+    "drug_name": "考格列汀 (考格列汀片)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "严重过敏反应",
+      "急性胰腺炎"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损害",
+        "action": "无需调整",
+        "note": "DPP-4周剂，注意观察过敏性皮肤反应"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列吡嗪 (溢生)",
+    "contraindications": [],
+    "disease_excludes": [
+      "糖尿病酸中毒",
+      "重度肾不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "空腹血糖偏高",
+        "action": "睡前服用或增加餐前剂量",
+        "note": "短效制剂，注意餐后3小时血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列喹酮 (糖适平/北京宝树堂)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "严重肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "CKD 4期",
+        "action": "由医生严密监测",
+        "note": "肾代谢率仅5%，是慢性肾病患者的安全选择"
+      }
+    ]
+  },
+  {
+    "drug_name": "盐酸吡格列酮 (卡司平)",
+    "contraindications": [],
+    "disease_excludes": [
+      "膀胱癌史",
+      "心衰",
+      "肝损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "女性高龄",
+        "action": "注意预防骨折",
+        "note": "长期使用增加远端长骨骨折风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿卡波糖胶囊 (卡博平)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "血药浓度过高"
+      }
+    ],
+    "disease_excludes": [
+      "肠溃疡",
+      "疝气",
+      "严重腹部手术史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "进食大量淀粉后",
+        "action": "增加剂量",
+        "note": "需随第一口饭服用，延缓双糖分解"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素30 (诺和锐30)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由人胰岛素30/70转换",
+        "action": "1:1转换",
+        "note": "必须紧邻餐前注射，不可提前超过10分钟"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素 (甘李/长秀霖)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏性休克"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "睡前注射低血糖",
+        "action": "调至早晨注射",
+        "note": "24小时平稳，注射时间应固定"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素 (甘舒霖N)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重感染期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "黎明现象",
+        "action": "增加晚睡前剂量",
+        "note": "需防范凌晨3点的低血糖点"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (万苏欣)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "妊娠"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "漏餐",
+        "action": "不服药",
+        "note": "快进快出，模仿第一相胰岛素分泌"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀 (立必复)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肝功ALT>3倍上限",
+      "严重心衰"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功不全",
+        "action": "50mg 每日一次",
+        "note": "正常剂量为每日两次"
+      }
+    ]
+  },
+  {
+    "drug_name": "伏格列波糖散 (依利平)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肠梗阻症状",
+      "腹部手术后"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后高血糖不明显",
+        "action": "减量或停药",
+        "note": "对淀粉类食物依赖性强"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列美脲 (万苏平)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "糖尿病酮症",
+      "哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由其他磺脲类转入",
+        "action": "起始1mg",
+        "note": "注意由于半衰期重叠导致的低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇 (维格列)",
+    "contraindications": [],
+    "disease_excludes": [
+      "炎症性肠病",
+      "结肠肿瘤"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度肾损",
+        "action": "25mg 每日三次",
+        "note": "餐前即刻服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "达格列净 (卡格平)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "坏死性筋膜炎史",
+      "低血容量"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 25-45",
+        "action": "不推荐开启",
+        "note": "若已在用且获益，可遵医嘱继续"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白重组人胰岛素混合注射液 (优泌林70/30)",
+    "contraindications": [],
+    "disease_excludes": [
+      "静脉滴注"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖不降",
+        "action": "增加餐前活动",
+        "note": "中效组分峰值滞后，需注意后续血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "依碳酸瑞格列净 (Remogliflozin)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "肾功受损导致控糖效力不足"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝功能损害",
+      "终末期肾病",
+      "哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损害",
+        "action": "不建议使用",
+        "note": "主要用于2型糖尿病成人患者"
+      }
+    ]
+  },
+  {
+    "drug_name": "索格列净 (Sotagliflozin/Inpefa)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "SGLT2抑制剂过敏",
+      "糖尿病酮症酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "心力衰竭伴肾损",
+        "action": "eGFR > 25 可用",
+        "note": "该药具有SGLT1/2双重抑制作用，注意肠道反应"
+      }
+    ]
+  },
+  {
+    "drug_name": "特内里汀 (Teneliglitin/培力廷)",
+    "contraindications": [],
+    "disease_excludes": [
+      "心律失常(QT间期延长病史)",
+      "重度肝功能损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "各类肾功能不全",
+        "action": "无需调整剂量",
+        "note": "经肝肾双通道排泄，但需监测心电图QT间期"
+      }
+    ]
+  },
+  {
+    "drug_name": "吉米格列汀 (Gemigliptin/泽美格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾损害",
+        "action": "无需调整剂量",
+        "note": "临床研究显示肾病患者耐受性良好"
+      }
+    ]
+  },
+  {
+    "drug_name": "依格列汀 (Evogliptin/舒格列)",
+    "contraindications": [],
+    "disease_excludes": [
+      "中重度肝功能损害",
+      "急性感染期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度肾损害",
+        "action": "5mg 每日一次",
+        "note": "针对亚洲人群设计的DPP-4抑制剂"
+      }
+    ]
+  },
+  {
+    "drug_name": "劳格列酮 (Lobeglitazone/Duvie)",
+    "contraindications": [],
+    "disease_excludes": [
+      "心力衰竭 NYHA II-IV",
+      "现患膀胱癌",
+      "严重肝损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "水肿倾向",
+        "action": "减量或联合利尿剂",
+        "note": "新型TZD，剂量极低(0.5mg)，副作用较吡格列酮轻"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列美脲二甲双胍片 (亚莫利复方)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方制剂风险控制"
+      }
+    ],
+    "disease_excludes": [
+      "由于手术需禁食",
+      "严重创伤",
+      "酗酒者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由单药转换",
+        "action": "1:1剂量转换",
+        "note": "早晚餐前服用，注意由于格列美脲引起的延迟性低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列本脲二甲双胍片 (胶囊)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 1.4,
+        "unit": "mg/dL",
+        "reason": "极易导致药物蓄积和酸中毒"
+      }
+    ],
+    "disease_excludes": [
+      "年老体弱者",
+      "长期营养不良",
+      "肾功能受损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "血糖接近正常",
+        "action": "立即减量或停用",
+        "note": "格列本脲成分在老年人中极危险"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮格列美脲片 (复方)",
+    "contraindications": [],
+    "disease_excludes": [
+      "膀胱癌",
+      "活动性心衰",
+      "肝病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "女性绝经后",
+        "action": "慎用",
+        "note": "增加骨折风险，且格列美脲增加体重"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀二甲双胍片 (宜合瑞/欧双欣)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "维格列汀在肾损时半衰期显著延长"
+      }
+    ],
+    "disease_excludes": [
+      "肝功能不全",
+      "代谢性酸中毒",
+      "哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "ALT或AST > 2倍上限",
+        "action": "停药",
+        "note": "复方制剂需严格监测肝功"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素U300 (来得时/Toujeo)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对辅料过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由U100转换",
+        "action": "1:1或增加10%-20%",
+        "note": "高浓度胰岛素，单位体积更小，吸收更平稳"
+      },
+      {
+        "condition": "漏服/注射延迟",
+        "action": "可在3小时内补打",
+        "note": "允许一定的给药时间弹性"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷胰岛素利拉鲁肽 (Xultophy/诺和益)",
+    "contraindications": [],
+    "disease_excludes": [
+      "甲状腺髓样癌家族史",
+      "胰腺炎",
+      "严重胃肠疾病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "起始治疗",
+        "action": "10剂量单位/日",
+        "note": "随主餐注射，最高50剂量单位"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素利司那肽 (Soliqua/赛益宁)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "利司那肽成分禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "胃瘫",
+      "1型糖尿病",
+      "妊娠"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-30",
+        "action": "不推荐使用",
+        "note": "复方中GLP-1受体激动剂成分受限"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白重组人胰岛素混合注射液 (25R/50R)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖高",
+        "action": "增加50R比例",
+        "note": "必须餐前30分钟注射，确保护理和饮食同步"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌门冬胰岛素混合 50 (诺和锐50)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "主餐碳水多",
+        "action": "随主餐注射",
+        "note": "含50%速效组分，更适合餐后血糖波动大的患者"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌赖脯胰岛素混合 25 (优泌乐25)",
+    "contraindications": [],
+    "disease_excludes": [
+      "静脉给药"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐前即刻注射",
+        "action": "无需等待30分钟",
+        "note": "含25%赖脯胰岛素速效组分"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌赖脯胰岛素混合 50 (优泌乐50)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重低血糖史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年患者",
+        "action": "谨慎调整",
+        "note": "速效组分多，需防止餐后早期低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素 (锐舒印/国产)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对本品成分过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "泵用",
+        "action": "可用于持续皮下泵注",
+        "note": "需每2-3天更换耗材"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素 (赛诺菲/阿必得)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "进食较慢",
+        "action": "可餐中注射",
+        "note": "相对于人胰岛素，给药时间更灵活"
+      }
+    ]
+  },
+  {
+    "drug_name": "谷赖胰岛素 (艾倍得/SoloStar)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "极端肥胖 (BMI>35)",
+        "action": "剂量微调",
+        "note": "皮下吸收不受脂肪层厚度显著影响"
+      }
+    ]
+  },
+  {
+    "drug_name": "重组甘精胰岛素 (嘉和/国产)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由于成本考虑转换",
+        "action": "1:1等效转换",
+        "note": "监测空腹血糖以验证生物类似物疗效"
+      }
+    ]
+  },
+  {
+    "drug_name": "重组地特胰岛素 (分泽林)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖风险高者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合口服药",
+        "action": "起始10单位/日",
+        "note": "通常睡前或晚餐时给药"
+      }
+    ]
+  },
+  {
+    "drug_name": "度拉糖肽 (1.5mg 高剂量/Trulicity)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃轻瘫",
+      "甲状腺癌病史",
+      "1型糖尿病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "血糖达标但有反应",
+        "action": "维持0.75mg",
+        "note": "每周一次，漏服不超过3天可补注"
+      }
+    ]
+  },
+  {
+    "drug_name": "利拉鲁肽 (3.0mg/Saxenda/减重适应症)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胆囊疾病史",
+      "抑郁/自杀倾向",
+      "胰腺炎"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "用于糖尿病控制",
+        "action": "最高1.8mg/日",
+        "note": "3.0mg剂量主要针对肥胖症"
+      }
+    ]
+  },
+  {
+    "drug_name": "艾塞那肽周剂 (Bydureon BCise)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "甲状腺髓样癌病史",
+      "药物诱导的血小板减少症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由日剂转换",
+        "action": "停日剂次日即用",
+        "note": "无需逐渐滴定，自动摇匀设计"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀 (100mg/捷诺维)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "急性胰腺炎",
+      "剥脱性皮炎病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-30",
+        "action": "25mg 每日一次",
+        "note": "需频繁监测指标"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀 (5mg/安立泽)",
+    "contraindications": [],
+    "disease_excludes": [
+      "心力衰竭风险高者",
+      "CYP3A4强抑制剂合用"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "合用酮康唑",
+        "action": "减量至2.5mg",
+        "note": "注意药物相互作用导致的浓度升高"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀 (50mg/佳维乐)",
+    "contraindications": [],
+    "disease_excludes": [
+      "中重度心衰",
+      "肝损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功不全",
+        "action": "50mg 每日一次",
+        "note": "不可增加至100mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (120mg/唐力)",
+    "contraindications": [],
+    "disease_excludes": [
+      "重度肝损",
+      "糖尿病酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功不全",
+        "action": "无需调整剂量",
+        "note": "主要经肝脏代谢，适合老年肾病患者"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇 (50mg/奥恬苹)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 2.0,
+        "unit": "mg/dL",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "肠梗阻",
+      "疝气",
+      "严重腹泻"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "胃肠胀气不适",
+        "action": "减量至25mg并随餐",
+        "note": "不适感通常随时间减轻"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿法列珠单抗/吸入胰岛素 (Afrezza)",
+    "contraindications": [
+      {
+        "indicator": "FEV1",
+        "operator": "<",
+        "threshold": 70,
+        "unit": "%",
+        "reason": "肺功能受损患者吸入吸收不稳定且有痉挛风险"
+      }
+    ],
+    "disease_excludes": [
+      "哮喘",
+      "慢性阻塞性肺疾病 (COPD)",
+      "肺癌现患或既往史",
+      "活动性吸烟者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "开始治疗前",
+        "action": "进行肺功能检查",
+        "note": "治疗6个月及之后每年需复查FEV1"
+      },
+      {
+        "condition": "急性支气管痉挛",
+        "action": "立即停药",
+        "note": "改为皮下注射胰岛素"
+      }
+    ]
+  },
+  {
+    "drug_name": "普兰林肽 (Pramlintide/Symlin)",
+    "contraindications": [],
+    "disease_excludes": [
+      "确诊的胃轻瘫",
+      "对低血糖无感知者",
+      "频繁发生严重低血糖"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "1型糖尿病起始",
+        "action": "15mcg/餐前",
+        "note": "同时减少餐前速效胰岛素剂量50%"
+      },
+      {
+        "condition": "2型糖尿病起始",
+        "action": "60mcg/餐前",
+        "note": "耐受后可增加至120mcg"
+      }
+    ]
+  },
+  {
+    "drug_name": "考来维仑 (Colesevelam/Welchol)",
+    "contraindications": [
+      {
+        "indicator": "甘油三酯 (TG)",
+        "operator": ">",
+        "threshold": 500,
+        "unit": "mg/dL",
+        "reason": "可能诱发急性胰腺炎"
+      }
+    ],
+    "disease_excludes": [
+      "肠梗阻史",
+      "血清甘油三酯导致的胰腺炎病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "TG 200-500",
+        "action": "密切监测血脂",
+        "note": "本药虽降低LDL-C，但可能升高TG"
+      }
+    ]
+  },
+  {
+    "drug_name": "甲磺酸溴隐亭 (Cycloset/快速释放片)",
+    "contraindications": [],
+    "disease_excludes": [
+      "合用多巴胺受体拮抗剂",
+      "合用麦角生物碱",
+      "晕厥型偏头痛",
+      "精神病史",
+      "哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "起始滴定",
+        "action": "0.8mg 每日一次",
+        "note": "建议早晨起床后2小时内随餐服用，每周增加0.8mg至维持量"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列本脲二甲双胍片 (消渴丸)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "格列本脲在肾功受损时蓄积风险极高"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝肾功能不全",
+      "70岁以上老年人",
+      "哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "血糖波动",
+        "action": "严禁自行加量",
+        "note": "每丸含格列本脲0.25mg，需防范延迟性低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈二甲双胍片 (普瑞达)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方制剂安全阈值更高"
+      }
+    ],
+    "disease_excludes": [
+      "联合应用吉非罗齐",
+      "糖尿病酮症",
+      "重度肝损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "进餐次数改变",
+        "action": "随餐给药，不进餐不服药",
+        "note": "核心是控制餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮二甲双胍片 (卡双平/500mg版)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "心力衰竭",
+      "膀胱癌既往史",
+      "肝功能受损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "剂量减半",
+        "note": "需评估心脏负荷"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿格列汀吡格列酮片 (Oseni)",
+    "contraindications": [],
+    "disease_excludes": [
+      "心力衰竭 (NYHA II-IV)",
+      "活动性肝病",
+      "急性胰腺炎史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能不全",
+        "action": "根据阿格列汀调整剂量",
+        "note": "主要注意心脏和肝脏安全"
+      }
+    ]
+  },
+  {
+    "drug_name": "恩格列净二甲双胍缓释片 (Synjardy XR)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "基于二甲双胍和恩格列净双重限制"
+      }
+    ],
+    "disease_excludes": [
+      "代谢性酸中毒",
+      "重度肾损害",
+      "长期酗酒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "手术前",
+        "action": "至少停药3天",
+        "note": "预防SGLT2i相关的正常血糖性酮症酸中毒"
+      }
+    ]
+  },
+  {
+    "drug_name": "达格列净二甲双胍缓释片 (Xigduo XR)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "绝对禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "近期大手术",
+      "严重脱水",
+      "尿路脓毒血症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "不建议起始",
+        "note": "已使用者需加强肾功复查"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀二甲双胍缓释片 (Janumet XR)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "急性胰腺炎",
+      "肾功能受损",
+      "酗酒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "剂量上限50/1000mg",
+        "note": "每日一次"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀二甲双胍缓释片 (Kombiglyze XR)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "由于复方成分排泄限制"
+      }
+    ],
+    "disease_excludes": [
+      "心力衰竭病史",
+      "慢性酒精中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "合用CYP3A4强抑制剂",
+        "action": "沙格列汀成分限2.5mg",
+        "note": "注意心衰住院风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "卡格列净二甲双胍片 (Invokamet)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "足部溃疡风险",
+      "既往截肢史",
+      "严重周围血管病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "剂量上限50/500mg 每日两次",
+        "note": "监测血钾及骨密度"
+      }
+    ]
+  },
+  {
+    "drug_name": "厄格列净西格列汀片 (Steglujan)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "经常性真菌性生殖器感染",
+      "胰腺炎风险"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能变化",
+        "action": "若eGFR持续<45应停药",
+        "note": "随餐或空腹均可服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "厄格列净二甲双胍片 (Segluromet)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "双重肾功限制"
+      }
+    ],
+    "disease_excludes": [
+      "急性心梗",
+      "败血症",
+      "乳酸酸中毒史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "严重胃肠道不适",
+        "action": "随餐服用",
+        "note": "从低剂量缓慢滴定"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素 (优泌林 N/中效)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "早晨高血糖",
+        "action": "增加睡前剂量",
+        "note": "需与晚餐前剂量分开，主要覆盖夜间及空腹血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "重组人胰岛素 (优泌林 R/短效)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏性体质"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖控制",
+        "action": "餐前30分钟注射",
+        "note": "可用于静脉滴注（如酮症酸中毒治疗）"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素超速效版 (Fiasp)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对烟酰胺过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐前注射",
+        "action": "餐前即刻或餐后20分钟内",
+        "note": "添加烟酰胺加快吸收，起效比常规门冬更迅速"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素超速效版 (Lyumjev)",
+    "contraindications": [],
+    "disease_excludes": [
+      "局部过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "注射时间",
+        "action": "餐前即刻或餐后15分钟内",
+        "note": "含海藻糖酸钠和柠檬酸盐以加速吸收"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素类似物 (Basaglar/生物类似物)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由Lantus转换",
+        "action": "1:1剂量转换",
+        "note": "尽管临床等效，仍需前两周加密血糖监测"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素类似物 (Admelog/生物类似物)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由Humalog转换",
+        "action": "1:1剂量转换",
+        "note": "餐前15分钟注射"
+      }
+    ]
+  },
+  {
+    "drug_name": "倍格列净 (Bexagliflozin/Brenzavvy)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "终末期肾病患者缺乏疗效且安全性不明"
+      }
+    ],
+    "disease_excludes": [
+      "透析患者",
+      "SGLT2抑制剂过敏史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-60",
+        "action": "无需调整",
+        "note": "尽管可用，但在此范围内控糖效力较基线下降"
+      }
+    ]
+  },
+  {
+    "drug_name": "奥格列汀 (Omarigliptin/Marizev)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "严重酮症",
+      "急性感染",
+      "严重外伤"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-30",
+        "action": "减量至12.5mg/周",
+        "note": "常规剂量为25mg/周"
+      },
+      {
+        "condition": "eGFR 30-60",
+        "action": "减量至12.5mg/周",
+        "note": "超长效DPP-4抑制剂，每周一次"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿格列汀吡格列酮复方 (Oseni)",
+    "contraindications": [],
+    "disease_excludes": [
+      "活动性膀胱癌",
+      "NYHA III/IV级心力衰竭",
+      "严重肝功能损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损害",
+        "action": "调整阿格列汀组分",
+        "note": "注意吡格列酮引起的水钠潴留风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀辛伐他汀片 (Juvisync)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "西格列汀成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "活动性肝病",
+      "不明原因的转氨酶持续升高",
+      "妊娠期/哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "合用环孢素",
+        "action": "辛伐他汀组分限10mg",
+        "note": "防止横纹肌溶解"
+      }
+    ]
+  },
+  {
+    "drug_name": "利拉鲁肽 (维多扎/1.8mg规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "甲状腺髓样癌病史",
+      "2型多发性内分泌肿瘤综合征",
+      "胰腺炎史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能不全",
+        "action": "无需调整",
+        "note": "但在终末期肾病患者中经验有限"
+      },
+      {
+        "condition": "肝功能不全",
+        "action": "无需调整",
+        "note": "需监测胃肠道耐受性"
+      }
+    ]
+  },
+  {
+    "drug_name": "艾塞那肽 (Adlyxin/利司那肽单药)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "重度胃瘫",
+      "炎症性肠病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "首次启动",
+        "action": "10mcg/日 维持14天",
+        "note": "第15天增加至20mcg/日"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (唐力/60mg规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝功能损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻中度肾损害",
+        "action": "无需调整",
+        "note": "适合餐后血糖波动大的肾病患者"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇 (维格列/100mg规格)",
+    "contraindications": [
+      {
+        "indicator": "血清肌酐",
+        "operator": ">",
+        "threshold": 2.0,
+        "unit": "mg/dL",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "慢性肠道疾病伴吸收障碍",
+      "肠梗阻"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "起始剂量",
+        "action": "25mg 每日三次",
+        "note": "随第一口饭服用以减少排气副作用"
+      }
+    ]
+  },
+  {
+    "drug_name": "罗格列酮二甲双胍 (Avandamet)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "心力衰竭 NYHA I-IV级",
+      "严重贫血",
+      "活动性肝病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由于心血管风险",
+        "action": "不建议作为一线用药",
+        "note": "需严格监测心脏肥大体征"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮格列美脲复方 (Duetact)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "格列美脲成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "现患膀胱癌",
+      "心衰",
+      "严重肝病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年患者",
+        "action": "从低剂量开始",
+        "note": "格列美脲组分易诱发低血糖，吡格列酮组分易致骨折"
+      }
+    ]
+  },
+  {
+    "drug_name": "伏格列波糖咀嚼片 (奥恬苹)",
+    "contraindications": [],
+    "disease_excludes": [
+      "疝气",
+      "Roemheld综合征",
+      "严重腹部手术后"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "进餐时间调整",
+        "action": "餐前即刻咀嚼服用",
+        "note": "比普通片剂更适合无水环境服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素 (低精蛋白/甘舒霖N)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由长效胰岛素转换",
+        "action": "1:1或减量20%",
+        "note": "峰值在4-12小时，需防止夜间低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素50预混 (诺和锐50)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重胰岛素过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖控制极差",
+        "action": "随餐即刻注射",
+        "note": "50%速效成分，比30预混控糖力度更强"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素50预混 (优泌乐50)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖无感知"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "主要进餐含碳水较高",
+        "action": "增加注射剂量",
+        "note": "含50%速效赖脯胰岛素，覆盖餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素U300 (Toujeo/图杰奥)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由U100规格转换",
+        "action": "增加10-20%剂量",
+        "note": "由于皮下吸收表面积减小，剂量需微调"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷胰岛素 (诺和达/100U规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "糖尿病酮症酸中毒治疗(禁用)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能不全",
+        "action": "需加强监测",
+        "note": "超长效，血药浓度极稳定，低血糖风险相对较低"
+      }
+    ]
+  },
+  {
+    "drug_name": "安格列汀 (Anagliptin/日本Suiny)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重过敏",
+      "肠梗阻症状"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "重度肾损害",
+        "action": "减量至100mg/日",
+        "note": "常规剂量为100mg，每日两次"
+      }
+    ]
+  },
+  {
+    "drug_name": "特内里汀 (Teneliglitin/日本Tenelia)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重肝功能损害",
+      "QT间期延长病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾损害患者",
+        "action": "无需调整剂量",
+        "note": "经肝肾双通路排泄，安全窗口较宽"
+      }
+    ]
+  },
+  {
+    "drug_name": "曲格列汀 (Zafatek/100mg规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "重度肾损害",
+      "透析"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-30",
+        "action": "25mg/周",
+        "note": "必须严格按周给药，防止蓄积"
+      }
+    ]
+  },
+  {
+    "drug_name": "恒格列净 (瑞沁/10mg规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "哺乳期",
+      "严重肝功能不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "启动前",
+        "action": "评估血容量",
+        "note": "国产SGLT2i，注意预防泌尿系感染"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列奈钙片 (唐力/10mg规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "严重外伤"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖不达标",
+        "action": "10mg 每日三次",
+        "note": "餐前5分钟服用，起效极快"
+      }
+    ]
+  },
+  {
+    "drug_name": "二甲双胍格列吡嗪 (Metaglip/复方)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 1.5,
+        "unit": "mg/dL",
+        "reason": "男性限制"
+      },
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 1.4,
+        "unit": "mg/dL",
+        "reason": "女性限制"
+      }
+    ],
+    "disease_excludes": [
+      "心力衰竭",
+      "急性代谢性酸中毒",
+      "酒精中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "高龄患者",
+        "action": "不建议启动",
+        "note": "格列吡嗪易增加老年人低血糖隐患"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌门冬胰岛素70 (诺和锐70)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "基础血糖较高",
+        "action": "增加睡前注射剂量",
+        "note": "含70%中效成分，重点覆盖夜间及下餐前基础血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素混合 30R (优泌林30R)",
+    "contraindications": [],
+    "disease_excludes": [
+      "静脉滴注"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后2小时血糖极高",
+        "action": "调整注射与进餐间隔",
+        "note": "必须在餐前30分钟注射"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素 (优泌乐/200U高浓度规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对本品过敏者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "每日总剂量 > 20单位",
+        "action": "可考虑使用高浓度版",
+        "note": "相同单位数体积减半，减少注射部位不适"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素 (赛益宁/复方版)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "利司那肽成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "胃瘫",
+      "严重肠道疾病",
+      "甲状腺癌病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "首次转换",
+        "action": "10-20剂量单位起始",
+        "note": "每日一次，固定时间注射"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷门冬双胰岛素 (诺和佳/300单位笔)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病(需配合餐时胰岛素)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由基础胰岛素转换",
+        "action": "1:1等效转换",
+        "note": "随主餐给药，兼顾基础与餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀 (佳维乐/50mg单药)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重肝损 (ALT/AST > 3xULN)",
+      "中重度心力衰竭"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾损害",
+        "action": "50mg 每日一次",
+        "note": "不可增加至每日两次"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀 (欧糖宁/5mg单药)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对利格列汀过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾透析患者",
+        "action": "无需调整剂量",
+        "note": "非肾排泄DPP-4抑制剂，临床优势明显"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (唐力/120mg单药)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "妊娠"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "漏餐",
+        "action": "不服药",
+        "note": "快速恢复，防止由于不进食导致的低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列本脲二甲双胍片 (库欣/1.25mg/250mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "格列本脲半衰期长且成分蓄积风险高"
+      }
+    ],
+    "disease_excludes": [
+      "80岁以上高龄患者",
+      "严重肾功能不全",
+      "哺乳期",
+      "严重贫血"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "初次由单药转换",
+        "action": "起始剂量不应超过每日1片",
+        "note": "严防延迟性低血糖，尤其是夜间"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀二甲双胍片 (Jentadueto/2.5mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方中二甲双胍的肾排泄限制"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝功能损害",
+      "酗酒者",
+      "急性心力衰竭"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "剂量上限为每日2次，每次2.5mg/500mg",
+        "note": "尽管利格列汀成分安全，但二甲双胍需控量"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿格列汀二甲双胍片 (Kazano/12.5mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方制剂安全设计限制"
+      }
+    ],
+    "disease_excludes": [
+      "近期心肌梗死",
+      "败血症",
+      "慢性酒精中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能波动",
+        "action": "每3个月复查血肌酐",
+        "note": "不建议在此复方中进行剂量拆分"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀二甲双胍缓释片 (Kombiglyze/5mg/1000mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍蓄积导致乳酸酸中毒风险"
+      }
+    ],
+    "disease_excludes": [
+      "NYHA III-IV级心力衰竭病史",
+      "慢性胰腺炎病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "合用克拉霉素等强抑制剂",
+        "action": "沙格列汀组分减半",
+        "note": "建议改用单药配伍以精确调节"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀二甲双胍片 (Galvus Met/50mg/850mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "维格列汀在低eGFR下清除显著减慢"
+      }
+    ],
+    "disease_excludes": [
+      "ALT/AST > 3xULN",
+      "严重心力衰竭",
+      "急性代谢性酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肝功能监测",
+        "action": "服药期间每季度检测肝酶",
+        "note": "若出现黄疸或肝功持续异常必须停药"
+      }
+    ]
+  },
+  {
+    "drug_name": "卡格列净二甲双胍片 (Invokamet/50mg/1000mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "肾功受损增加泌尿道风险及酸中毒风险"
+      }
+    ],
+    "disease_excludes": [
+      "有下肢截肢风险病史",
+      "严重周围血管病",
+      "活动性足部溃疡"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由于呕吐或腹泻导致脱水",
+        "action": "暂时停药",
+        "note": "直至血容量恢复以防急性肾损伤"
+      }
+    ]
+  },
+  {
+    "drug_name": "达格列净二甲双胍缓释片 (Xigduo XR/10mg/1000mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "近期大手术",
+      "严重低血容量",
+      "尿毒症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "不建议启动",
+        "note": "若已在用且肾功稳健，可酌情减量"
+      }
+    ]
+  },
+  {
+    "drug_name": "恩格列净二甲双胍片 (Synjardy/12.5mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "由于二甲双胍成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "透析患者",
+      "急性呼吸衰竭",
+      "严重酒精依赖"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "存在酮症酸中毒风险",
+        "action": "立即停药",
+        "note": "SGLT2i可能导致血糖正常的酮症酸中毒"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈二甲双胍片 (PrandiMet/1mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "高风险组合限制"
+      }
+    ],
+    "disease_excludes": [
+      "与吉非罗齐合用",
+      "重度肝功能损害",
+      "1型糖尿病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖控制目标",
+        "action": "随主餐服用",
+        "note": "若漏餐则不服用该次药物"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮二甲双胍片 (Actoplus Met/15mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "肾功限制"
+      }
+    ],
+    "disease_excludes": [
+      "NYHA I-IV级心力衰竭",
+      "膀胱癌家族史",
+      "严重肝病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年女性患者",
+        "action": "告知骨折风险",
+        "note": "增加远端肢体骨折概率"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白重组人胰岛素混合 50/50 (优泌林 50/50)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对人胰岛素过敏",
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖控制为主",
+        "action": "餐前30分钟皮下注射",
+        "note": "含50%短效，需严格对准进餐时间"
+      }
+    ]
+  },
+  {
+    "drug_name": "重组赖脯胰岛素 (Humalog U200/200U/ml)",
+    "contraindications": [],
+    "disease_excludes": [
+      "静脉给药(严禁)",
+      "低血糖"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "高胰岛素抵抗 (总剂量 > 20U)",
+        "action": "1:1剂量转换",
+        "note": "浓度为常规2倍，可减少注射体积和疼痛"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷胰岛素 (Tresiba U200/200U/ml)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病酮症治疗"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由其他长效胰岛素转换",
+        "action": "1:1转换",
+        "note": "剂量显示窗已自动换算单位，按原单位数调节即可"
+      }
+    ]
+  },
+  {
+    "drug_name": "甲磺酸溴隐亭快速释放片 (Cycloset/0.8mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "合用强效多巴胺拮抗剂",
+      "严重的精神疾病",
+      "晕厥型偏头痛",
+      "哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "初次启用",
+        "action": "0.8mg 随餐晨服",
+        "note": "通过昼夜节律调节代谢，需在醒后2小时内服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "考来维仑 (Welchol/625mg)",
+    "contraindications": [
+      {
+        "indicator": "TG",
+        "operator": ">",
+        "threshold": 500,
+        "unit": "mg/dL",
+        "reason": "显著增加高甘油三酯性胰腺炎风险"
+      }
+    ],
+    "disease_excludes": [
+      "肠梗阻史",
+      "吞咽困难",
+      "既往TG诱发的胰腺炎"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "合并高LDL-C",
+        "action": "每日3.75g (6片)",
+        "note": "作为二甲双胍或磺脲类的辅助治疗"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇 (Glyset/25mg/50mg)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 2.0,
+        "unit": "mg/dL",
+        "reason": "主要经肾排泄，蓄积风险高"
+      }
+    ],
+    "disease_excludes": [
+      "结肠溃疡",
+      "肠梗阻",
+      "炎症性肠病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肠道胀气不耐受",
+        "action": "维持25mg 每日三次",
+        "note": "随餐第一口服，数周后副作用常减轻"
+      }
+    ]
+  },
+  {
+    "drug_name": "伏格列波糖分散片 (Basen/0.2mg/0.3mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肠疝气",
+      "Roemheld综合征",
+      "严重腹部手术后"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "控制餐后血糖",
+        "action": "餐前即刻送服或分散于水中",
+        "note": "起效迅速，对α-葡萄糖苷酶选择性强"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列奈钙片 (Glufast/10mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "重度肝损害",
+      "糖尿病酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "漏餐或进食少",
+        "action": "减量或不服",
+        "note": "快进快出，模仿第一相分泌，注意即刻低血糖风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "特内里汀 (Tenelia/20mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "重度肝损",
+      "心律失常(QT延长病史)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾衰竭阶段",
+        "action": "无需调整",
+        "note": "日本指南推荐的肾病患者安全DPP-4i"
+      }
+    ]
+  },
+  {
+    "drug_name": "吉米格列汀 (Zemiglo/50mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重过敏",
+      "急性胰腺炎风险"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "各类肾损害阶段",
+        "action": "50mg 每日一次",
+        "note": "临床显示对白蛋白尿有一定改善潜力"
+      }
+    ]
+  },
+  {
+    "drug_name": "依格列汀 (Suganon/5mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "中重度肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度肾损害",
+        "action": "无需调整",
+        "note": "低剂量、高选择性DPP-4i"
+      }
+    ]
+  },
+  {
+    "drug_name": "安格列汀 (Suiny/100mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肠梗阻倾向",
+      "严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "重度肾损害",
+        "action": "100mg 每日一次",
+        "note": "正常剂量为100mg 每日两次"
+      }
+    ]
+  },
+  {
+    "drug_name": "曲格列汀 (Zafatek/50mg/100mg规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "极度清除受阻"
+      }
+    ],
+    "disease_excludes": [
+      "透析",
+      "严重胃肠手术史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-30",
+        "action": "25mg 每周一次",
+        "note": "必须严格标记周给药日期，防范由于半衰期导致的风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "奥格列汀 (Marizev/25mg规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "重度肾损害",
+      "急性全身感染"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-60",
+        "action": "12.5mg 每周一次",
+        "note": "根据肾功受损程度进行半量调整"
+      }
+    ]
+  },
+  {
+    "drug_name": "倍格列净 (Brenzavvy/20mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "SGLT2i过敏",
+      "糖尿病酮症酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-60",
+        "action": "无需调整",
+        "note": "但在此范围内对糖化血红蛋白的降幅有限"
+      }
+    ]
+  },
+  {
+    "drug_name": "索格列净 (Inpefa/200mg/400mg规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "临床数据不支持其在该肾功水平下的收益"
+      }
+    ],
+    "disease_excludes": [
+      "严重肠道吸收不良",
+      "频繁发生严重尿道感染"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "心衰伴CKD 3期",
+        "action": "起始200mg，耐受可加至400mg",
+        "note": "具有SGLT1抑制作用，可延缓餐后葡萄糖吸收"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列吡嗪控释片 (瑞易宁/5mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃肠道器质性狭窄",
+      "严重溃疡性结肠炎"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年患者",
+        "action": "5mg 起始",
+        "note": "不可嚼碎，外壳排出不影响药效"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (唐力/30mg极小规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝功能损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度血糖偏高",
+        "action": "随主餐服用",
+        "note": "餐时调节剂，极少发生餐后长时段低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素 70/30 (甘舒霖 30R)",
+    "contraindications": [],
+    "disease_excludes": [
+      "静脉滴注"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "黎明现象",
+        "action": "睡前分次注射",
+        "note": "传统预混，必须在餐前30分钟注射以确保护理安全"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷门冬双胰岛素 (诺和佳/100U规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由传统预混人胰岛素转换",
+        "action": "1:1或减量20%",
+        "note": "允许在每日最大一餐时随餐注射，平稳控糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列齐特二甲双胍片 (II) (凡舒)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方成分对肾功能要求极高，防止双重蓄积"
+      }
+    ],
+    "disease_excludes": [
+      "80岁以上高龄患者",
+      "严重肝功能损害",
+      "长期酒精中毒",
+      "糖尿病酮症酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损害",
+        "action": "禁用",
+        "note": "该复方剂量比例固定，不建议在此阶段拆分使用"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈二甲双胍片 (瑞平)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "基于二甲双胍的安全阈值"
+      }
+    ],
+    "disease_excludes": [
+      "联合应用吉非罗齐",
+      "严重感染",
+      "手术前禁食状态"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖升高明显",
+        "action": "随主餐服用",
+        "note": "必须随餐，不进餐不服药"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮二甲双胍片 (复方/卡双平 15mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍蓄积风险"
+      }
+    ],
+    "disease_excludes": [
+      "心力衰竭 (NYHA I-IV)",
+      "活动性膀胱癌",
+      "严重肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "伴有轻度贫血",
+        "action": "监测血红蛋白",
+        "note": "吡格列酮可能导致血红蛋白轻度下降"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿格列汀吡格列酮片 (尼欣妥)",
+    "contraindications": [],
+    "disease_excludes": [
+      "膀胱癌既往史",
+      "急性胰腺炎",
+      "严重肝功能损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻中度肾损害",
+        "action": "调整阿格列汀分量",
+        "note": "需注意水肿风险叠加"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀二甲双胍缓释片 (安立格/5mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "基于二甲双胍的肾排泄限制"
+      }
+    ],
+    "disease_excludes": [
+      "慢性心力衰竭",
+      "胰腺炎风险者",
+      "慢性酒精中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "剂量上限5mg/500mg",
+        "note": "注意心衰住院风险监测"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀二甲双胍缓释片 (捷诺达 XR 50mg/1000mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "严重感染",
+      "近期心肌梗死",
+      "败血症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "不建议起始",
+        "note": "若已在用则不应超过每日1片"
+      }
+    ]
+  },
+  {
+    "drug_name": "达格列净二甲双胍缓释片 (安达释 5mg/1000mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "综合二甲双胍及达格列净的肾功要求"
+      }
+    ],
+    "disease_excludes": [
+      "低血容量",
+      "重度脱水",
+      "尿路感染高发者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "手术/应激",
+        "action": "停药3天",
+        "note": "防范正常血糖性酮症酸中毒"
+      }
+    ]
+  },
+  {
+    "drug_name": "恩格列净利格列汀片 (欧双畅)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "恩格列净成分禁忌指标"
+      }
+    ],
+    "disease_excludes": [
+      "透析患者",
+      "终末期肾病",
+      "严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "不推荐启用",
+        "note": "利格列汀成分安全但整体复方效用受限"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀 (捷诺维 25mg/50mg/100mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "严重肾衰竭"
+      }
+    ],
+    "disease_excludes": [
+      "急性胰腺炎病史",
+      "剥脱性皮炎病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-30",
+        "action": "25mg 每日一次",
+        "note": "中重度肾损需严格减量"
+      },
+      {
+        "condition": "eGFR 30-45",
+        "action": "50mg 每日一次",
+        "note": "常规剂量为100mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀 (欧唐宁 5mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对利格列汀严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "所有阶段肾损害",
+        "action": "无需调整",
+        "note": "不经肾脏排泄，肾病患者安全首选"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀 (安立泽 2.5mg/5mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "慢性心力衰竭",
+      "胰腺炎史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "重度肾损害 (eGFR < 30)",
+        "action": "2.5mg 每日一次",
+        "note": "注意心衰风险监测"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀 (佳维乐 50mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肝功能损害 (ALT/AST > 3xULN)",
+      "严重心衰"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾损害",
+        "action": "50mg 每日一次",
+        "note": "不可增加至100mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿格列汀 (尼欣那 6.25mg/12.5mg/25mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重超敏反应",
+      "急性胰腺炎"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损害 (eGFR 30-60)",
+        "action": "12.5mg 每日一次",
+        "note": "重度肾损需再减半"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (唐力/万苏欣 60mg/120mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝损害",
+      "糖尿病酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "各类肾功不全",
+        "action": "无需调整",
+        "note": "主要经肝代谢，适合老年肾病患者"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈 (诺和龙 0.5mg/1mg/2mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "联合使用吉非罗齐",
+      "严重肝功能异常"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "重度肾损害 (eGFR < 30)",
+        "action": "0.5mg 起始",
+        "note": "根据血糖缓慢滴定"
+      }
+    ]
+  },
+  {
+    "drug_name": "伏格列波糖 (倍欣 0.2mg/0.3mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肠梗阻",
+      "严重疝气",
+      "腹部手术后"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后高血糖显著",
+        "action": "餐前即刻服",
+        "note": "对淀粉类主食效果佳"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿卡波糖 (拜唐苹/卡博平 50mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "药物蓄积导致系统性风险"
+      }
+    ],
+    "disease_excludes": [
+      "炎症性肠病",
+      "严重慢性腹泻",
+      "巨大疝"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "胃肠胀气严重",
+        "action": "减量并随第一口饭嚼碎",
+        "note": "副作用通常随时间减轻"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列美脲 (亚莫利/万苏平 1mg/2mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "极高低血糖风险"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝功能不全",
+      "糖尿病酮症酸中毒",
+      "透析患者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年患者",
+        "action": "1mg 起始",
+        "note": "严防无感知低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列喹酮 (糖适平 30mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "严重酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾损害",
+        "action": "无需调整",
+        "note": "95%经胆道排泄，肾功不全者首选磺脲类"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列齐特缓释片 (达美康 30mg/60mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "应用咪康唑者",
+      "重度肝功能不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻中度肾损害",
+        "action": "无需调整",
+        "note": "但需餐前服用并防范低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列吡嗪控释片 (瑞易宁 5mg/10mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃肠道器质性狭窄",
+      "克罗恩病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功不全",
+        "action": "谨慎使用",
+        "note": "外壳排出不影响药效，不可嚼碎"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌门冬胰岛素 30 (诺和锐 30 300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重胰岛素过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "主餐碳水极高",
+        "action": "餐前即刻注射",
+        "note": "含30%速效组分，必须随餐注射"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷门冬双胰岛素 (诺和佳 300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由基础胰岛素转换",
+        "action": "1:1剂量转换",
+        "note": "随主餐给药，兼顾基础与餐后"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素 (来得时/长秀霖 300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对甘精胰岛素成分过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "睡前低血糖",
+        "action": "移至晨起注射",
+        "note": "24小时平稳，注射时间应固定"
+      }
+    ]
+  },
+  {
+    "drug_name": "地特胰岛素 (诺和平 300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖无感知"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "妊娠期",
+        "action": "可用",
+        "note": "FDA B级安全评价"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素 (诺和锐 300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "用于泵治疗",
+        "action": "常规设定皮下泵注",
+        "note": "超短效，注射后即刻进餐"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷胰岛素 (诺和达 300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "注射时间变动",
+        "action": "间隔至少8小时",
+        "note": "血药浓度极稳定，允许一定时间弹性"
+      }
+    ]
+  },
+  {
+    "drug_name": "度拉糖肽 (真知安 0.75mg/1.5mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "甲状腺髓样癌病史",
+      "胰腺炎史",
+      "胃轻瘫"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "首次启动",
+        "action": "0.75mg 每周一次",
+        "note": "耐受后可加量至1.5mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "司美格鲁肽 (诺和泰 0.25/0.5/1.0mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "多发性内分泌腺瘤病2型",
+      "甲状腺癌家族史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "伴有视网膜病变",
+        "action": "慎用并检查眼底",
+        "note": "血糖快速下降可能诱发病变暂时加重"
+      }
+    ]
+  },
+  {
+    "drug_name": "利拉鲁肽 (诺和力 18mg/3ml)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重心力衰竭 (NYHA IV)",
+      "胰腺炎高危"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "各类肾损害阶段",
+        "action": "无需调整",
+        "note": "但对于终末期肾病经验有限"
+      }
+    ]
+  },
+  {
+    "drug_name": "多格列艾汀 (华堂宁/Dorzagliatin)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "缺乏终末期肾病患者的临床数据"
+      }
+    ],
+    "disease_excludes": [
+      "1型糖尿病",
+      "糖尿病酮症酸中毒",
+      "重度肝功能损害",
+      "妊娠期/哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合用药",
+        "action": "可与二甲双胍联用",
+        "note": "全球首个GKA类药物，修复血糖传感器，不建议与磺脲类联用以防低血糖"
+      },
+      {
+        "condition": "轻中度肾损害",
+        "action": "无需调整剂量",
+        "note": "主要经肝脏代谢，对肾脏负担小"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列他钠 (双列齐/Chiglitazar)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重心力衰竭 (NYHA III-IV)",
+      "活动性肝病",
+      "膀胱癌既往史",
+      "严重水肿"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能不全",
+        "action": "无需调整剂量",
+        "note": "全受体PPAR激动剂，注意观察体重增加及水肿情况"
+      },
+      {
+        "condition": "ALT或AST > 3xULN",
+        "action": "停药",
+        "note": "需定期监测肝功能指标"
+      }
+    ]
+  },
+  {
+    "drug_name": "非奈利酮 (可申达/Finerenone)",
+    "contraindications": [
+      {
+        "indicator": "血钾",
+        "operator": ">",
+        "threshold": 5.0,
+        "unit": "mmol/L",
+        "reason": "增加严重高钾血症风险"
+      },
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "不建议启动治疗"
+      }
+    ],
+    "disease_excludes": [
+      "肾上腺功能不全",
+      "合用强效CYP3A4抑制剂"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 25-60",
+        "action": "起始剂量10mg 每日一次",
+        "note": "1个月后根据血钾及eGFR上调至20mg"
+      },
+      {
+        "condition": "血钾 4.8-5.0",
+        "action": "维持原剂量",
+        "note": "若血钾 > 5.5 需暂停使用"
+      }
+    ]
+  },
+  {
+    "drug_name": "依帕司他 (扬子江/唐林)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重肝肾功能不全(慎用)",
+      "妊娠期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "尿液变色",
+        "action": "无需处理",
+        "note": "可能会使尿液呈黄红色，属正常代谢"
+      },
+      {
+        "condition": "服药3个月无效",
+        "action": "考虑停药",
+        "note": "用于预防和改善糖尿病神经病变症状"
+      }
+    ]
+  },
+  {
+    "drug_name": "甲钴胺 (弥可保)",
+    "contraindications": [],
+    "disease_excludes": [
+      "从事汞及其化合物的工作人员"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "长期使用",
+        "action": "评估疗效",
+        "note": "若服用1个月以上症状无改善，则无需继续服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "津力达颗粒 (TCM)",
+    "contraindications": [],
+    "disease_excludes": [
+      "孕妇禁用",
+      "对本品成分过敏者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "服用方法",
+        "action": "开水冲服，每次1袋",
+        "note": "2024指南推荐用于改善2型糖尿病患者胰岛功能及糖代谢"
+      }
+    ]
+  },
+  {
+    "drug_name": "消渴丸 (白云山)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "含格列本脲成分，肾功受损时极易诱发致命低血糖"
+      }
+    ],
+    "disease_excludes": [
+      "1型糖尿病",
+      "肝肾功能不全",
+      "孕妇及哺乳期",
+      "老年体弱者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "低血糖反应",
+        "action": "立即口服糖类并减少下次剂量",
+        "note": "每10丸含格列本脲2.5mg，需严格控制丸数"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列吡嗪缓释胶囊 (秦苏)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝肾损害",
+      "糖尿病酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度肾损害",
+        "action": "无需调整",
+        "note": "每日一次，早餐时服用，不可打开胶囊"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇片 (奥恬苹/25mg)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 2.0,
+        "unit": "mg/dL",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "慢性肠道疾病",
+      "严重疝气",
+      "肠梗阻"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖控制",
+        "action": "随第一口饭服用",
+        "note": "副作用主要是胃肠胀气"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀二甲双胍片 (I) (50mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍限制"
+      }
+    ],
+    "disease_excludes": [
+      "急性胰腺炎",
+      "败血症",
+      "心衰"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "上限为每日2片",
+        "note": "早晚分服"
+      }
+    ]
+  },
+  {
+    "drug_name": "达格列净二甲双胍缓释片 (5mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "综合评估风险"
+      }
+    ],
+    "disease_excludes": [
+      "重度肾损伤",
+      "低血容量",
+      "酮症酸中毒病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年人",
+        "action": "起始1片 每日一次",
+        "note": "监测血压及肾功能"
+      }
+    ]
+  },
+  {
+    "drug_name": "二甲双胍格列本脲片 (II) (500mg/2.5mg)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 1.5,
+        "unit": "mg/dL",
+        "reason": "极高低血糖风险"
+      }
+    ],
+    "disease_excludes": [
+      "70岁以上老年人",
+      "长期饮酒者",
+      "严重感染"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "应激状态",
+        "action": "停用改用胰岛素",
+        "note": "格列本脲组分极易在肾功能下降时蓄积"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列本脲片 (优降糖/2.5mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 50,
+        "unit": "ml/min/1.73m2",
+        "reason": "极易导致持久性低血糖"
+      }
+    ],
+    "disease_excludes": [
+      "老年患者",
+      "肝肾功能不全",
+      "孕妇"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "高强度运动",
+        "action": "减少剂量",
+        "note": "低血糖风险极高，2026版系统应提示尽量更换为新型降糖药"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素50 (特充/3ml:300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "主要进餐为碳水",
+        "action": "餐前即刻注射",
+        "note": "含50%速效组分，比30预混控糖力更强"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素50 (优泌乐50/300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖不达标",
+        "action": "餐前即刻注射",
+        "note": "50/50比例适合餐后血糖显著升高者"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素注射液 (长秀霖/预混版)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对本品成分过敏者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "空腹血糖未达标",
+        "action": "每3天增加2单位",
+        "note": "长效平稳，需注意注射时间固定"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷门冬双胰岛素 (诺和佳/笔芯)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "每日注射一次",
+        "action": "随最大一餐注射",
+        "note": "兼顾基础与一餐的餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "胰高血糖素注射液 (GlucaGen/紧急救治)",
+    "contraindications": [],
+    "disease_excludes": [
+      "嗜铬细胞瘤",
+      "胰岛素瘤"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "严重低血糖",
+        "action": "1mg 皮下或肌肉注射",
+        "note": "若15分钟无反应可再次注射，神志清醒后立即补充碳水"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀二甲双胍片 (5mg/850mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "急性酒精中毒",
+      "肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾病患者",
+        "action": "优先使用利格列汀单药",
+        "note": "复方制剂灵活性较低"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀二甲双胍缓释片 (2.5mg/1000mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "肾功限制"
+      }
+    ],
+    "disease_excludes": [
+      "心力衰竭",
+      "胰腺炎风险"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年人",
+        "action": "起始剂量1片",
+        "note": "随晚餐服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈 (0.5mg/小剂量)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "初用者",
+        "action": "0.5mg 餐前",
+        "note": "适用于轻度血糖升高或高龄患者"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (30mg/极小剂量)",
+    "contraindications": [],
+    "disease_excludes": [
+      "重度肝不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度餐后高血糖",
+        "action": "30-60mg 餐前",
+        "note": "安全性高，低血糖风险极小"
+      }
+    ]
+  },
+  {
+    "drug_name": "罗格列酮 (文迪雅/4mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "NYHA I-IV心衰",
+      "活动性肝病",
+      "严重的骨质疏松"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "伴有水肿倾向",
+        "action": "禁用",
+        "note": "心血管风险限制其应用，2026版系统应优先推荐Pioglitazone"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮钠 (15mg/艾汀)",
+    "contraindications": [],
+    "disease_excludes": [
+      "膀胱癌既往史",
+      "活动性肝病",
+      "心衰"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "女性高龄",
+        "action": "减量至15mg并告知骨折风险",
+        "note": "增加骨折风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "伏格列波糖 (0.3mg/高规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肠梗阻",
+      "腹部大手术史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后高血糖显著",
+        "action": "0.3mg 每日三次",
+        "note": "必须餐前即刻服，副作用为排气增多"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿卡波糖 (100mg/高规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "蓄积风险"
+      }
+    ],
+    "disease_excludes": [
+      "严重腹泻",
+      "结肠癌"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "耐受性差",
+        "action": "减至50mg 随餐",
+        "note": "从小剂量滴定"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列美脲 (4mg/高规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "极易诱发严重低血糖"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝损",
+      "透析患者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "血糖极高",
+        "action": "最大剂量不超6mg",
+        "note": "建议分次服用或更换治疗方案"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列齐特 (80mg/普通片)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "使用咪康唑",
+      "重度肝不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损",
+        "action": "每日40-80mg",
+        "note": "注意餐间低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列喹酮 (15mg/糖适平极小规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "糖尿病酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功损害 CKD 4期",
+        "action": "15mg 起步",
+        "note": "仅5%经肾排泄，肾病患者安全"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌赖脯胰岛素混合 25 (25R/3ml:300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "主要覆盖基础血糖",
+        "action": "睡前注射",
+        "note": "25%速效，75%中效"
+      }
+    ]
+  },
+  {
+    "drug_name": "恩格列净利格列汀二甲双胍片 (Trijardy XR)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "三重复方中二甲双胍及恩格列净的严苛肾功限制"
+      }
+    ],
+    "disease_excludes": [
+      "急性代谢性酸中毒",
+      "终末期肾病",
+      "严重肝损害",
+      "酗酒者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "监测肾功能",
+        "note": "不建议在此肾功区间启动高剂量版本"
+      },
+      {
+        "condition": "计划进行造影检查",
+        "action": "停药48小时",
+        "note": "防止急性肾损伤导致的药物蓄积"
+      }
+    ]
+  },
+  {
+    "drug_name": "依德格列汀 (Iligliptin/国产DPP-4)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "急性胰腺炎风险"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾损害",
+        "action": "无需调整",
+        "note": "主要通过非肾途径排泄，安全性较高"
+      }
+    ]
+  },
+  {
+    "drug_name": "考格列汀 (每周一次版)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "严重过敏",
+      "肠梗阻"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-60",
+        "action": "无需调整剂量",
+        "note": "长效制剂需注意给药间隔的固定性"
+      }
+    ]
+  },
+  {
+    "drug_name": "玛仕度肽 (Mazdutide/GLP-1/GCGR双激动剂)",
+    "contraindications": [],
+    "disease_excludes": [
+      "甲状腺髓样癌病史",
+      "MEN 2综合征",
+      "严重胃肠道疾病"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "减重合并降糖",
+        "action": "从4.5mg起始",
+        "note": "滴定至6mg或9mg，注意心率监测及胃肠反应"
+      }
+    ]
+  },
+  {
+    "drug_name": "Orforglipron (口服非肽类GLP-1RA)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重肝损",
+      "胃轻瘫"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "漏服",
+        "action": "当日补服",
+        "note": "不受进食影响，较司美格鲁肽口服片更便捷"
+      }
+    ]
+  },
+  {
+    "drug_name": "依格列净 (Ipragliflozin/Suglat)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "药效显著下降"
+      }
+    ],
+    "disease_excludes": [
+      "重度脱水",
+      "高龄患者(>75岁)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "伴有肝硬化",
+        "action": "慎用",
+        "note": "需监测血药浓度波动"
+      }
+    ]
+  },
+  {
+    "drug_name": "露塞恩格列净 (Luseogliflozin)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "泌尿系统感染活动期",
+      "严重酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度肾损害",
+        "action": "2.5mg 每日一次",
+        "note": "最高可增至5mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "托格列净 (Tofogliflozin/Deberza)",
+    "contraindications": [],
+    "disease_excludes": [
+      "透析患者",
+      "重度肝不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-60",
+        "action": "20mg 每日一次",
+        "note": "高选择性SGLT2抑制剂"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷胰岛素 (200单位高浓度版)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "高胰岛素抵抗",
+        "action": "1:1剂量转换",
+        "note": "减少注射体积，提高皮下吸收稳定性"
+      }
+    ]
+  },
+  {
+    "drug_name": "依德格列化胰岛素 (Insulin Icodec/每周一次)",
+    "contraindications": [
+      {
+        "indicator": "HbA1c",
+        "operator": ">",
+        "threshold": 10,
+        "unit": "%",
+        "reason": "起始剂量难以滴定"
+      }
+    ],
+    "disease_excludes": [
+      "1型糖尿病(暂未批准)",
+      "严重低血糖无感知"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "转换自每日一次基础胰岛素",
+        "action": "总周剂量增加20%",
+        "note": "首剂作为负荷剂量，需密切监测第3-4天血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "吸入型人胰岛素 (Afrezza粉剂)",
+    "contraindications": [
+      {
+        "indicator": "FEV1",
+        "operator": "<",
+        "threshold": 70,
+        "unit": "%",
+        "reason": "肺功能不全导致吸收极不稳定"
+      }
+    ],
+    "disease_excludes": [
+      "哮喘",
+      "慢阻肺",
+      "活动性吸烟"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "感冒/支气管炎",
+        "action": "改为皮下注射",
+        "note": "肺部炎症严重影响气雾吸收"
+      }
+    ]
+  },
+  {
+    "drug_name": "浓缩型重组人胰岛素 (Humulin R U-500)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "严重胰岛素抵抗 (>200U/日)",
+        "action": "使用专用注射器",
+        "note": "药效具有双相性，兼具短效和中效特征"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇 (Miglitol/50mg)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 2.0,
+        "unit": "mg/dL",
+        "reason": "蓄积风险"
+      }
+    ],
+    "disease_excludes": [
+      "炎症性肠病",
+      "肠梗阻"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "严重腹胀",
+        "action": "减量至25mg",
+        "note": "随餐第一口服"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列美脲吡格列酮复方 (Duetact)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "格列美脲成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "膀胱癌史",
+      "心衰 NYHA II-IV",
+      "骨质疏松严重者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "老年患者",
+        "action": "起始30/2mg",
+        "note": "需严格评估跌倒风险及低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈二甲双胍片 (1mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方制剂限制"
+      }
+    ],
+    "disease_excludes": [
+      "合用吉非罗齐",
+      "酗酒",
+      "严重肝损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "漏餐",
+        "action": "该次不服药",
+        "note": "控制餐后血糖波动"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿格列汀吡格列酮 (Oseni 25mg/30mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "心力衰竭病史",
+      "活动性肝病",
+      "急性胰腺炎风险"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损害",
+        "action": "减量至12.5mg/30mg",
+        "note": "根据阿格列汀分量调整"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀二甲双胍缓释片 (Jentadueto XR)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "二甲双胍成分限制"
+      }
+    ],
+    "disease_excludes": [
+      "代谢性酸中毒",
+      "酒精中毒",
+      "严重贫血"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "每日一次",
+        "note": "随晚餐服用以减少肠道反应"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀 (100mg高剂量版)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肝功ALT>3倍上限",
+      "心衰",
+      "肾功受损者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "正常肾功",
+        "action": "50mg 每日两次",
+        "note": "不建议单次服用100mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (120mg/唐力单药)",
+    "contraindications": [],
+    "disease_excludes": [
+      "重度肝损",
+      "糖尿病酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾病患者",
+        "action": "无需调整",
+        "note": "餐时调节剂，极少引起由于蓄积导致的低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列奈钙 (10mg/唐力)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "严重酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度餐后血糖升高",
+        "action": "5-10mg 餐前即刻",
+        "note": "起效快，作用时间极短"
+      }
+    ]
+  },
+  {
+    "drug_name": "参芪降糖颗粒",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏体质者",
+      "孕妇慎用"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "配合化学降糖药",
+        "action": "间隔1小时服用",
+        "note": "2024指南推荐用于气阴两虚型2型糖尿病"
+      }
+    ]
+  },
+  {
+    "drug_name": "天麦消渴片",
+    "contraindications": [],
+    "disease_excludes": [
+      "孕妇禁用"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "配合二甲双胍",
+        "action": "常规剂量",
+        "note": "含吡啶甲酸铬，注意微量元素摄入总量"
+      }
+    ]
+  },
+  {
+    "drug_name": "硫辛酸注射液 (奥力宝)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "糖尿病周围神经病变",
+        "action": "600mg 加入生理盐水滴注",
+        "note": "避光输注，改善麻木、疼痛"
+      }
+    ]
+  },
+  {
+    "drug_name": "羟苯磺酸钙 (多贝斯)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重肾衰竭(需监测)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "糖尿病视网膜病变",
+        "action": "0.5g 每日两至三次",
+        "note": "微循环改善剂，随餐服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "培马贝特 (Pemafibrate/针对糖尿病血脂)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "增加横纹肌溶解风险"
+      }
+    ],
+    "disease_excludes": [
+      "胆结石",
+      "严重肝损",
+      "合用环孢素"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功不全 eGFR 30-60",
+        "action": "0.1mg 每日一次",
+        "note": "用于糖尿病患者的高甘油三酯血症"
+      }
+    ]
+  },
+  {
+    "drug_name": "贝那鲁肽 (谊生泰/国产短效)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃瘫",
+      "甲状腺癌病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖控制",
+        "action": "餐前5分钟注射，每日三次",
+        "note": "完全人源化GLP-1，过敏风险极低"
+      }
+    ]
+  },
+  {
+    "drug_name": "聚乙二醇洛塞那肽 (孚来美/0.2mg)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "胰腺炎史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "常规降糖",
+        "action": "0.2mg 每周一次",
+        "note": "国产长效，无需根据进餐调整"
+      }
+    ]
+  },
+  {
+    "drug_name": "艾塞那肽 (5mcg/百泌达)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "严重肠胃病",
+      "过敏性紫癜史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "初用者",
+        "action": "5mcg 每日两次",
+        "note": "餐前60分钟内注射，耐受后增至10mcg"
+      }
+    ]
+  },
+  {
+    "drug_name": "利司那肽 (20mcg/利必通)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "重度胃轻瘫",
+      "甲状腺癌病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 15-30",
+        "action": "慎用",
+        "note": "每日一次，固定时间餐前注射"
+      }
+    ]
+  },
+  {
+    "drug_name": "普兰林肽 (120mcg/Symlin)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃轻瘫",
+      "对低血糖无感知"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合胰岛素",
+        "action": "胰岛素减量50%",
+        "note": "淀粉样多肽类似物，防止餐后血糖骤升"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞塔鲁肽 (Retatrutide/GLP-1/GIP/GCGR 三重激动剂)",
+    "contraindications": [],
+    "disease_excludes": [
+      "甲状腺髓样癌病史",
+      "胰腺炎高危者",
+      "重度肝损害 (Child-Pugh C)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "心率显著加快",
+        "action": "维持原剂量或减量",
+        "note": "2026版关注其对心率的影响，需滴定加量"
+      },
+      {
+        "condition": "严重胃肠道不耐受",
+        "action": "延长滴定周期",
+        "note": "三重激动剂减重及降糖力度极强"
+      }
+    ]
+  },
+  {
+    "drug_name": "CagriSem (卡格列林司美格鲁肽复方)",
+    "contraindications": [],
+    "disease_excludes": [
+      "胃轻瘫",
+      "甲状腺髓样癌家族史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "合并肥胖的2型糖尿病",
+        "action": "每周一次皮下注射",
+        "note": "Amylin类似物与GLP-1RA联用，注意饱腹感过度导致的营养不良"
+      }
+    ]
+  },
+  {
+    "drug_name": "倍格列净二甲双胍片 (Brenzavvy复方)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方中二甲双胍的安全阈值"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝不全",
+      "代谢性酸中毒",
+      "酗酒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "每日一次",
+        "note": "注意脱水及电解质平衡"
+      }
+    ]
+  },
+  {
+    "drug_name": "考格列汀二甲双胍片 (国产复方周剂)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 60,
+        "unit": "ml/min/1.73m2",
+        "reason": "由于周剂DPP-4i与二甲双胍合用需更高肾功冗余"
+      }
+    ],
+    "disease_excludes": [
+      "由于手术需禁食",
+      "急性心衰"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由二甲双胍单药转换",
+        "action": "保持二甲双胍原有日剂量",
+        "note": "每周固定一日服用考格列汀成分"
+      }
+    ]
+  },
+  {
+    "drug_name": "糖脉康颗粒 (中成药)",
+    "contraindications": [],
+    "disease_excludes": [
+      "孕妇禁用",
+      "外感发热患者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "用于气阴两虚型",
+        "action": "每次5g，每日3次",
+        "note": "改善口渴、多饮、五心烦热"
+      }
+    ]
+  },
+  {
+    "drug_name": "渴乐宁胶囊 (中成药)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重肾功能不全者慎用"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "用于阴虚内热证",
+        "action": "随餐服用",
+        "note": "辅助降低空腹及餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "降糖宁胶囊 (中成药)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏体质慎用"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合化学降糖药",
+        "action": "间隔30分钟服用",
+        "note": "益气养阴，清热生津"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白重组人胰岛素混合 30R (东宝/甘舒霖 30R)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感者",
+      "严重肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖升高明显",
+        "action": "餐前30分钟注射",
+        "note": "国产经典预混，注意摇匀"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素 30 (联邦制药/优思灵 USL)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由人胰岛素 30/70 转换",
+        "action": "1:1起始",
+        "note": "必须紧邻餐前注射，防范早期低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素 25 (通化东宝/甘李)",
+    "contraindications": [],
+    "disease_excludes": [
+      "静脉给药"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐前即刻注射",
+        "action": "无需等待",
+        "note": "含25%速效组分，覆盖餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素 (赛诺菲/来得时 450单位规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "对甘精胰岛素过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "基础血糖控制不佳",
+        "action": "每3天调整2单位",
+        "note": "大规格包装适合高胰岛素需求者"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷门冬双胰岛素 (诺和佳/笔芯 5支装)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖无感知"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由基础胰岛素转换",
+        "action": "1:1或减量20%",
+        "note": "随最大一餐服用，注意注射笔操作"
+      }
+    ]
+  },
+  {
+    "drug_name": "伏格列波糖片 (0.2mg/国产片剂)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肠梗阻",
+      "疝气",
+      "腹部手术史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "控制餐后血糖",
+        "action": "餐前即刻服用",
+        "note": "对东亚人群米面主食效果较好"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿卡波糖 (100mg/国产规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 25,
+        "unit": "ml/min/1.73m2",
+        "reason": "蓄积风险"
+      }
+    ],
+    "disease_excludes": [
+      "炎症性肠病",
+      "结肠癌病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "严重排气不适",
+        "action": "减量至50mg或25mg",
+        "note": "副作用通常可随用药时间延长而消失"
+      }
+    ]
+  },
+  {
+    "drug_name": "二甲双胍片 (250mg/极小规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "急性酒精中毒",
+      "严重肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "高龄初治患者",
+        "action": "250mg 随餐",
+        "note": "从小剂量滴定以减轻胃肠道反应"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列美脲 (2mg/国产规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "极高低血糖风险"
+      }
+    ],
+    "disease_excludes": [
+      "1型糖尿病",
+      "透析患者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾功能不全 30-60",
+        "action": "1mg 起始",
+        "note": "每日一次，早餐时服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀 (50mg/国产规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "蓄积风险"
+      }
+    ],
+    "disease_excludes": [
+      "急性胰腺炎风险者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "50mg 每日一次",
+        "note": "标准剂量为100mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀 (2.5mg/国产规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "心衰史",
+      "肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾损害",
+        "action": "2.5mg 每日一次",
+        "note": "常规剂量为5mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "维格列汀 (50mg/国产规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "肝功能 ALT > 3倍上限",
+      "严重心衰"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻中度肾损害",
+        "action": "50mg 每日一次",
+        "note": "不可增加至100mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀 (5mg/国产规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏体质慎用"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "所有阶段肾损害",
+        "action": "无需调整",
+        "note": "非肾排泄DPP-4i，安全性最高"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (120mg/国产规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾病患者",
+        "action": "无需调整",
+        "note": "餐时调节剂，极少由于蓄积导致低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈 (1mg/国产规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "合用吉非罗齐",
+      "严重肝损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "重度肾损害",
+        "action": "0.5mg 起始",
+        "note": "根据血糖缓慢滴定"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮 (15mg/国产规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "活动性膀胱癌",
+      "心衰 (NYHA I-IV)",
+      "肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "高龄女性",
+        "action": "告知骨折风险",
+        "note": "增加骨折风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列齐特缓释片 (60mg/国产规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "合用咪康唑者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻中度肾损害",
+        "action": "无需调整",
+        "note": "早餐时服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列喹酮 (30mg/国产规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "严重酮症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中重度肾损害",
+        "action": "无需调整",
+        "note": "95%经胆道排泄，肾功不全者首选"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌重组人胰岛素混合 50R (甘舒霖 50R)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后血糖控制为主",
+        "action": "餐前30分钟注射",
+        "note": "50/50比例，注意对准进餐时间"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷门冬双胰岛素 (诺和佳/笔芯 单支)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重胰岛素过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "每日注射一次",
+        "action": "随最大一餐",
+        "note": "兼顾基础与餐后血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素 (长秀霖 300单位卡式瓶)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖发作"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "空腹血糖未达标",
+        "action": "增加2-4单位",
+        "note": "24小时平稳，时间应固定"
+      }
+    ]
+  },
+  {
+    "drug_name": "地特胰岛素 (诺和平 300单位卡式瓶)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖无感知"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "妊娠期",
+        "action": "可用",
+        "note": "FDA B级"
+      }
+    ]
+  },
+  {
+    "drug_name": "门冬胰岛素 (诺和锐 300单位卡式瓶)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "用于泵治疗",
+        "action": "设定基础率",
+        "note": "起效快，注射后即刻进餐"
+      }
+    ]
+  },
+  {
+    "drug_name": "阿托伐他汀 (立普妥/糖尿病调脂一线)",
+    "contraindications": [],
+    "disease_excludes": [
+      "活动性肝病",
+      "不明原因的转氨酶持续升高",
+      "妊娠期/哺乳期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合环孢素",
+        "action": "禁用",
+        "note": "糖尿病患者属于心血管极高危人群，需长期监测肝功"
+      },
+      {
+        "condition": "ALT/AST > 3xULN",
+        "action": "停药",
+        "note": "糖尿病伴随脂肪肝时需谨慎区分指标升高原因"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞舒伐他汀 (可定)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "重度肾损增加肌病风险"
+      }
+    ],
+    "disease_excludes": [
+      "活动性肝病",
+      "肌病病史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "亚裔人群",
+        "action": "起始剂量5mg",
+        "note": "糖尿病合并慢性肾病(CKD)时需严格控量"
+      }
+    ]
+  },
+  {
+    "drug_name": "厄贝沙坦 (安博维/糖尿病肾病保护)",
+    "contraindications": [
+      {
+        "indicator": "血钾",
+        "operator": ">",
+        "threshold": 5.5,
+        "unit": "mmol/L",
+        "reason": "加重高钾血症"
+      },
+      {
+        "indicator": "肌酐",
+        "operator": ">",
+        "threshold": 265,
+        "unit": "μmol/L",
+        "reason": "急性肾功能恶化风险"
+      }
+    ],
+    "disease_excludes": [
+      "双侧肾动脉狭窄",
+      "妊娠期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合SGLT2i使用",
+        "action": "监测血压和肾功",
+        "note": "两者具有肾脏保护协同作用，但初期可能导致eGFR下降"
+      }
+    ]
+  },
+  {
+    "drug_name": "缬沙坦 (代文)",
+    "contraindications": [
+      {
+        "indicator": "血钾",
+        "operator": ">",
+        "threshold": 5.5,
+        "unit": "mmol/L",
+        "reason": "高钾血症风险"
+      }
+    ],
+    "disease_excludes": [
+      "严重肝硬化",
+      "胆汁淤积"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "糖尿病伴高血压",
+        "action": "80-160mg 每日一次",
+        "note": "首选ARB类药物以降低蛋白尿"
+      }
+    ]
+  },
+  {
+    "drug_name": "非诺贝特 (力平之)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "胆囊疾病",
+      "光敏反应史",
+      "严重肝功能不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-60",
+        "action": "减量至54mg或67mg",
+        "note": "糖尿病患者甘油三酯(TG)>5.6时首选，预防胰腺炎"
+      }
+    ]
+  },
+  {
+    "drug_name": "依折麦布 (益适纯)",
+    "contraindications": [],
+    "disease_excludes": [
+      "活动性肝病(联合他汀时)"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "他汀单药不达标",
+        "action": "联合10mg 每日一次",
+        "note": "糖尿病合并ASCVD患者的二线调脂强化治疗"
+      }
+    ]
+  },
+  {
+    "drug_name": "二氮嗪 (Diazoxide/救急降糖对抗)",
+    "contraindications": [],
+    "disease_excludes": [
+      "功能性低血糖",
+      "高血压"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "胰岛细胞瘤引起的低血糖",
+        "action": "根据血糖滴定剂量",
+        "note": "抑制胰岛素释放，注意水钠潴留副作用"
+      }
+    ]
+  },
+  {
+    "drug_name": "普萘洛尔 (心得安/干扰血糖感知)",
+    "contraindications": [],
+    "disease_excludes": [
+      "支气管哮喘",
+      "心源性休克"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "糖尿病患者使用",
+        "action": "慎用",
+        "note": "该药会掩盖低血糖引起的心悸、震颤等信号，导致无感知低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "氢氯噻嗪 (利尿剂/干扰血糖)",
+    "contraindications": [],
+    "disease_excludes": [
+      "无尿",
+      "严重肾功不全"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "糖尿病长期使用",
+        "action": "监测血糖",
+        "note": "利尿剂可能降低胰岛素敏感性，导致血糖升高"
+      }
+    ]
+  },
+  {
+    "drug_name": "六味地黄丸 (TCM辅助)",
+    "contraindications": [],
+    "disease_excludes": [
+      "感冒发热",
+      "脾胃虚寒",
+      "腹泻"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾阴虚证型",
+        "action": "常规服用",
+        "note": "改善糖尿病引起的腰膝酸软、头晕耳鸣"
+      }
+    ]
+  },
+  {
+    "drug_name": "消渴灵胶囊 (TCM辅助)",
+    "contraindications": [],
+    "disease_excludes": [
+      "孕妇禁用"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "气阴两虚",
+        "action": "每次3粒，每日3次",
+        "note": "用于辅助改善多饮、多尿症状"
+      }
+    ]
+  },
+  {
+    "drug_name": "玉泉丸 (TCM辅助)",
+    "contraindications": [],
+    "disease_excludes": [
+      "孕妇及过敏者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "阴虚化热",
+        "action": "清热生津",
+        "note": "改善口渴喜饮"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列本脲 (优降糖/5mg高剂量)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 50,
+        "unit": "ml/min",
+        "reason": "极高蓄积风险"
+      }
+    ],
+    "disease_excludes": [
+      "老年人",
+      "严重肝损"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "血糖基本达标",
+        "action": "必须减量",
+        "note": "2026版系统强烈建议替换为GLP-1或SGLT2i"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀二甲双胍片 (50/850mg规格)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "复方对肾功要求严格"
+      }
+    ],
+    "disease_excludes": [
+      "急性胰腺炎",
+      "败血症"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "轻度肾损害",
+        "action": "每日2次，随餐",
+        "note": "注意胃肠道副作用"
+      }
+    ]
+  },
+  {
+    "drug_name": "吡格列酮钠 (30mg高剂量)",
+    "contraindications": [],
+    "disease_excludes": [
+      "膀胱癌既往史",
+      "心衰病史",
+      "骨密度极低者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "合并非酒精性脂肪性肝炎(NASH)",
+        "action": "医生指导下使用",
+        "note": "该药对糖尿病合并肝脂质沉积有额外获益"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白重组人胰岛素 30R (特充笔版)",
+    "contraindications": [],
+    "disease_excludes": [
+      "严重低血糖史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "餐后控制不佳",
+        "action": "提前至餐前30-45分钟注射",
+        "note": "确保护理人员指导患者摇匀至云雾状"
+      }
+    ]
+  },
+  {
+    "drug_name": "德谷门冬双胰岛素 (畅充笔/3ml:300U)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "主餐变动",
+        "action": "随最大餐注射",
+        "note": "提供24小时基础覆盖及一餐餐后覆盖"
+      }
+    ]
+  },
+  {
+    "drug_name": "甘精胰岛素U100 (蓬莱制药/国产)",
+    "contraindications": [],
+    "disease_excludes": [
+      "过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "剂量滴定",
+        "action": "每3天加2U",
+        "note": "直至空腹血糖达标"
+      }
+    ]
+  },
+  {
+    "drug_name": "赖脯胰岛素 (国产/锐舒印)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖期"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "皮下泵使用",
+        "action": "设为泵入药",
+        "note": "24小时持续输注，注意导管堵塞"
+      }
+    ]
+  },
+  {
+    "drug_name": "米格列醇片 (100mg高剂量)",
+    "contraindications": [
+      {
+        "indicator": "血肌酐",
+        "operator": ">",
+        "threshold": 2.0,
+        "unit": "mg/dL",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "肠梗阻",
+      "疝气"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "严重胀气",
+        "action": "暂时减量至50mg",
+        "note": "通常在两周内建立耐受"
+      }
+    ]
+  },
+  {
+    "drug_name": "达格列净二甲双胍片 (10mg/500mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "肾功限制"
+      }
+    ],
+    "disease_excludes": [
+      "重度脱水",
+      "酮症酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 45-60",
+        "action": "监测肾功",
+        "note": "每日一次，晚餐服用"
+      }
+    ]
+  },
+  {
+    "drug_name": "沙格列汀二甲双胍片 (5mg/850mg)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 45,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "心衰风险者",
+      "慢性胰腺炎者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "联合利尿剂",
+        "action": "慎用",
+        "note": "注意沙格列汀的心衰住院风险"
+      }
+    ]
+  },
+  {
+    "drug_name": "格列喹酮 (60mg大规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "严重酸中毒"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾损害患者",
+        "action": "无需调整",
+        "note": "主要经胆汁排泄"
+      }
+    ]
+  },
+  {
+    "drug_name": "那格列奈 (唐力/240mg每日总量方案)",
+    "contraindications": [],
+    "disease_excludes": [
+      "1型糖尿病",
+      "重度肝损害"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "三餐服用",
+        "action": "120mg/次",
+        "note": "餐前即刻，防止由于半衰期导致的餐后低血糖"
+      }
+    ]
+  },
+  {
+    "drug_name": "瑞格列奈 (2mg大规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "联合吉非罗齐",
+      "肝衰竭"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "重度肾损",
+        "action": "0.5mg起始",
+        "note": "最大单次不超4mg"
+      }
+    ]
+  },
+  {
+    "drug_name": "西格列汀 (捷诺维/28片装经济型)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 15,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁用"
+      }
+    ],
+    "disease_excludes": [
+      "急性胰腺炎史"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "中度肾损",
+        "action": "50mg 每日一次",
+        "note": "稳定血糖，保护胰岛"
+      }
+    ]
+  },
+  {
+    "drug_name": "利格列汀 (欧唐宁/30片装)",
+    "contraindications": [],
+    "disease_excludes": [
+      "利格列汀过敏"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "肾衰竭透析",
+        "action": "5mg 每日一次",
+        "note": "无需根据肾功调整，唯一不经肾排泄的DPP4"
+      }
+    ]
+  },
+  {
+    "drug_name": "恩格列净 (10mg/每日一次方案)",
+    "contraindications": [
+      {
+        "indicator": "eGFR",
+        "operator": "<",
+        "threshold": 30,
+        "unit": "ml/min/1.73m2",
+        "reason": "禁忌"
+      }
+    ],
+    "disease_excludes": [
+      "反复尿路感染者"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "eGFR 30-45",
+        "action": "不建议开启治疗",
+        "note": "若已在用，可维持10mg并评估心肾获益"
+      }
+    ]
+  },
+  {
+    "drug_name": "司美格鲁肽 (诺和泰/3ml超大规格)",
+    "contraindications": [],
+    "disease_excludes": [
+      "MTC家族史",
+      "MEN2"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "强化减重需求",
+        "action": "1.0mg/周",
+        "note": "注意恶心呕吐等胃肠道反应"
+      }
+    ]
+  },
+  {
+    "drug_name": "精蛋白锌门冬胰岛素 30 (国产/门冬预混)",
+    "contraindications": [],
+    "disease_excludes": [
+      "低血糖敏感"
+    ],
+    "dosage_adjust": [
+      {
+        "condition": "由中效胰岛素转入",
+        "action": "1:1剂量转换",
+        "note": "随餐即刻注射"
+      }
+    ]
+  }
+]

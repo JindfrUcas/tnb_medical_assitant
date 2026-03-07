@@ -1,0 +1,802 @@
+[
+  {
+    "id": "trap-001",
+    "description": "eGFR < 30.0 命中 盐酸二甲双胍片 (普通片/缓释片) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "盐酸二甲双胍片 (普通片/缓释片)"
+      ]
+    },
+    "forbidden_drugs": [
+      "盐酸二甲双胍片 (普通片/缓释片)"
+    ]
+  },
+  {
+    "id": "trap-002",
+    "description": "血清肌酐 > 1.5 命中 盐酸二甲双胍片 (普通片/缓释片) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "血清肌酐": 2.5
+      },
+      "diseases": [],
+      "current_drugs": [
+        "盐酸二甲双胍片 (普通片/缓释片)"
+      ]
+    },
+    "forbidden_drugs": [
+      "盐酸二甲双胍片 (普通片/缓释片)"
+    ]
+  },
+  {
+    "id": "trap-003",
+    "description": "eGFR < 30.0 命中 恩格列净 (欧唐静) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "恩格列净 (欧唐静)"
+      ]
+    },
+    "forbidden_drugs": [
+      "恩格列净 (欧唐静)"
+    ]
+  },
+  {
+    "id": "trap-004",
+    "description": "eGFR < 25.0 命中 达格列净 (安达唐) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 24.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "达格列净 (安达唐)"
+      ]
+    },
+    "forbidden_drugs": [
+      "达格列净 (安达唐)"
+    ]
+  },
+  {
+    "id": "trap-005",
+    "description": "eGFR < 30.0 命中 卡格列净 (怡可安) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "卡格列净 (怡可安)"
+      ]
+    },
+    "forbidden_drugs": [
+      "卡格列净 (怡可安)"
+    ]
+  },
+  {
+    "id": "trap-006",
+    "description": "eGFR < 15.0 命中 西格列汀 (捷诺维) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 14.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "西格列汀 (捷诺维)"
+      ]
+    },
+    "forbidden_drugs": [
+      "西格列汀 (捷诺维)"
+    ]
+  },
+  {
+    "id": "trap-007",
+    "description": "eGFR < 30.0 命中 格列美脲 (亚莫利) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "格列美脲 (亚莫利)"
+      ]
+    },
+    "forbidden_drugs": [
+      "格列美脲 (亚莫利)"
+    ]
+  },
+  {
+    "id": "trap-008",
+    "description": "eGFR < 30.0 命中 格列齐特缓释片 (达美康) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "格列齐特缓释片 (达美康)"
+      ]
+    },
+    "forbidden_drugs": [
+      "格列齐特缓释片 (达美康)"
+    ]
+  },
+  {
+    "id": "trap-009",
+    "description": "eGFR < 25.0 命中 阿卡波糖 (拜唐苹) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 24.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "阿卡波糖 (拜唐苹)"
+      ]
+    },
+    "forbidden_drugs": [
+      "阿卡波糖 (拜唐苹)"
+    ]
+  },
+  {
+    "id": "trap-010",
+    "description": "eGFR < 45.0 命中 西格列汀二甲双胍片 (捷诺达) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "西格列汀二甲双胍片 (捷诺达)"
+      ]
+    },
+    "forbidden_drugs": [
+      "西格列汀二甲双胍片 (捷诺达)"
+    ]
+  },
+  {
+    "id": "trap-011",
+    "description": "eGFR < 45.0 命中 达格列净二甲双胍缓释片 (安达释) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "达格列净二甲双胍缓释片 (安达释)"
+      ]
+    },
+    "forbidden_drugs": [
+      "达格列净二甲双胍缓释片 (安达释)"
+    ]
+  },
+  {
+    "id": "trap-012",
+    "description": "eGFR < 45.0 命中 吡格列酮二甲双胍片 (卡双平) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "吡格列酮二甲双胍片 (卡双平)"
+      ]
+    },
+    "forbidden_drugs": [
+      "吡格列酮二甲双胍片 (卡双平)"
+    ]
+  },
+  {
+    "id": "trap-013",
+    "description": "eGFR < 60.0 命中 瑞格列奈二甲双胍片 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 59.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "瑞格列奈二甲双胍片"
+      ]
+    },
+    "forbidden_drugs": [
+      "瑞格列奈二甲双胍片"
+    ]
+  },
+  {
+    "id": "trap-014",
+    "description": "eGFR < 30.0 命中 艾塞那肽注射液 (百泌达) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "艾塞那肽注射液 (百泌达)"
+      ]
+    },
+    "forbidden_drugs": [
+      "艾塞那肽注射液 (百泌达)"
+    ]
+  },
+  {
+    "id": "trap-015",
+    "description": "eGFR < 30.0 命中 艾塞那肽微球 (百妥恩/周剂) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "艾塞那肽微球 (百妥恩/周剂)"
+      ]
+    },
+    "forbidden_drugs": [
+      "艾塞那肽微球 (百妥恩/周剂)"
+    ]
+  },
+  {
+    "id": "trap-016",
+    "description": "eGFR < 15.0 命中 曲格列汀 (Wedica/日本周剂) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 14.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "曲格列汀 (Wedica/日本周剂)"
+      ]
+    },
+    "forbidden_drugs": [
+      "曲格列汀 (Wedica/日本周剂)"
+    ]
+  },
+  {
+    "id": "trap-017",
+    "description": "eGFR < 45.0 命中 恒格列净 (瑞沁) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "恒格列净 (瑞沁)"
+      ]
+    },
+    "forbidden_drugs": [
+      "恒格列净 (瑞沁)"
+    ]
+  },
+  {
+    "id": "trap-018",
+    "description": "eGFR < 50.0 命中 格列本脲 (优降糖) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 49.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "格列本脲 (优降糖)"
+      ]
+    },
+    "forbidden_drugs": [
+      "格列本脲 (优降糖)"
+    ]
+  },
+  {
+    "id": "trap-019",
+    "description": "血肌酐 > 2.0 命中 米格列醇 (奥恬苹) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "血肌酐": 3.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "米格列醇 (奥恬苹)"
+      ]
+    },
+    "forbidden_drugs": [
+      "米格列醇 (奥恬苹)"
+    ]
+  },
+  {
+    "id": "trap-020",
+    "description": "eGFR < 45.0 命中 罗格列酮二甲双胍片 (文达敏) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "罗格列酮二甲双胍片 (文达敏)"
+      ]
+    },
+    "forbidden_drugs": [
+      "罗格列酮二甲双胍片 (文达敏)"
+    ]
+  },
+  {
+    "id": "trap-021",
+    "description": "eGFR < 45.0 命中 沙格列汀二甲双胍缓释片 (安立格) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "沙格列汀二甲双胍缓释片 (安立格)"
+      ]
+    },
+    "forbidden_drugs": [
+      "沙格列汀二甲双胍缓释片 (安立格)"
+    ]
+  },
+  {
+    "id": "trap-022",
+    "description": "eGFR < 60.0 命中 维格列汀二甲双胍片 (宜合瑞) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 59.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "维格列汀二甲双胍片 (宜合瑞)"
+      ]
+    },
+    "forbidden_drugs": [
+      "维格列汀二甲双胍片 (宜合瑞)"
+    ]
+  },
+  {
+    "id": "trap-023",
+    "description": "eGFR < 45.0 命中 厄格列净 (Steglatro) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "厄格列净 (Steglatro)"
+      ]
+    },
+    "forbidden_drugs": [
+      "厄格列净 (Steglatro)"
+    ]
+  },
+  {
+    "id": "trap-024",
+    "description": "eGFR < 30.0 命中 依格列净 (Suglat/日本) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "依格列净 (Suglat/日本)"
+      ]
+    },
+    "forbidden_drugs": [
+      "依格列净 (Suglat/日本)"
+    ]
+  },
+  {
+    "id": "trap-025",
+    "description": "eGFR < 60.0 命中 瑞格列汀二甲双胍片 (复方) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 59.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "瑞格列汀二甲双胍片 (复方)"
+      ]
+    },
+    "forbidden_drugs": [
+      "瑞格列汀二甲双胍片 (复方)"
+    ]
+  },
+  {
+    "id": "trap-026",
+    "description": "eGFR < 15.0 命中 伊格列明 (Imeglimin/Twymeeg) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 14.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "伊格列明 (Imeglimin/Twymeeg)"
+      ]
+    },
+    "forbidden_drugs": [
+      "伊格列明 (Imeglimin/Twymeeg)"
+    ]
+  },
+  {
+    "id": "trap-027",
+    "description": "eGFR < 45.0 命中 利格列汀二甲双胍片 (欧双宁) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "利格列汀二甲双胍片 (欧双宁)"
+      ]
+    },
+    "forbidden_drugs": [
+      "利格列汀二甲双胍片 (欧双宁)"
+    ]
+  },
+  {
+    "id": "trap-028",
+    "description": "eGFR < 60.0 命中 阿格列汀二甲双胍片 (尼欣乐) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 59.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "阿格列汀二甲双胍片 (尼欣乐)"
+      ]
+    },
+    "forbidden_drugs": [
+      "阿格列汀二甲双胍片 (尼欣乐)"
+    ]
+  },
+  {
+    "id": "trap-029",
+    "description": "eGFR < 45.0 命中 沙格列汀达格列净片 (Qtern) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "沙格列汀达格列净片 (Qtern)"
+      ]
+    },
+    "forbidden_drugs": [
+      "沙格列汀达格列净片 (Qtern)"
+    ]
+  },
+  {
+    "id": "trap-030",
+    "description": "eGFR < 30.0 命中 恩格列净利格列汀片 (Glyxambi) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "恩格列净利格列汀片 (Glyxambi)"
+      ]
+    },
+    "forbidden_drugs": [
+      "恩格列净利格列汀片 (Glyxambi)"
+    ]
+  },
+  {
+    "id": "trap-031",
+    "description": "eGFR < 15.0 命中 利司那肽 (利必通) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 14.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "利司那肽 (利必通)"
+      ]
+    },
+    "forbidden_drugs": [
+      "利司那肽 (利必通)"
+    ]
+  },
+  {
+    "id": "trap-032",
+    "description": "eGFR < 30.0 命中 艾塞那肽 (百泌达/3次版) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "艾塞那肽 (百泌达/3次版)"
+      ]
+    },
+    "forbidden_drugs": [
+      "艾塞那肽 (百泌达/3次版)"
+    ]
+  },
+  {
+    "id": "trap-033",
+    "description": "血肌酐 > 2.0 命中 米格列醇 (赛格列汀) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "血肌酐": 3.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "米格列醇 (赛格列汀)"
+      ]
+    },
+    "forbidden_drugs": [
+      "米格列醇 (赛格列汀)"
+    ]
+  },
+  {
+    "id": "trap-034",
+    "description": "eGFR < 60.0 命中 格列本脲二甲双胍片 (消渴丸成分类似物) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 59.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "格列本脲二甲双胍片 (消渴丸成分类似物)"
+      ]
+    },
+    "forbidden_drugs": [
+      "格列本脲二甲双胍片 (消渴丸成分类似物)"
+    ]
+  },
+  {
+    "id": "trap-035",
+    "description": "eGFR < 45.0 命中 西格列汀二甲双胍片 (II) (捷诺达新版) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "西格列汀二甲双胍片 (II) (捷诺达新版)"
+      ]
+    },
+    "forbidden_drugs": [
+      "西格列汀二甲双胍片 (II) (捷诺达新版)"
+    ]
+  },
+  {
+    "id": "trap-036",
+    "description": "eGFR < 15.0 命中 考格列汀 (考格列汀片) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 14.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "考格列汀 (考格列汀片)"
+      ]
+    },
+    "forbidden_drugs": [
+      "考格列汀 (考格列汀片)"
+    ]
+  },
+  {
+    "id": "trap-037",
+    "description": "eGFR < 25.0 命中 阿卡波糖胶囊 (卡博平) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 24.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "阿卡波糖胶囊 (卡博平)"
+      ]
+    },
+    "forbidden_drugs": [
+      "阿卡波糖胶囊 (卡博平)"
+    ]
+  },
+  {
+    "id": "trap-038",
+    "description": "eGFR < 30.0 命中 格列美脲 (万苏平) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "格列美脲 (万苏平)"
+      ]
+    },
+    "forbidden_drugs": [
+      "格列美脲 (万苏平)"
+    ]
+  },
+  {
+    "id": "trap-039",
+    "description": "eGFR < 25.0 命中 达格列净 (卡格平) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 24.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "达格列净 (卡格平)"
+      ]
+    },
+    "forbidden_drugs": [
+      "达格列净 (卡格平)"
+    ]
+  },
+  {
+    "id": "trap-040",
+    "description": "eGFR < 45.0 命中 依碳酸瑞格列净 (Remogliflozin) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 44.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "依碳酸瑞格列净 (Remogliflozin)"
+      ]
+    },
+    "forbidden_drugs": [
+      "依碳酸瑞格列净 (Remogliflozin)"
+    ]
+  },
+  {
+    "id": "trap-041",
+    "description": "eGFR < 25.0 命中 索格列净 (Sotagliflozin/Inpefa) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 24.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "索格列净 (Sotagliflozin/Inpefa)"
+      ]
+    },
+    "forbidden_drugs": [
+      "索格列净 (Sotagliflozin/Inpefa)"
+    ]
+  },
+  {
+    "id": "trap-042",
+    "description": "eGFR < 60.0 命中 格列美脲二甲双胍片 (亚莫利复方) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 59.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "格列美脲二甲双胍片 (亚莫利复方)"
+      ]
+    },
+    "forbidden_drugs": [
+      "格列美脲二甲双胍片 (亚莫利复方)"
+    ]
+  },
+  {
+    "id": "trap-043",
+    "description": "血肌酐 > 1.4 命中 格列本脲二甲双胍片 (胶囊) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "血肌酐": 2.4
+      },
+      "diseases": [],
+      "current_drugs": [
+        "格列本脲二甲双胍片 (胶囊)"
+      ]
+    },
+    "forbidden_drugs": [
+      "格列本脲二甲双胍片 (胶囊)"
+    ]
+  },
+  {
+    "id": "trap-044",
+    "description": "eGFR < 60.0 命中 维格列汀二甲双胍片 (宜合瑞/欧双欣) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 59.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "维格列汀二甲双胍片 (宜合瑞/欧双欣)"
+      ]
+    },
+    "forbidden_drugs": [
+      "维格列汀二甲双胍片 (宜合瑞/欧双欣)"
+    ]
+  },
+  {
+    "id": "trap-045",
+    "description": "eGFR < 15.0 命中 甘精胰岛素利司那肽 (Soliqua/赛益宁) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 14.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "甘精胰岛素利司那肽 (Soliqua/赛益宁)"
+      ]
+    },
+    "forbidden_drugs": [
+      "甘精胰岛素利司那肽 (Soliqua/赛益宁)"
+    ]
+  },
+  {
+    "id": "trap-046",
+    "description": "eGFR < 30.0 命中 艾塞那肽周剂 (Bydureon BCise) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 29.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "艾塞那肽周剂 (Bydureon BCise)"
+      ]
+    },
+    "forbidden_drugs": [
+      "艾塞那肽周剂 (Bydureon BCise)"
+    ]
+  },
+  {
+    "id": "trap-047",
+    "description": "eGFR < 15.0 命中 西格列汀 (100mg/捷诺维) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "eGFR": 14.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "西格列汀 (100mg/捷诺维)"
+      ]
+    },
+    "forbidden_drugs": [
+      "西格列汀 (100mg/捷诺维)"
+    ]
+  },
+  {
+    "id": "trap-048",
+    "description": "血肌酐 > 2.0 命中 米格列醇 (50mg/奥恬苹) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "血肌酐": 3.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "米格列醇 (50mg/奥恬苹)"
+      ]
+    },
+    "forbidden_drugs": [
+      "米格列醇 (50mg/奥恬苹)"
+    ]
+  },
+  {
+    "id": "trap-049",
+    "description": "FEV1 < 70.0 命中 阿法列珠单抗/吸入胰岛素 (Afrezza) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "FEV1": 69.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "阿法列珠单抗/吸入胰岛素 (Afrezza)"
+      ]
+    },
+    "forbidden_drugs": [
+      "阿法列珠单抗/吸入胰岛素 (Afrezza)"
+    ]
+  },
+  {
+    "id": "trap-050",
+    "description": "甘油三酯 (TG) > 500.0 命中 考来维仑 (Colesevelam/Welchol) 禁忌",
+    "raw_input": {
+      "indicators": {
+        "甘油三酯 (TG)": 501.0
+      },
+      "diseases": [],
+      "current_drugs": [
+        "考来维仑 (Colesevelam/Welchol)"
+      ]
+    },
+    "forbidden_drugs": [
+      "考来维仑 (Colesevelam/Welchol)"
+    ]
+  }
+]
