@@ -32,26 +32,7 @@
 └── plan.md
 ```
 
-## 2. 与 `plan.md` 的映射
-
-- 第一阶段：
-  - `scripts/import_graph_to_neo4j.py` 完成 Neo4j 批量 MERGE。
-  - `dia_agent/rag/indexer.py` + `scripts/build_rag_index.py` 完成 PDF -> Markdown -> Chunk(800/100) -> Chroma。
-- 第二阶段：
-  - `dia_agent/nodes/perception.py` 将文本/JSON输入标准化为 `PatientState`。
-- 第三阶段：
-  - `dia_agent/nodes/guardrail.py` 在推理前强制检索结构化约束并生成《安全约束白皮书》。
-  - `dia_agent/nodes/reasoner.py` 融合患者状态 + 红线 + RAG 片段进行诊疗建议生成。
-- 第四阶段：
-  - `dia_agent/workflow/graph.py` 实现 `START -> Perception -> Guardrail -> Reasoner -> Auditor -> END`。
-  - Auditor 违规后自动回流 Reasoner，最大重试 3 次。
-- 第五阶段（可选）：
-  - `dia_agent/sft/generator.py` + `scripts/build_sft_dataset.py` 支持从 `graph.json` 生成 2k 级 SFT 数据。
-- 第六阶段：
-  - `dia_agent/ui/streamlit_app.py` 提供透明思维链与对照展示。
-  - `dia_agent/evaluation/run.py` 提供陷阱案例自动化评测（拦截率、指南对齐代理指标）。
-
-## 3. 环境准备
+## 2. 环境准备
 
 ```bash
 python -m venv .venv
@@ -83,9 +64,9 @@ export DIA_AGENT_VISION_WIRE_API="chat_completions"
 
 如果不配置 Neo4j 凭据，系统会自动回退到 `dataset/graph.json` 作为结构化约束源。
 
-## 4. 构建流程
+## 3. 构建流程
 
-### 4.1 导入图谱到 Neo4j
+### 3.1 导入图谱到 Neo4j
 
 ```bash
 python scripts/import_graph_to_neo4j.py \
@@ -99,13 +80,13 @@ python -c 'from neo4j import GraphDatabase; d=GraphDatabase.driver("bolt://local
 python scripts/import_graph_to_neo4j.py --input dataset/graph.json --uri bolt://localhost:7687 --user neo4j --password your-password --database neo4j --skip-constraints
 ```
 
-### 4.2 构建 RAG 向量索引
+### 3.2 构建 RAG 向量索引
 
 ```bash
 python scripts/build_rag_index.py --reset
 ```
 
-### 4.3 命令行问诊
+### 3.3 命令行问诊
 
 ```bash
 python scripts/run_consultation.py \
@@ -119,7 +100,7 @@ python scripts/run_consultation.py \
   --rag-query "1型糖尿病 肾功能不全 用药"
 ```
 
-### 4.4 启动 API
+### 3.4 启动 API
 
 ```bash
 python scripts/run_api.py
@@ -157,13 +138,13 @@ python scripts/run_api.py
 }
 ```
 
-### 4.5 启动 Streamlit
+### 3.5 启动 Streamlit
 
 ```bash
 streamlit run dia_agent/ui/streamlit_app.py
 ```
 
-### 4.6 自动化评测
+### 3.6 自动化评测
 
 ```bash
 python scripts/run_evaluation.py --rebuild-cases --limit 50
@@ -172,7 +153,7 @@ python scripts/run_evaluation.py --rebuild-cases --limit 50
 python scripts/run_evaluation.py --use-ragas
 ```
 
-### 4.7 生成 SFT 数据集（可选）
+### 3.7 生成 SFT 数据集（可选）
 
 ```bash
 python scripts/build_sft_dataset.py --size 2000 --output dataset/sft_guardrail_2k.jsonl
