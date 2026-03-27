@@ -1,4 +1,7 @@
-"""Perception node: normalize multimodal input into PatientState."""
+"""Perception 节点：把原始输入转换成标准患者状态。
+
+这一层的目标是把文本、JSON、图片等多种输入形式尽量收口成统一的 `PatientState`。
+"""
 
 from __future__ import annotations
 
@@ -9,7 +12,9 @@ import re
 from pathlib import Path
 from typing import Any
 
-from dia_agent.llm import OpenAICompatibleChatClient
+from langchain_core.language_models.chat_models import BaseChatModel
+from langchain_core.messages import HumanMessage, SystemMessage
+
 from dia_agent.schemas import PatientState
 
 
@@ -20,10 +25,12 @@ SECTION_STOP_PATTERN = "|".join(re.escape(label) for label in SECTION_LABELS)
 
 
 def _split_tokens(text: str) -> list[str]:
+    """按常见中英文分隔符切分列表内容。"""
     return [token.strip() for token in re.split(r"[，,、;；\n]+", text) if token.strip()]
 
 
 def _extract_list_by_label(text: str, labels: list[str]) -> list[str]:
+    """根据“疾病/病史/用药”等标签从文本中提取列表字段。"""
     for label in labels:
         pattern = re.compile(rf"{re.escape(label)}\s*[:：]\s*(.+?)(?=(?:{SECTION_STOP_PATTERN})\s*[:：]|$)")
         match = pattern.search(text)
@@ -33,10 +40,14 @@ def _extract_list_by_label(text: str, labels: list[str]) -> list[str]:
 
 
 class PerceptionNode:
-    def __init__(self, llm_client: OpenAICompatibleChatClient | None = None):
+    """负责输入标准化的节点。"""
+
+    def __init__(self, llm_client: BaseChatModel | None = None):
+        """初始化感知节点，可选接入多模态模型。"""
         self._llm_client = llm_client
 
     def run(self, raw_input: str | dict[str, Any], history_text: str = "") -> PatientState:
+        """把各种输入格式统一转换成 `PatientState`。"""
         if isinstance(raw_input, dict):
             if {"indicators", "diseases", "current_drugs"}.issubset(raw_input.keys()):
                 return PatientState.model_validate(raw_input)
@@ -50,6 +61,7 @@ class PerceptionNode:
         return self._parse_text_state(text, history_text)
 
     def _run_with_modal_payload(self, payload: dict[str, Any], history_text: str) -> PatientState:
+        """处理带图片或额外文本字段的多模态输入。"""
         text = str(payload.get("text") or "").strip()
         merged_history = str(payload.get("history_text") or history_text or "").strip()
         image_paths = self._normalize_image_paths(payload.get("image_paths") or payload.get("images"))
@@ -67,6 +79,7 @@ class PerceptionNode:
         return PatientState.model_validate(merged)
 
     def _normalize_image_paths(self, value: Any) -> list[Path]:
+        """把输入中的图片路径统一归一化成 `Path` 列表。"""
         if value is None:
             return []
         if isinstance(value, str):
@@ -86,6 +99,7 @@ class PerceptionNode:
         image_paths: list[Path],
         history_text: str,
     ) -> dict[str, Any] | None:
+        """调用多模态模型，从图片与补充文本中抽取结构化患者状态。"""
         if not image_paths or self._llm_client is None:
             return None
 
@@ -108,24 +122,25 @@ class PerceptionNode:
             user_content.append({"type": "image_url", "image_url": {"url": data_url}})
 
         messages = [
-            {
-                "role": "system",
-                "content": "你是医疗结构化抽取助手。必须返回可被 JSON 解析的对象。",
-            },
-            {
-                "role": "user",
-                "content": user_content,
-            },
+            SystemMessage(content="你是医疗结构化抽取助手。必须返回结构化患者状态。"),
+            HumanMessage(content=user_content),
         ]
 
-        raw_text = ""
         try:
-            raw_text = self._llm_client.chat(messages, response_format={"type": "json_object"})
+            structured_model = self._llm_client.with_structured_output(PatientState)
+            response = structured_model.invoke(messages)
+            if isinstance(response, PatientState):
+                return response.model_dump()
+            if isinstance(response, dict):
+                return PatientState.model_validate(response).model_dump()
         except Exception:
-            try:
-                raw_text = self._llm_client.chat(messages)
-            except Exception:
-                return None
+            pass
+
+        try:
+            raw_message = self._llm_client.invoke(messages)
+            raw_text = self._message_to_text(raw_message)
+        except Exception:
+            return None
 
         parsed = self._parse_json_like(raw_text)
         if not isinstance(parsed, dict):
@@ -134,7 +149,27 @@ class PerceptionNode:
             return None
         return parsed
 
+    def _message_to_text(self, message: Any) -> str:
+        """把 LangChain 消息对象中的文本内容提取出来。"""
+        content = getattr(message, "content", "")
+        if isinstance(content, str):
+            return content.strip()
+        if isinstance(content, list):
+            parts: list[str] = []
+            for item in content:
+                if isinstance(item, str):
+                    parts.append(item)
+                    continue
+                if not isinstance(item, dict):
+                    continue
+                text = item.get("text")
+                if text:
+                    parts.append(str(text))
+            return "\n".join(parts).strip()
+        return str(content).strip()
+
     def _to_data_url(self, path: Path) -> str:
+        """把本地图片转成 data URL，便于直接发给兼容 OpenAI 的多模态接口。"""
         mime_type, _ = mimetypes.guess_type(path.name)
         mime = mime_type or "image/png"
         raw = path.read_bytes()
@@ -142,6 +177,7 @@ class PerceptionNode:
         return f"data:{mime};base64,{encoded}"
 
     def _parse_json_like(self, text: str) -> dict[str, Any] | None:
+        """尽量从模型输出中恢复出 JSON 对象。"""
         cleaned = text.strip()
         if not cleaned:
             return None
@@ -161,12 +197,14 @@ class PerceptionNode:
             return None
 
     def _parse_text_state(self, text: str, history_text: str) -> PatientState:
+        """基于规则从纯文本里抽取指标、疾病和当前用药。"""
         indicators = self._extract_indicators(text)
         diseases = _extract_list_by_label(text, ["疾病", "病史", "诊断"]) or self._extract_history_diseases(history_text)
         current_drugs = _extract_list_by_label(text, ["当前用药", "现用药", "用药"])
         return PatientState(indicators=indicators, diseases=diseases, current_drugs=current_drugs)
 
     def _try_parse_json(self, text: str) -> dict[str, Any] | None:
+        """如果输入本身就是 JSON 字符串，则直接解析。"""
         if not text.startswith("{"):
             return None
         try:
@@ -180,6 +218,7 @@ class PerceptionNode:
         return payload
 
     def _extract_indicators(self, text: str) -> dict[str, float]:
+        """从文本中抽取常见临床指标。"""
         indicators: dict[str, float] = {}
         for name, value in INDICATOR_PATTERN.findall(text):
             indicators[name.strip()] = float(value)
@@ -188,6 +227,7 @@ class PerceptionNode:
         return indicators
 
     def _extract_history_diseases(self, history_text: str) -> list[str]:
+        """从病史补充信息中提取疾病项。"""
         if not history_text:
             return []
         return _extract_list_by_label(history_text, ["病史", "并发症", "诊断"])

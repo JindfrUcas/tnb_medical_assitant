@@ -7,24 +7,37 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 import json
-import re
 from typing import Any, Iterable
 
-from dia_agent.agent_tools import AgentToolbox
+from langchain_core.language_models.chat_models import BaseChatModel
+from langchain_core.messages import HumanMessage, ToolMessage
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langgraph.prebuilt import create_react_agent
+from pydantic import BaseModel, Field
+
+from dia_agent.agent_tools import AgentToolbox, build_langchain_tools
 from dia_agent.graph.repository import JsonGuardrailRepository, Neo4jGuardrailRepository
-from dia_agent.llm import OpenAICompatibleChatClient
 from dia_agent.rag.retriever import GuidelineRetriever
 from dia_agent.schemas import GuardrailReport, PatientState, RagSnippet, ReasonerResult
 
 
 @dataclass
 class ReasonerRunOutput:
-    """Structured execution payload returned by reasoner nodes."""
+    """Reasoner 节点的结构化执行结果。"""
 
     reasoner_result: ReasonerResult
     rag_snippets: list[RagSnippet] = field(default_factory=list)
     tool_calls: list[dict[str, Any]] = field(default_factory=list)
     agent_scratchpad: list[str] = field(default_factory=list)
+
+
+class ReasonerStructuredResponse(BaseModel):
+    """LangGraph ReAct agent 的最终结构化输出。"""
+
+    final_recommendation: str = Field(description="最终诊疗建议正文。")
+    recommended_drugs: list[str] = Field(default_factory=list, description="最终推荐保留或考虑的药物方案。")
+    thought_summary: str = Field(default="", description="对本轮决策过程的简要总结。")
 
 
 def _dedupe(items: Iterable[str]) -> list[str]:
@@ -67,7 +80,8 @@ def baseline_llm_like_recommendation(patient_state: PatientState) -> str:
 class ReasonerNode:
     """诊疗建议生成节点。"""
 
-    def __init__(self, llm_client: OpenAICompatibleChatClient | None = None):
+    def __init__(self, llm_client: BaseChatModel | None = None):
+        """初始化基础推理节点，可选挂载文本模型客户端。"""
         self._llm_client = llm_client
 
     def run(
@@ -102,7 +116,7 @@ class ReasonerNode:
         rag_snippets: list[RagSnippet],
         feedback: str,
     ) -> str:
-        """构造 Prompt 并调用大模型生成建议。"""
+        """使用 LangChain 标准 Prompt 链生成建议文本。"""
         guardrail_lines = []
         for item in guardrail_report.contraindications:
             guardrail_lines.append(f"- 禁用 {item.drug_name}: {item.reason}")
@@ -110,21 +124,34 @@ class ReasonerNode:
             guardrail_lines.append(f"- 调整 {item.drug_name}: {item.condition} -> {item.action} {item.note}")
         rag_lines = [f"[{snippet.source}] {snippet.content[:320]}" for snippet in rag_snippets]
 
-        system_prompt = (
-            "你是内分泌专病助手。必须绝对遵守红线约束；若指南与红线冲突，红线优先。"
-            "输出结构包括：风险判断、治疗建议、监测计划。"
-        )
         llm_client = self._llm_client
         if llm_client is None:
             return self._template_generate(patient_state, guardrail_report, rag_snippets, feedback)
-        patient_json = json.dumps(patient_state.model_dump())
-        user_prompt = (
-            f"患者状态: {patient_json}\n"
-            f"红线约束:\n{chr(10).join(guardrail_lines) or '- 无'}\n"
-            f"指南片段:\n{chr(10).join(rag_lines) or '- 无'}\n"
-            f"审计反馈: {feedback or '无'}"
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                (
+                    "system",
+                    "你是内分泌专病助手。必须绝对遵守红线约束；若指南与红线冲突，红线优先。"
+                    "输出结构包括：风险判断、治疗建议、监测计划。",
+                ),
+                (
+                    "human",
+                    "患者状态:\n{patient_json}\n"
+                    "红线约束:\n{guardrail_text}\n"
+                    "指南片段:\n{rag_text}\n"
+                    "审计反馈: {feedback}",
+                ),
+            ]
         )
-        content = llm_client.complete(system_prompt, user_prompt)
+        chain = prompt | llm_client | StrOutputParser()
+        content = chain.invoke(
+            {
+                "patient_json": json.dumps(patient_state.model_dump(), ensure_ascii=False, indent=2),
+                "guardrail_text": "\n".join(guardrail_lines) or "- 无",
+                "rag_text": "\n".join(rag_lines) or "- 无",
+                "feedback": feedback or "无",
+            }
+        )
         return content or self._template_generate(patient_state, guardrail_report, rag_snippets, feedback)
 
     def _template_generate(
@@ -205,16 +232,17 @@ class ReasonerNode:
 
 
 class ReActReasonerNode(ReasonerNode):
-    """Reasoner upgraded with a controlled ReAct loop."""
+    """基于 LangGraph 预置 ReAct agent 的推理节点。"""
 
     def __init__(
         self,
-        llm_client: OpenAICompatibleChatClient | None,
+        llm_client: BaseChatModel | None,
         repository: JsonGuardrailRepository | Neo4jGuardrailRepository,
         retriever: GuidelineRetriever,
         max_steps: int = 4,
         retrieval_k: int = 4,
     ):
+        """初始化受控 ReAct 推理器，绑定工具所需的数据源与检索器。"""
         super().__init__(llm_client=llm_client)
         self._repository = repository
         self._retriever = retriever
@@ -229,13 +257,14 @@ class ReActReasonerNode(ReasonerNode):
         feedback: str = "",
         default_query: str = "",
     ) -> ReasonerRunOutput:
+        """执行 LangGraph ReAct 推理；失败时回退到保守模板策略。"""
         query_hint = default_query.strip() or self._build_default_query(patient_state)
+        initial_snippets = list(rag_snippets or self._retriever.retrieve(query_hint, top_k=self._retrieval_k))
         if self._llm_client is None:
-            snippets = list(rag_snippets or self._retriever.retrieve(query_hint, top_k=self._retrieval_k))
             return super().run(
                 patient_state=patient_state,
                 guardrail_report=guardrail_report,
-                rag_snippets=snippets,
+                rag_snippets=initial_snippets,
                 feedback=feedback,
                 default_query=query_hint,
             )
@@ -248,98 +277,89 @@ class ReActReasonerNode(ReasonerNode):
             default_query=query_hint,
             default_top_k=self._retrieval_k,
         )
-        toolbox.seed_snippets(list(rag_snippets or []))
+        toolbox.seed_snippets(initial_snippets)
 
-        messages = [
-            {"role": "system", "content": self._build_system_prompt()},
-            {
-                "role": "user",
-                "content": self._build_user_prompt(
-                    patient_state=patient_state,
-                    guardrail_report=guardrail_report,
-                    feedback=feedback,
-                    query_hint=query_hint,
-                    toolbox=toolbox,
-                ),
-            },
-        ]
-
-        scratchpad: list[str] = []
-        for step in range(1, self._max_steps + 1):
-            raw_text = self._call_agent(messages)
-            decision = self._parse_agent_json(raw_text)
-
-            thought = str(decision.get("thought", "")).strip()
-            if thought:
-                scratchpad.append(f"Step {step} Thought: {thought}")
-
-            action = self._normalize_action(decision.get("action"))
-            is_finish = action == "finish" or bool(decision.get("done"))
-            if is_finish:
-                recommendation = self._extract_final_recommendation(decision)
-                if not recommendation:
-                    recommendation = self._template_generate(
-                        patient_state=patient_state,
-                        guardrail_report=guardrail_report,
-                        rag_snippets=toolbox.used_rag_snippets,
-                        feedback=feedback,
-                    )
-                recommended_drugs = self._normalize_recommended_drugs(decision.get("recommended_drugs"))
-                if not recommended_drugs:
-                    recommended_drugs = self._extract_recommended_drugs(patient_state, guardrail_report)
-                return ReasonerRunOutput(
-                    reasoner_result=ReasonerResult(
-                        recommendation=recommendation,
-                        recommended_drugs=recommended_drugs,
-                        references=toolbox.used_rag_snippets,
-                    ),
-                    rag_snippets=toolbox.used_rag_snippets,
-                    tool_calls=toolbox.tool_calls,
-                    agent_scratchpad=scratchpad,
-                )
-
-            action_input = decision.get("action_input")
-            if not isinstance(action_input, dict):
-                action_input = {}
-            execution = toolbox.execute(action, action_input)
-            scratchpad.append(f"Step {step} Action: {execution.tool_name}")
-            scratchpad.append(f"Step {step} Observation: {execution.observation}")
-
-            assistant_payload = raw_text.strip() or json.dumps(decision, ensure_ascii=False)
-            messages.append({"role": "assistant", "content": assistant_payload})
-            messages.append(
+        try:
+            agent = create_react_agent(
+                model=self._llm_client,
+                tools=build_langchain_tools(toolbox),
+                prompt=self._build_system_prompt(),
+                response_format=ReasonerStructuredResponse,
+                version="v2",
+                name="dia_agent_reasoner",
+            )
+            result = agent.invoke(
                 {
-                    "role": "user",
-                    "content": (
-                        f"工具 `{execution.tool_name}` 的观察结果如下:\n{execution.observation}\n"
-                        "请继续思考，并且只输出严格 JSON。"
-                    ),
-                }
+                    "messages": [
+                        HumanMessage(
+                            content=self._build_user_prompt(
+                                patient_state=patient_state,
+                                guardrail_report=guardrail_report,
+                                feedback=feedback,
+                                query_hint=query_hint,
+                                toolbox=toolbox,
+                            )
+                        )
+                    ]
+                },
+                config={"recursion_limit": max(8, self._max_steps * 4)},
+            )
+        except Exception:
+            fallback_snippets = toolbox.used_rag_snippets or self._retriever.retrieve(query_hint, top_k=self._retrieval_k)
+            fallback_feedback = feedback or "LangGraph ReAct 执行失败，已回退到保守生成。"
+            fallback = super().run(
+                patient_state=patient_state,
+                guardrail_report=guardrail_report,
+                rag_snippets=fallback_snippets,
+                feedback=fallback_feedback,
+                default_query=query_hint,
+            )
+            return ReasonerRunOutput(
+                reasoner_result=fallback.reasoner_result,
+                rag_snippets=fallback.rag_snippets,
+                tool_calls=toolbox.tool_calls,
+                agent_scratchpad=[],
             )
 
-        fallback_snippets = toolbox.used_rag_snippets or self._retriever.retrieve(query_hint, top_k=self._retrieval_k)
-        fallback_feedback = feedback or "ReAct 达到最大步数，已回退到保守生成。"
-        fallback = super().run(
-            patient_state=patient_state,
-            guardrail_report=guardrail_report,
-            rag_snippets=fallback_snippets,
-            feedback=fallback_feedback,
-            default_query=query_hint,
-        )
+        structured = result.get("structured_response")
+        scratchpad = self._build_scratchpad(result.get("messages", []))
+        recommendation = self._extract_structured_recommendation(structured)
+        if not recommendation:
+            recommendation = self._extract_message_text(result.get("messages", []))
+        if not recommendation:
+            recommendation = self._template_generate(
+                patient_state=patient_state,
+                guardrail_report=guardrail_report,
+                rag_snippets=toolbox.used_rag_snippets,
+                feedback=feedback,
+            )
+        recommended_drugs = self._extract_structured_recommended_drugs(structured)
+        if not recommended_drugs:
+            recommended_drugs = self._extract_recommended_drugs(patient_state, guardrail_report)
+
+        if toolbox.used_rag_snippets:
+            snippets = toolbox.used_rag_snippets
+        else:
+            snippets = list(rag_snippets or self._retriever.retrieve(query_hint, top_k=self._retrieval_k))
         return ReasonerRunOutput(
-            reasoner_result=fallback.reasoner_result,
-            rag_snippets=fallback.rag_snippets,
+            reasoner_result=ReasonerResult(
+                recommendation=recommendation,
+                recommended_drugs=recommended_drugs,
+                references=snippets,
+            ),
+            rag_snippets=snippets,
             tool_calls=toolbox.tool_calls,
             agent_scratchpad=scratchpad,
         )
 
     def _build_system_prompt(self) -> str:
+        """构造 LangGraph ReAct agent 的系统提示词。"""
         return (
             "你是 Guardrail-First 的糖尿病专病助手。"
             "你必须绝对遵守红线约束，不能推荐已命中禁忌的药物。"
-            "你可以通过受控工具补充证据，采用 ReAct 方式逐步决策。"
+            "你可以调用受控工具补充证据，并根据工具观察结果逐步决策。"
             "你不能编造数据库查询语句，也不能跳过 Guardrail。"
-            "每次回复必须是严格 JSON。"
+            "当证据足够时，请直接输出最终结构化结果，不要继续调用无关工具。"
         )
 
     def _build_user_prompt(
@@ -350,73 +370,82 @@ class ReActReasonerNode(ReasonerNode):
         query_hint: str,
         toolbox: AgentToolbox,
     ) -> str:
+        """构造 ReAct 阶段的用户提示词，注入患者状态与可用工具。"""
         return (
             "你当前负责生成安全诊疗建议。\n"
             f"患者状态:\n{json.dumps(patient_state.model_dump(), ensure_ascii=False, indent=2)}\n"
             "已命中的红线摘要:\n"
             f"{guardrail_report.whitepaper}\n"
             f"建议的默认指南检索词: {query_hint or '无'}\n"
+            f"当前已准备的初始指南片段数: {len(toolbox.used_rag_snippets)}\n"
             f"审计反馈: {feedback or '无'}\n"
             "可用工具:\n"
             f"{toolbox.describe_tools()}\n"
             "请先判断是否还需要工具补充证据。"
-            "如果需要工具，请输出 JSON: "
-            '{"thought":"...", "action":"retrieve_guidelines", "action_input":{"query":"..."}, "done": false}\n'
-            "如果证据已经足够，请输出 JSON: "
-            '{"thought":"...", "action":"finish", "final_recommendation":"...", "recommended_drugs":["..."], "done": true}'
+            "如果还需要证据，就调用最合适的工具；如果证据已经足够，就直接给出最终诊疗建议。"
         )
 
-    def _call_agent(self, messages: list[dict[str, Any]]) -> str:
-        llm_client = self._llm_client
-        if llm_client is None:
-            return ""
-        try:
-            return llm_client.chat(messages, response_format={"type": "json_object"})
-        except Exception:
-            try:
-                return llm_client.chat(messages)
-            except Exception:
-                return ""
-
-    def _parse_agent_json(self, text: str) -> dict[str, Any]:
-        cleaned = text.strip()
-        if not cleaned:
-            return {}
-        try:
-            payload = json.loads(cleaned)
-            return payload if isinstance(payload, dict) else {}
-        except json.JSONDecodeError:
-            pass
-
-        match = re.search(r"\{[\s\S]*\}", cleaned)
-        if not match:
-            return {}
-        try:
-            payload = json.loads(match.group(0))
-            return payload if isinstance(payload, dict) else {}
-        except json.JSONDecodeError:
-            return {}
-
-    def _normalize_action(self, value: Any) -> str:
-        return str(value or "").strip().lower()
-
-    def _extract_final_recommendation(self, payload: dict[str, Any]) -> str:
-        for key in ("final_recommendation", "final_answer", "answer", "recommendation"):
-            value = payload.get(key)
+    def _extract_structured_recommendation(self, payload: Any) -> str:
+        """从结构化结果里提取最终建议文本。"""
+        if isinstance(payload, ReasonerStructuredResponse):
+            return payload.final_recommendation.strip()
+        if isinstance(payload, dict):
+            value = payload.get("final_recommendation")
             if isinstance(value, str) and value.strip():
                 return value.strip()
         return ""
 
-    def _normalize_recommended_drugs(self, value: Any) -> list[str]:
-        if value is None:
-            return []
-        if isinstance(value, str):
-            return _dedupe(re.split(r"[，,、;\n]+", value))
-        if isinstance(value, list):
-            return _dedupe([str(item) for item in value])
+    def _extract_structured_recommended_drugs(self, payload: Any) -> list[str]:
+        """从结构化结果里提取推荐药物列表。"""
+        if isinstance(payload, ReasonerStructuredResponse):
+            return _dedupe(payload.recommended_drugs)
+        if isinstance(payload, dict):
+            value = payload.get("recommended_drugs")
+            if isinstance(value, list):
+                return _dedupe([str(item) for item in value])
         return []
 
+    def _extract_message_text(self, messages: list[Any]) -> str:
+        """从 LangGraph 返回的消息列表中提取最后一条 AI 文本。"""
+        for message in reversed(messages):
+            if isinstance(message, ToolMessage):
+                continue
+            content = getattr(message, "content", "")
+            text = self._normalize_message_content(content)
+            if text:
+                return text
+        return ""
+
+    def _build_scratchpad(self, messages: list[Any]) -> list[str]:
+        """把 LangGraph 消息历史整理成便于调试的文本轨迹。"""
+        scratchpad: list[str] = []
+        for message in messages:
+            role = getattr(message, "type", message.__class__.__name__)
+            content = self._normalize_message_content(getattr(message, "content", ""))
+            if content:
+                scratchpad.append(f"{role}: {content}")
+        return scratchpad
+
+    def _normalize_message_content(self, content: Any) -> str:
+        """把 LangChain 消息内容压平成普通文本。"""
+        if isinstance(content, str):
+            return content.strip()
+        if isinstance(content, list):
+            parts: list[str] = []
+            for item in content:
+                if isinstance(item, str):
+                    parts.append(item)
+                    continue
+                if not isinstance(item, dict):
+                    continue
+                text = item.get("text")
+                if text:
+                    parts.append(str(text))
+            return "\n".join(parts).strip()
+        return str(content).strip()
+
     def _build_default_query(self, patient_state: PatientState) -> str:
+        """当外部未传入检索词时，根据患者状态拼默认 RAG 查询。"""
         indicator_tokens = [f"{name}:{value}" for name, value in patient_state.indicators.items()]
         disease_tokens = patient_state.diseases
         return " ".join(indicator_tokens + disease_tokens) or "1型糖尿病 指南 用药"

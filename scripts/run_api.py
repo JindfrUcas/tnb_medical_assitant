@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Start FastAPI server for Dia-Agent."""
+"""启动 Dia-Agent 的 FastAPI 服务。"""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from dia_agent.config import get_settings
 
 
 def main() -> int:
+    """按配置启动 Uvicorn。"""
     settings = get_settings()
     uvicorn.run(
         "dia_agent.api.app:app",

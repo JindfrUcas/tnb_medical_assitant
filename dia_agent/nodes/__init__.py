@@ -1,4 +1,4 @@
-"""Workflow nodes for Dia-Agent."""
+"""Dia-Agent 工作流节点导出。"""
 
 from dia_agent.nodes.auditor import AuditorNode
 from dia_agent.nodes.guardrail import GuardrailNode

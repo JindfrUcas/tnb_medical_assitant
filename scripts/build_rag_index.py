@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build ChromaDB index from diabetes guideline PDFs."""
+"""从糖尿病指南 PDF 构建 Chroma 向量索引。"""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from dia_agent.rag.indexer import RagIndexer
 
 
 def parse_args() -> argparse.Namespace:
+    """解析构建 RAG 索引所需的命令行参数。"""
     parser = argparse.ArgumentParser(description="Build RAG index for Dia-Agent")
     parser.add_argument(
         "--pdf",
@@ -32,6 +33,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    """执行 RAG 索引构建。"""
     args = parse_args()
     settings = get_settings()
 

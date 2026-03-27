@@ -1,4 +1,7 @@
-"""Guardrail node: enforce hard clinical constraints."""
+"""Guardrail 节点：执行硬性临床约束检查。
+
+这一层是整个系统的安全核心，负责在生成建议之前先查禁忌、排除项和剂量调整规则。
+"""
 
 from __future__ import annotations
 
@@ -9,17 +12,23 @@ from dia_agent.schemas import ContraindicationHit, DosageAdjustmentHit, Guardrai
 
 
 class GuardrailRepository(Protocol):
+    """Guardrail 节点依赖的数据仓库协议。"""
+
     def contraindications_by_indicator(self, indicator_name: str) -> list[dict[str, Any]]:
+        """按指标名查询禁忌规则。"""
         ...
 
     def excludes_by_disease(self, disease_name: str) -> list[dict[str, Any]]:
+        """按疾病名查询排除药物。"""
         ...
 
     def adjustments_by_drug(self, drug_name: str) -> list[dict[str, Any]]:
+        """按药物名查询剂量调整规则。"""
         ...
 
 
 def _to_float(value: Any) -> float | None:
+    """尽量把输入值转换成浮点数。"""
     try:
         return float(value)
     except (TypeError, ValueError):
@@ -27,6 +36,7 @@ def _to_float(value: Any) -> float | None:
 
 
 def _compare(left: float, operator: str, right: Any) -> bool:
+    """执行基础数值比较。"""
     threshold = _to_float(right)
     if threshold is None:
         return False
@@ -48,10 +58,12 @@ def _compare(left: float, operator: str, right: Any) -> bool:
 
 
 def _condition_mentions_indicator(condition: str, indicator_name: str) -> bool:
+    """判断条件字符串里是否提到了某个指标。"""
     return indicator_name.lower() in condition.lower()
 
 
 def _match_range_condition(condition: str, indicator_name: str, value: float) -> bool:
+    """匹配区间条件，例如 `30-45` 这类表达。"""
     pattern = re.compile(r"(\d+(?:\.\d+)?)\s*[-~至]\s*(\d+(?:\.\d+)?)")
     if not _condition_mentions_indicator(condition, indicator_name):
         return False
@@ -64,6 +76,7 @@ def _match_range_condition(condition: str, indicator_name: str, value: float) ->
 
 
 def _match_comparator_condition(condition: str, indicator_name: str, value: float) -> bool:
+    """匹配比较条件，例如 `< 30`、`>= 45`。"""
     pattern = re.compile(r"(<=|>=|<|>|=)\s*(\d+(?:\.\d+)?)")
     if not _condition_mentions_indicator(condition, indicator_name):
         return False
@@ -74,10 +87,14 @@ def _match_comparator_condition(condition: str, indicator_name: str, value: floa
 
 
 class GuardrailNode:
+    """根据患者状态构建结构化红线报告。"""
+
     def __init__(self, repository: GuardrailRepository):
+        """初始化红线节点，并注入底层规则仓库。"""
         self._repository = repository
 
     def run(self, patient_state: PatientState) -> GuardrailReport:
+        """执行红线检索并生成白皮书。"""
         contraindications: list[ContraindicationHit] = []
         dosage_adjustments: list[DosageAdjustmentHit] = []
 
@@ -145,6 +162,7 @@ class GuardrailNode:
         )
 
     def _condition_matches(self, patient_state: PatientState, condition: str) -> bool:
+        """判断剂量调整条件是否与当前患者状态匹配。"""
         normalized = condition.strip()
         if not normalized:
             return True
@@ -173,6 +191,7 @@ class GuardrailNode:
         contraindications: list[ContraindicationHit],
         dosage_adjustments: list[DosageAdjustmentHit],
     ) -> str:
+        """把命中的规则整理成可读性较好的白皮书文本。"""
         lines: list[str] = ["《本次问诊安全约束白皮书》"]
         lines.append("一、患者关键状态")
 

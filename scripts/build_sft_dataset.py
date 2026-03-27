@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build SFT training dataset from graph constraints."""
+"""根据图谱红线规则构建 SFT 训练数据集。"""
 
 from __future__ import annotations
 
@@ -15,6 +15,7 @@ from dia_agent.sft.generator import generate_sft_dataset
 
 
 def parse_args() -> argparse.Namespace:
+    """解析 SFT 数据集构建参数。"""
     parser = argparse.ArgumentParser(description="Generate SFT dataset for Dia-Agent")
     parser.add_argument("--graph", type=Path, default=Path("dataset/graph.json"))
     parser.add_argument("--output", type=Path, default=Path("dataset/sft_guardrail_2k.jsonl"))
@@ -24,6 +25,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    """执行 SFT 数据集生成脚本。"""
     args = parse_args()
     if not args.graph.exists():
         raise FileNotFoundError(f"graph file not found: {args.graph}")

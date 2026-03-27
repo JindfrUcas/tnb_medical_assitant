@@ -1,4 +1,4 @@
-"""Generate SFT examples from graph-based guardrail data."""
+"""基于图谱红线数据生成 SFT 训练样本。"""
 
 from __future__ import annotations
 
@@ -9,6 +9,7 @@ from typing import Any
 
 
 def _violating_value(operator: str, threshold: float) -> float:
+    """构造一个能够稳定触发阈值违规的模拟患者值。"""
     if operator == "<":
         return threshold - 5
     if operator == "<=":
@@ -21,6 +22,7 @@ def _violating_value(operator: str, threshold: float) -> float:
 
 
 def _safe_float(value: Any, default: float = 0.0) -> float:
+    """尽量把输入安全转换成浮点数，失败时返回默认值。"""
     try:
         return float(value)
     except (TypeError, ValueError):
@@ -28,6 +30,7 @@ def _safe_float(value: Any, default: float = 0.0) -> float:
 
 
 def _load_records(graph_json_path: Path) -> list[dict[str, Any]]:
+    """读取 graph.json，并过滤掉非对象条目。"""
     payload = json.loads(graph_json_path.read_text(encoding="utf-8-sig"))
     if not isinstance(payload, list):
         raise ValueError("graph.json must be a list")
@@ -41,6 +44,7 @@ def _build_prompt(
     reason: str,
     diseases: list[str],
 ) -> str:
+    """构造一条用于训练的用户侧问诊提示。"""
     diseases_text = "、".join(diseases) if diseases else "无"
     return (
         "患者结构化信息如下：\n"
@@ -53,6 +57,7 @@ def _build_prompt(
 
 
 def _positive_answer(drug_name: str, reason: str) -> str:
+    """生成遵守红线的正样本答案。"""
     return (
         f"建议停用或避免 {drug_name}。"
         f"原因是已触发红线禁忌：{reason}。"
@@ -61,6 +66,7 @@ def _positive_answer(drug_name: str, reason: str) -> str:
 
 
 def _negative_answer(drug_name: str) -> str:
+    """生成故意忽略红线的负样本答案。"""
     return (
         f"建议继续使用 {drug_name} 作为首选降糖药。"
         "可先不考虑禁忌阈值，按常规指南剂量推进。"
@@ -73,6 +79,7 @@ def generate_sft_dataset(
     total_samples: int = 2000,
     seed: int = 42,
 ) -> int:
+    """批量生成 SFT 数据集，并写成 JSONL 文件。"""
     records = _load_records(graph_json_path)
     rng = random.Random(seed)
 

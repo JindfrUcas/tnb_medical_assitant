@@ -1,4 +1,7 @@
-"""Build and persist Chroma-based guideline index."""
+"""RAG 索引构建模块。
+
+负责把 PDF 指南解析成文本切片，再写入 Chroma 向量库。
+"""
 
 from __future__ import annotations
 
@@ -18,6 +21,8 @@ from dia_agent.rag.extractor import infer_source_label, pdf_to_markdown
 
 
 class RagIndexer:
+    """把指南 PDF 构建成可检索的向量索引。"""
+
     def __init__(
         self,
         persist_dir: Path,
@@ -26,6 +31,7 @@ class RagIndexer:
         chunk_size: int = 800,
         chunk_overlap: int = 100,
     ):
+        """初始化索引器，并准备好文本切片器。"""
         self._persist_dir = persist_dir
         self._embedding_model = embedding_model
         self._collection_name = collection_name
@@ -35,6 +41,7 @@ class RagIndexer:
         )
 
     def build(self, pdf_paths: list[Path], reset: bool = False) -> int:
+        """构建索引并返回最终写入的 chunk 数量。"""
         if reset and self._persist_dir.exists():
             shutil.rmtree(self._persist_dir)
         self._persist_dir.mkdir(parents=True, exist_ok=True)
@@ -54,6 +61,7 @@ class RagIndexer:
         return len(docs)
 
     def _extract_documents(self, pdf_paths: list[Path]) -> list[Document]:
+        """把 PDF 转成切片后的 LangChain `Document` 列表。"""
         docs: list[Document] = []
         for pdf_path in pdf_paths:
             markdown = pdf_to_markdown(pdf_path)

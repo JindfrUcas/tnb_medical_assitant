@@ -1,4 +1,4 @@
-"""Optional Ragas evaluation integration."""
+"""可选的 Ragas 评测集成。"""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ from typing import Any
 
 
 def run_ragas(records: list[dict[str, Any]]) -> dict[str, float]:
+    """把问答记录转换成 Ragas 数据集并计算指标均值。"""
     from datasets import Dataset
     from ragas import evaluate
     from ragas.metrics import answer_relevancy, context_precision, faithfulness

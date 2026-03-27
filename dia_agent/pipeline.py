@@ -8,9 +8,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from langchain_core.language_models.chat_models import BaseChatModel
+
 from dia_agent.config import Settings, get_settings
 from dia_agent.graph.repository import JsonGuardrailRepository, Neo4jGuardrailRepository
-from dia_agent.llm import LLMConfig, OpenAICompatibleChatClient
+from dia_agent.llm import LLMConfig, build_chat_model
 from dia_agent.nodes.auditor import AuditorNode
 from dia_agent.nodes.guardrail import GuardrailNode
 from dia_agent.nodes.perception import PerceptionNode
@@ -90,7 +92,7 @@ class DiaAgentPipeline:
             raise FileNotFoundError(f"Missing graph.json at {graph_json_path}")
         return JsonGuardrailRepository(graph_json_path)
 
-    def _build_llm_client(self) -> OpenAICompatibleChatClient | None:
+    def _build_llm_client(self) -> BaseChatModel | None:
         """构建文本推理模型客户端。"""
         if not self._settings.llm_base_url or not self._settings.llm_api_key:
             return None
@@ -102,9 +104,9 @@ class DiaAgentPipeline:
             temperature=self._settings.llm_temperature,
             timeout_sec=self._settings.llm_timeout_sec,
         )
-        return OpenAICompatibleChatClient(config)
+        return build_chat_model(config)
 
-    def _build_vision_client(self) -> OpenAICompatibleChatClient | None:
+    def _build_vision_client(self) -> BaseChatModel | None:
         """构建视觉模型客户端。
 
         当前项目的图片能力主要用在 Perception 节点，用于把化验单等图片转成结构化状态。
@@ -121,4 +123,4 @@ class DiaAgentPipeline:
             temperature=0.0,
             timeout_sec=self._settings.llm_timeout_sec,
         )
-        return OpenAICompatibleChatClient(config)
+        return build_chat_model(config)

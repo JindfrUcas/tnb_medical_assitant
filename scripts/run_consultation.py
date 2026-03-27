@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run one consultation from CLI."""
+"""通过命令行发起一次问诊调用。"""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from dia_agent.pipeline import DiaAgentPipeline
 
 
 def parse_args() -> argparse.Namespace:
+    """解析命令行问诊参数。"""
     parser = argparse.ArgumentParser(description="Run Dia-Agent consultation")
     parser.add_argument("--raw-input", type=str, default="")
     parser.add_argument("--input-file", type=Path, default=None)
@@ -26,6 +27,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def parse_payload(raw_text: str) -> str | dict:
+    """优先把输入解析成 JSON；失败时保留为原始文本。"""
     text = raw_text.strip()
     if not text:
         return {
@@ -43,6 +45,7 @@ def parse_payload(raw_text: str) -> str | dict:
 
 
 def main() -> int:
+    """组装输入负载并执行一次完整问诊。"""
     args = parse_args()
     if args.input_file:
         raw_text = args.input_file.read_text(encoding="utf-8")

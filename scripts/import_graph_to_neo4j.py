@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bulk import Dia-Agent graph data into Neo4j."""
+"""把 Dia-Agent 的图谱数据批量导入 Neo4j。"""
 
 from __future__ import annotations
 
@@ -92,6 +92,8 @@ MERGE (drug)-[:ADJUST_DOSAGE {condition: row.condition}]->(strategy)
 
 @dataclass
 class GraphRows:
+    """保存导入前整理好的各类节点与边数据。"""
+
     drugs: list[dict[str, Any]]
     indicators: list[dict[str, Any]]
     diseases: list[dict[str, Any]]
@@ -102,6 +104,7 @@ class GraphRows:
 
 
 def parse_args() -> argparse.Namespace:
+    """解析 Neo4j 导入脚本参数。"""
     parser = argparse.ArgumentParser(
         description="Import Dia-Agent graph.json into Neo4j with schema-safe MERGE operations."
     )
@@ -151,6 +154,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def load_json_documents(path: Path) -> list[dict[str, Any]]:
+    """读取一个或多个连续 JSON 文档，并统一展开成对象列表。"""
     text = path.read_text(encoding="utf-8-sig")
     decoder = json.JSONDecoder()
     offset = 0
@@ -177,6 +181,7 @@ def load_json_documents(path: Path) -> list[dict[str, Any]]:
 
 
 def normalize_text(value: Any, field_name: str, allow_empty: bool = False) -> str:
+    """把字段标准化成字符串，并校验必填约束。"""
     if value is None:
         if allow_empty:
             return ""
@@ -188,6 +193,7 @@ def normalize_text(value: Any, field_name: str, allow_empty: bool = False) -> st
 
 
 def ensure_list(value: Any, field_name: str) -> list[Any]:
+    """确保某个字段为列表，不存在时返回空列表。"""
     if value in (None, ""):
         return []
     if not isinstance(value, list):
@@ -196,6 +202,7 @@ def ensure_list(value: Any, field_name: str) -> list[Any]:
 
 
 def normalize_threshold(value: Any) -> int | float | str:
+    """把阈值字段标准化成数值或原始字符串。"""
     if isinstance(value, (int, float)):
         return value
     text = normalize_text(value, "threshold")
@@ -207,14 +214,17 @@ def normalize_threshold(value: Any) -> int | float | str:
 
 
 def indicator_key(name: str, unit: str) -> str:
+    """生成指标节点的稳定唯一键。"""
     return f"{name}::{unit}"
 
 
 def strategy_description(action: str, note: str) -> str:
+    """把动作与备注拼成剂量策略描述。"""
     return action if not note else f"{action}；{note}"
 
 
 def build_rows(records: list[dict[str, Any]]) -> GraphRows:
+    """把原始 graph.json 记录整理成适合批量导入的行数据。"""
     drug_names: set[str] = set()
     disease_names: set[str] = set()
     indicator_rows: dict[str, dict[str, Any]] = {}
@@ -298,11 +308,13 @@ def build_rows(records: list[dict[str, Any]]) -> GraphRows:
 
 
 def batched(rows: list[dict[str, Any]], batch_size: int) -> Iterable[list[dict[str, Any]]]:
+    """按批大小切分待导入数据。"""
     for index in range(0, len(rows), batch_size):
         yield rows[index : index + batch_size]
 
 
 def execute_batches(session: Any, query: str, rows: list[dict[str, Any]], batch_size: int, label: str) -> None:
+    """按批执行 Cypher 导入语句，并打印进度。"""
     total = len(rows)
     if total == 0:
         print(f"{label}: 0 rows")
@@ -314,11 +326,13 @@ def execute_batches(session: Any, query: str, rows: list[dict[str, Any]], batch_
 
 
 def create_constraints(session: Any) -> None:
+    """确保导入所需的唯一约束已存在。"""
     for statement in CREATE_CONSTRAINTS:
         session.run(statement).consume()
 
 
 def print_summary(rows: GraphRows) -> None:
+    """打印本次导入的数据规模摘要。"""
     print("Schema summary")
     print(f"  Drug nodes: {len(rows.drugs)}")
     print(f"  Indicator nodes: {len(rows.indicators)}")
@@ -330,6 +344,7 @@ def print_summary(rows: GraphRows) -> None:
 
 
 def main() -> int:
+    """执行导入流程，必要时连接 Neo4j 并批量写入。"""
     args = parse_args()
 
     if args.batch_size <= 0:

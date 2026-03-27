@@ -1,4 +1,4 @@
-"""Run batch safety evaluation for Dia-Agent."""
+"""批量运行 Dia-Agent 安全评测。"""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ from dia_agent.pipeline import DiaAgentPipeline
 
 
 def parse_args() -> argparse.Namespace:
+    """解析命令行评测参数。"""
     parser = argparse.ArgumentParser(description="Run trap-case evaluation for Dia-Agent")
     parser.add_argument("--graph", type=Path, default=Path("dataset/graph.json"))
     parser.add_argument("--cases", type=Path, default=Path("dataset/trap_cases.json"))
@@ -21,6 +22,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    """执行陷阱样本评测，并可选输出 Ragas 指标。"""
     args = parse_args()
 
     if args.rebuild_cases or not args.cases.exists():

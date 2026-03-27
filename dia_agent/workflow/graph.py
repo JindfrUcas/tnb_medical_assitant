@@ -30,6 +30,7 @@ class DiaAgentWorkflow:
         retriever: GuidelineRetriever,
         max_retries: int = 3,
     ):
+        """初始化工作流依赖，并立即编译 LangGraph 执行图。"""
         self._perception = perception_node
         self._guardrail = guardrail_node
         self._reasoner = reasoner_node

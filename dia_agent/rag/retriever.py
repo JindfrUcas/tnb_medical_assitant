@@ -1,4 +1,7 @@
-"""Retriever for guideline snippets from ChromaDB."""
+"""RAG 检索模块。
+
+负责从已构建好的向量索引中取回与当前问题最相关的指南片段。
+"""
 
 from __future__ import annotations
 
@@ -15,13 +18,17 @@ from dia_agent.schemas import RagSnippet
 
 
 class GuidelineRetriever:
+    """指南检索器。"""
+
     def __init__(self, persist_dir: Path, embedding_model: str, collection_name: str):
+        """初始化检索器，但延迟创建向量库连接。"""
         self._persist_dir = persist_dir
         self._embedding_model = embedding_model
         self._collection_name = collection_name
         self._vector_store: Chroma | None = None
 
     def retrieve(self, query: str, top_k: int = 4, source: str | None = None) -> list[RagSnippet]:
+        """执行相似度检索并返回统一结构。"""
         query = query.strip()
         if not query:
             return []
@@ -44,6 +51,7 @@ class GuidelineRetriever:
         return snippets
 
     def _get_vector_store(self) -> Chroma:
+        """按需初始化 Chroma 向量库连接。"""
         if self._vector_store is None:
             embedding = HuggingFaceEmbeddings(model_name=self._embedding_model)
             self._vector_store = Chroma(

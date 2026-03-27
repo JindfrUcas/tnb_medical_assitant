@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Wrapper script to run Dia-Agent evaluation."""
+"""运行 Dia-Agent 评测脚本的轻量入口。"""
 
 from __future__ import annotations
 

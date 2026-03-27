@@ -1,1 +1,1 @@
-"""UI package for Dia-Agent."""
+"""前端界面相关包。"""
