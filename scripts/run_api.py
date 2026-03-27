@@ -12,9 +12,17 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from dia_agent.config import get_settings
+
 
 def main() -> int:
-    uvicorn.run("dia_agent.api.app:app", host="0.0.0.0", port=8000, reload=False)
+    settings = get_settings()
+    uvicorn.run(
+        "dia_agent.api.app:app",
+        host=settings.api_host,
+        port=settings.api_port,
+        reload=settings.api_reload,
+    )
     return 0
 
 

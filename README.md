@@ -3,6 +3,7 @@
 Dia-Agent 是一个面向糖尿病场景的 `Guardrail-First` 智能体项目。它把结构化红线约束、指南检索、问诊推理和结果审计串成一条完整链路，用来生成更安全、更可追溯的诊疗建议。
 
 详细使用说明见：`docs/详细使用文档.md`
+项目学习文档见：`docs/项目学习文档.md`
 
 ## 1. 快速开始
 
@@ -33,6 +34,7 @@ streamlit run dia_agent/ui/streamlit_app.py
 - **红线约束检索**：在生成建议之前，先从图谱或本地结构化数据中检索禁忌、阈值和剂量调整规则。
 - **指南 RAG 检索**：从糖尿病相关指南 PDF 中检索与当前问题相关的参考片段。
 - **诊疗建议生成**：融合患者信息、红线约束和指南片段，输出最终建议。
+- **ReAct 自主决策**：Reasoner 可以按需调用受控工具，自己决定先查什么、再如何作答。
 - **结果审计回流**：如果建议违反安全约束，审计节点会拦截并触发重新生成。
 - **多种使用方式**：支持命令行问诊、FastAPI 接口和 Streamlit 前端演示。
 
@@ -123,6 +125,8 @@ export DIA_AGENT_VISION_WIRE_API="chat_completions"
 ```
 
 可复制 `.env.example` 为 `.env` 后填写自己的配置。
+
+现在推荐把所有运行参数都统一写在根目录 `.env` 中，项目已经把 API、UI、RAG、Neo4j、LLM、ReAct 步数等配置收口到 `dia_agent/config.py`。
 
 如果不配置 Neo4j 凭据，系统会自动回退到 `dataset/graph.json` 作为结构化约束源。
 
@@ -226,5 +230,6 @@ python scripts/build_sft_dataset.py --size 2000 --output dataset/sft_guardrail_2
 ## 6. 关键约束原则
 
 - 先 Guardrail，后 Reasoner。
+- Reasoner 采用受控 ReAct：AI 只决定“下一步查什么”，不直接编写数据库查询。
 - 指南建议与红线冲突时，红线绝对优先。
 - Auditor 对输出执行二次审计，违规自动回流。

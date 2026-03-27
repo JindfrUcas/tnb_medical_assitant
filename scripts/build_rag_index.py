@@ -35,10 +35,7 @@ def main() -> int:
     args = parse_args()
     settings = get_settings()
 
-    pdf_paths = args.pdf or [
-        Path("dataset/中国1型糖尿病诊治指南（2021版）.pdf"),
-        Path("dataset/dc26sint.pdf"),
-    ]
+    pdf_paths = args.pdf or settings.guideline_pdf_paths
     for pdf_path in pdf_paths:
         if not pdf_path.exists():
             raise FileNotFoundError(f"PDF not found: {pdf_path}")

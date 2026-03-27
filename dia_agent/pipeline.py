@@ -1,4 +1,8 @@
-"""Top-level pipeline entry for consultation flow."""
+"""项目总装配入口。
+
+`DiaAgentPipeline` 负责把配置、图谱仓库、LLM 客户端、RAG 检索器和 LangGraph 工作流装配在一起。
+你可以把它理解成整个项目的“总控制台”。
+"""
 
 from __future__ import annotations
 
@@ -10,29 +14,41 @@ from dia_agent.llm import LLMConfig, OpenAICompatibleChatClient
 from dia_agent.nodes.auditor import AuditorNode
 from dia_agent.nodes.guardrail import GuardrailNode
 from dia_agent.nodes.perception import PerceptionNode
-from dia_agent.nodes.reasoner import ReasonerNode
+from dia_agent.nodes.reasoner import ReActReasonerNode
 from dia_agent.rag.retriever import GuidelineRetriever
 from dia_agent.schemas import ConsultationOutput
 from dia_agent.workflow.graph import DiaAgentWorkflow
 
 
 class DiaAgentPipeline:
+    """Dia-Agent 的顶层调用入口。"""
+
     def __init__(self, settings: Settings | None = None):
+        """根据配置组装整套问诊链路。"""
         self._settings = settings or get_settings()
         self._repository = self._build_repository()
 
+        # 语言模型负责文本推理；视觉模型主要用于多模态结构化抽取。
+        # 如果没有单独配置视觉模型，就退回复用文本模型。
         llm_client = self._build_llm_client()
         vision_client = self._build_vision_client() or llm_client
 
+        # 这里把“感知、红线、推理、审计、RAG 检索”几个核心部件拼成一条工作流。
         perception = PerceptionNode(llm_client=vision_client)
         guardrail = GuardrailNode(self._repository)
-        reasoner = ReasonerNode(llm_client=llm_client)
-        auditor = AuditorNode()
         retriever = GuidelineRetriever(
             persist_dir=self._settings.chroma_persist_dir,
             embedding_model=self._settings.embedding_model,
             collection_name=self._settings.chroma_collection,
         )
+        reasoner = ReActReasonerNode(
+            llm_client=llm_client,
+            repository=self._repository,
+            retriever=retriever,
+            max_steps=self._settings.react_max_steps,
+            retrieval_k=self._settings.retrieval_k,
+        )
+        auditor = AuditorNode()
 
         self._workflow = DiaAgentWorkflow(
             perception_node=perception,
@@ -44,14 +60,20 @@ class DiaAgentPipeline:
         )
 
     def consult(self, raw_input: str | dict, rag_query: str = "", history_text: str = "") -> ConsultationOutput:
+        """对外暴露的统一问诊方法。"""
         return self._workflow.invoke(raw_input=raw_input, rag_query=rag_query, history_text=history_text)
 
     def close(self) -> None:
+        """释放底层资源，比如 Neo4j 连接。"""
         close_method = getattr(self._repository, "close", None)
         if callable(close_method):
             close_method()
 
     def _build_repository(self):
+        """构建结构化红线数据源。
+
+        优先使用 Neo4j；如果没有配置或连接失败，则回退到本地 `graph.json`。
+        """
         if self._settings.neo4j_password:
             try:
                 return Neo4jGuardrailRepository(
@@ -69,6 +91,7 @@ class DiaAgentPipeline:
         return JsonGuardrailRepository(graph_json_path)
 
     def _build_llm_client(self) -> OpenAICompatibleChatClient | None:
+        """构建文本推理模型客户端。"""
         if not self._settings.llm_base_url or not self._settings.llm_api_key:
             return None
         config = LLMConfig(
@@ -82,6 +105,10 @@ class DiaAgentPipeline:
         return OpenAICompatibleChatClient(config)
 
     def _build_vision_client(self) -> OpenAICompatibleChatClient | None:
+        """构建视觉模型客户端。
+
+        当前项目的图片能力主要用在 Perception 节点，用于把化验单等图片转成结构化状态。
+        """
         base_url = self._settings.vision_base_url or self._settings.llm_base_url
         api_key = self._settings.vision_api_key or self._settings.llm_api_key
         if not base_url or not api_key:
