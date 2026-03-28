@@ -72,7 +72,7 @@ class AgentToolbox:
                 "- search_indicator_rules: 按指标名查询相关禁忌规则，如 eGFR。",
                 "- search_disease_excludes: 按疾病名查询排除药物。",
                 "- search_dosage_adjustments: 按药物名查询剂量调整规则。",
-                "- retrieve_guidelines: 检索指南片段，参数可包含 query/top_k/source。",
+                "- retrieve_guidelines: 检索指南片段，内部会优先走图证据，再补向量召回；参数可包含 query/top_k/source。",
                 "- list_safe_current_drugs: 列出当前用药中未命中禁忌的部分。",
             ]
         )

@@ -31,14 +31,14 @@ class Settings(BaseSettings):
     graph_json_path: Path = Field(default=Path("dataset/graph.json"))
     guideline_pdf_paths: list[Path] = Field(
         default_factory=lambda: [
-            Path("dataset/中国1型糖尿病诊治指南（2021版）.pdf"),
-            Path("dataset/dc26sint.pdf"),
+            Path("dataset/中国糖尿病防治指南（2024版）.pdf"),
         ]
     )
 
     chroma_persist_dir: Path = Field(default=Path("data/chroma"))
     chroma_collection: str = Field(default="dia_guidelines")
     embedding_model: str = Field(default="moka-ai/m3e-base")
+    embedding_device: str = Field(default="cpu")
     retrieval_k: int = Field(default=4)
     default_rag_query: str = Field(default="1型糖尿病 肾功能不全 用药")
 
@@ -78,8 +78,7 @@ class Settings(BaseSettings):
         """支持从列表或逗号分隔字符串读取默认指南 PDF 列表。"""
         if value is None or value == "":
             return [
-                Path("dataset/中国1型糖尿病诊治指南（2021版）.pdf"),
-                Path("dataset/dc26sint.pdf"),
+                Path("dataset/中国糖尿病防治指南（2024版）.pdf"),
             ]
         if isinstance(value, str):
             items = [item.strip() for item in value.split(",") if item.strip()]

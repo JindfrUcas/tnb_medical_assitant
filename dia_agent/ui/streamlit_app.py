@@ -92,13 +92,18 @@ if st.button("开始问诊", type="primary"):
             }
     else:
         consult_payload = parsed_raw
-    result = pipeline.consult(consult_payload, rag_query=rag_query, history_text=history_text)
+    try:
+        with st.spinner("正在分析患者状态并生成建议，请稍候..."):
+            result = pipeline.consult(consult_payload, rag_query=rag_query, history_text=history_text)
 
-    st.subheader("Agent 输出")
-    st.write(result.reasoner_result.recommendation)
-    with st.expander("执行轨迹", expanded=False):
-        st.code("\n".join(result.trace) if result.trace else "无轨迹")
-    with st.expander("安全白皮书", expanded=False):
-        st.text(result.guardrail_report.whitepaper)
-    with st.expander("审计结果", expanded=False):
-        st.json(result.audit_result.model_dump())
+        st.subheader("Agent 输出")
+        st.write(result.reasoner_result.recommendation)
+        with st.expander("执行轨迹", expanded=False):
+            st.code("\n".join(result.trace) if result.trace else "无轨迹")
+        with st.expander("安全白皮书", expanded=False):
+            st.text(result.guardrail_report.whitepaper)
+        with st.expander("审计结果", expanded=False):
+            st.json(result.audit_result.model_dump())
+    except Exception as exc:
+        st.error(f"问诊执行失败: {exc}")
+        st.exception(exc)

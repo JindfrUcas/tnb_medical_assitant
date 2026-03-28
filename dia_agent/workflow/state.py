@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any, TypedDict
 
-from dia_agent.schemas import AuditResult, GuardrailReport, PatientState, RagSnippet, ReasonerResult
+from dia_agent.schemas import AuditResult, EvidenceBundle, GuardrailReport, PatientState, RagSnippet, ReasonerResult
 
 
 class DiaAgentState(TypedDict, total=False):
@@ -19,6 +19,7 @@ class DiaAgentState(TypedDict, total=False):
     history_text: str
     patient_state: PatientState
     guardrail_report: GuardrailReport
+    evidence_bundle: EvidenceBundle
     rag_snippets: list[RagSnippet]
     reasoner_result: ReasonerResult
     audit_result: AuditResult

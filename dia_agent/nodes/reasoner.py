@@ -19,7 +19,7 @@ from pydantic import BaseModel, Field
 from dia_agent.agent_tools import AgentToolbox, build_langchain_tools
 from dia_agent.graph.repository import JsonGuardrailRepository, Neo4jGuardrailRepository
 from dia_agent.rag.retriever import GuidelineRetriever
-from dia_agent.schemas import GuardrailReport, PatientState, RagSnippet, ReasonerResult
+from dia_agent.schemas import EvidenceBundle, GuardrailReport, PatientState, RagSnippet, ReasonerResult
 
 
 @dataclass
@@ -88,16 +88,18 @@ class ReasonerNode:
         self,
         patient_state: PatientState,
         guardrail_report: GuardrailReport,
+        evidence_bundle: EvidenceBundle | None = None,
         rag_snippets: list[RagSnippet] | None = None,
         feedback: str = "",
         default_query: str = "",
     ) -> ReasonerRunOutput:
         """生成建议主入口。"""
-        snippets = list(rag_snippets or [])
+        bundle = evidence_bundle or EvidenceBundle(merged_snippets=list(rag_snippets or []))
+        snippets = list(bundle.merged_snippets or rag_snippets or [])
         if self._llm_client:
-            recommendation = self._llm_generate(patient_state, guardrail_report, snippets, feedback)
+            recommendation = self._llm_generate(patient_state, guardrail_report, bundle, snippets, feedback)
         else:
-            recommendation = self._template_generate(patient_state, guardrail_report, snippets, feedback)
+            recommendation = self._template_generate(patient_state, guardrail_report, bundle, snippets, feedback)
 
         recommended_drugs = self._extract_recommended_drugs(patient_state, guardrail_report)
         return ReasonerRunOutput(
@@ -113,6 +115,7 @@ class ReasonerNode:
         self,
         patient_state: PatientState,
         guardrail_report: GuardrailReport,
+        evidence_bundle: EvidenceBundle,
         rag_snippets: list[RagSnippet],
         feedback: str,
     ) -> str:
@@ -126,7 +129,13 @@ class ReasonerNode:
 
         llm_client = self._llm_client
         if llm_client is None:
-            return self._template_generate(patient_state, guardrail_report, rag_snippets, feedback)
+            return self._template_generate(
+                patient_state=patient_state,
+                guardrail_report=guardrail_report,
+                evidence_bundle=evidence_bundle,
+                rag_snippets=rag_snippets,
+                feedback=feedback,
+            )
         prompt = ChatPromptTemplate.from_messages(
             [
                 (
@@ -138,6 +147,7 @@ class ReasonerNode:
                     "human",
                     "患者状态:\n{patient_json}\n"
                     "红线约束:\n{guardrail_text}\n"
+                    "证据包摘要:\n{evidence_summary}\n"
                     "指南片段:\n{rag_text}\n"
                     "审计反馈: {feedback}",
                 ),
@@ -148,16 +158,18 @@ class ReasonerNode:
             {
                 "patient_json": json.dumps(patient_state.model_dump(), ensure_ascii=False, indent=2),
                 "guardrail_text": "\n".join(guardrail_lines) or "- 无",
+                "evidence_summary": evidence_bundle.summary or "- 无",
                 "rag_text": "\n".join(rag_lines) or "- 无",
                 "feedback": feedback or "无",
             }
         )
-        return content or self._template_generate(patient_state, guardrail_report, rag_snippets, feedback)
+        return content or self._template_generate(patient_state, guardrail_report, evidence_bundle, rag_snippets, feedback)
 
     def _template_generate(
         self,
         patient_state: PatientState,
         guardrail_report: GuardrailReport,
+        evidence_bundle: EvidenceBundle,
         rag_snippets: list[RagSnippet],
         feedback: str,
     ) -> str:
@@ -205,8 +217,12 @@ class ReasonerNode:
                 preview = snippet.content.replace("\n", " ").strip()
                 lines.append(f"- [{snippet.source}] {preview[:180]}")
 
+        if evidence_bundle.summary:
+            lines.append("5) 证据包摘要")
+            lines.append(f"- {evidence_bundle.summary.replace(chr(10), ' | ')}")
+
         if feedback:
-            lines.append("5) 审计修正")
+            lines.append("6) 审计修正")
             lines.append(f"- 已根据审计反馈修正: {feedback}")
 
         return "\n".join(lines)
@@ -253,17 +269,24 @@ class ReActReasonerNode(ReasonerNode):
         self,
         patient_state: PatientState,
         guardrail_report: GuardrailReport,
+        evidence_bundle: EvidenceBundle | None = None,
         rag_snippets: list[RagSnippet] | None = None,
         feedback: str = "",
         default_query: str = "",
     ) -> ReasonerRunOutput:
         """执行 LangGraph ReAct 推理；失败时回退到保守模板策略。"""
-        query_hint = default_query.strip() or self._build_default_query(patient_state)
-        initial_snippets = list(rag_snippets or self._retriever.retrieve(query_hint, top_k=self._retrieval_k))
+        bundle = evidence_bundle or EvidenceBundle()
+        query_hint = (
+            (bundle.query_plan[0] if bundle.query_plan else "").strip()
+            or default_query.strip()
+            or self._build_default_query(patient_state)
+        )
+        initial_snippets = list(bundle.merged_snippets or rag_snippets or self._retriever.retrieve(query_hint, top_k=self._retrieval_k))
         if self._llm_client is None:
             return super().run(
                 patient_state=patient_state,
                 guardrail_report=guardrail_report,
+                evidence_bundle=bundle,
                 rag_snippets=initial_snippets,
                 feedback=feedback,
                 default_query=query_hint,
@@ -295,6 +318,7 @@ class ReActReasonerNode(ReasonerNode):
                             content=self._build_user_prompt(
                                 patient_state=patient_state,
                                 guardrail_report=guardrail_report,
+                                evidence_bundle=bundle,
                                 feedback=feedback,
                                 query_hint=query_hint,
                                 toolbox=toolbox,
@@ -310,6 +334,7 @@ class ReActReasonerNode(ReasonerNode):
             fallback = super().run(
                 patient_state=patient_state,
                 guardrail_report=guardrail_report,
+                evidence_bundle=bundle,
                 rag_snippets=fallback_snippets,
                 feedback=fallback_feedback,
                 default_query=query_hint,
@@ -330,6 +355,7 @@ class ReActReasonerNode(ReasonerNode):
             recommendation = self._template_generate(
                 patient_state=patient_state,
                 guardrail_report=guardrail_report,
+                evidence_bundle=bundle,
                 rag_snippets=toolbox.used_rag_snippets,
                 feedback=feedback,
             )
@@ -366,6 +392,7 @@ class ReActReasonerNode(ReasonerNode):
         self,
         patient_state: PatientState,
         guardrail_report: GuardrailReport,
+        evidence_bundle: EvidenceBundle,
         feedback: str,
         query_hint: str,
         toolbox: AgentToolbox,
@@ -376,12 +403,15 @@ class ReActReasonerNode(ReasonerNode):
             f"患者状态:\n{json.dumps(patient_state.model_dump(), ensure_ascii=False, indent=2)}\n"
             "已命中的红线摘要:\n"
             f"{guardrail_report.whitepaper}\n"
-            f"建议的默认指南检索词: {query_hint or '无'}\n"
+            "系统预组装的证据包摘要:\n"
+            f"{evidence_bundle.summary or '无'}\n"
+            f"建议的默认补充检索词: {query_hint or '无'}\n"
             f"当前已准备的初始指南片段数: {len(toolbox.used_rag_snippets)}\n"
             f"审计反馈: {feedback or '无'}\n"
             "可用工具:\n"
             f"{toolbox.describe_tools()}\n"
-            "请先判断是否还需要工具补充证据。"
+            "请优先基于已经准备好的证据包做决策。"
+            "只有当现有证据明显不足时，才调用工具继续补证据。"
             "如果还需要证据，就调用最合适的工具；如果证据已经足够，就直接给出最终诊疗建议。"
         )
 

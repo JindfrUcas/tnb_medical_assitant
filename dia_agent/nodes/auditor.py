@@ -19,6 +19,8 @@ class AuditorNode:
                 passed=False,
                 violations=violations,
                 feedback=f"建议中出现红线禁药：{text}。请删除并改为安全替代方案。",
+                failure_type="forbidden_drug_violation",
+                repair_focus=f"移除禁药 {text}，并基于已组装证据寻找安全替代方案。",
             )
 
-        return AuditResult(passed=True, violations=[], feedback="")
+        return AuditResult(passed=True, violations=[], feedback="", failure_type="", repair_focus="")

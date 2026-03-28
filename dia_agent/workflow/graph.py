@@ -10,6 +10,7 @@ from typing import Any
 from langgraph.graph import END, START, StateGraph
 
 from dia_agent.nodes.auditor import AuditorNode
+from dia_agent.nodes.evidence import EvidenceAssemblyNode
 from dia_agent.nodes.guardrail import GuardrailNode
 from dia_agent.nodes.perception import PerceptionNode
 from dia_agent.nodes.reasoner import ReasonerNode, ReasonerRunOutput
@@ -25,6 +26,7 @@ class DiaAgentWorkflow:
         self,
         perception_node: PerceptionNode,
         guardrail_node: GuardrailNode,
+        evidence_node: EvidenceAssemblyNode,
         reasoner_node: ReasonerNode,
         auditor_node: AuditorNode,
         retriever: GuidelineRetriever,
@@ -33,6 +35,7 @@ class DiaAgentWorkflow:
         """初始化工作流依赖，并立即编译 LangGraph 执行图。"""
         self._perception = perception_node
         self._guardrail = guardrail_node
+        self._evidence = evidence_node
         self._reasoner = reasoner_node
         self._auditor = auditor_node
         self._retriever = retriever
@@ -65,21 +68,23 @@ class DiaAgentWorkflow:
 
         builder.add_node("perception", self._run_perception)
         builder.add_node("guardrail", self._run_guardrail)
+        builder.add_node("evidence", self._run_evidence)
         builder.add_node("reasoner", self._run_reasoner)
         builder.add_node("auditor", self._run_auditor)
 
-        # 主执行链路：先感知，再查红线，再推理，最后审计。
+        # 主执行链路：先感知，再查红线，再组装证据，最后推理和审计。
         builder.add_edge(START, "perception")
         builder.add_edge("perception", "guardrail")
-        builder.add_edge("guardrail", "reasoner")
+        builder.add_edge("guardrail", "evidence")
+        builder.add_edge("evidence", "reasoner")
         builder.add_edge("reasoner", "auditor")
 
-        # 如果审计未通过，则回流到 reasoner；否则直接结束。
+        # 如果审计未通过，则先回流到 evidence 重组证据，再进入 reasoner；否则直接结束。
         builder.add_conditional_edges(
             "auditor",
             self._route_after_audit,
             {
-                "retry": "reasoner",
+                "retry": "evidence",
                 "end": END,
             },
         )
@@ -111,6 +116,8 @@ class DiaAgentWorkflow:
 
     def _run_reasoner(self, state: DiaAgentState) -> DiaAgentState:
         """融合患者状态、红线和 RAG 片段生成候选建议。"""
+        bundle = state.get("evidence_bundle")
+        snippets = bundle.merged_snippets if bundle is not None else state.get("rag_snippets", [])
         patient_state = state["patient_state"]
         query = state.get("rag_query", "").strip()
         if not query:
@@ -124,7 +131,8 @@ class DiaAgentWorkflow:
         execution = self._reasoner.run(
             patient_state=patient_state,
             guardrail_report=state["guardrail_report"],
-            rag_snippets=state.get("rag_snippets", []),
+            evidence_bundle=bundle,
+            rag_snippets=snippets,
             feedback=feedback,
             default_query=query,
         )
@@ -149,6 +157,27 @@ class DiaAgentWorkflow:
             "reasoner_result": result,
             "tool_calls": tool_calls,
             "agent_scratchpad": agent_scratchpad,
+            "trace": trace,
+        }
+
+    def _run_evidence(self, state: DiaAgentState) -> DiaAgentState:
+        """组装本轮推理要使用的图证据与向量证据。"""
+        feedback = ""
+        audit = state.get("audit_result")
+        if audit and not audit.passed:
+            feedback = audit.repair_focus or audit.feedback
+
+        execution = self._evidence.run(
+            patient_state=state["patient_state"],
+            guardrail_report=state["guardrail_report"],
+            user_query=state.get("rag_query", ""),
+            feedback=feedback,
+        )
+        trace = list(state.get("trace", []))
+        trace.extend(execution.trace_lines)
+        return {
+            "evidence_bundle": execution.evidence_bundle,
+            "rag_snippets": execution.evidence_bundle.merged_snippets,
             "trace": trace,
         }
 

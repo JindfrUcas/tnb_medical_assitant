@@ -99,6 +99,20 @@ class RagSnippet(BaseModel):
     score: float | None = None
 
 
+class EvidenceBundle(BaseModel):
+    """Evidence 节点组装好的证据包。
+
+    这层把工作流里“先查证据、再推理”的中间结果显式结构化，
+    便于后续做回流修复、调试和评测。
+    """
+
+    query_plan: list[str] = Field(default_factory=list)
+    graph_snippets: list[RagSnippet] = Field(default_factory=list)
+    vector_snippets: list[RagSnippet] = Field(default_factory=list)
+    merged_snippets: list[RagSnippet] = Field(default_factory=list)
+    summary: str = ""
+
+
 class ReasonerResult(BaseModel):
     """Reasoner 节点输出结果。"""
 
@@ -113,6 +127,8 @@ class AuditResult(BaseModel):
     passed: bool
     violations: list[str] = Field(default_factory=list)
     feedback: str = ""
+    failure_type: str = ""
+    repair_focus: str = ""
 
 
 class ConsultationOutput(BaseModel):

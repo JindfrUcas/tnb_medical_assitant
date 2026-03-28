@@ -152,7 +152,23 @@ python scripts/import_graph_to_neo4j.py --input dataset/graph.json --uri bolt://
 python scripts/build_rag_index.py --reset
 ```
 
-### 5.3 命令行问诊
+### 5.3 导入指南 GraphRAG 证据图
+
+```bash
+python scripts/import_guideline_to_neo4j.py \
+  --pdf "dataset/中国糖尿病防治指南（2024版）.pdf" \
+  --graph-json dataset/graph.json \
+  --uri bolt://localhost:7687 \
+  --user neo4j \
+  --password your-password
+```
+
+导入完成后，运行时的 `retrieve_guidelines` 会先尝试：
+
+- 根据查询里命中的药物 / 疾病 / 指标，从 Neo4j 找到已连边的指南 chunk。
+- 如果图证据不够，再自动回退到 Chroma 向量检索补齐。
+
+### 5.4 命令行问诊
 
 ```bash
 python scripts/run_consultation.py \
@@ -166,7 +182,7 @@ python scripts/run_consultation.py \
   --rag-query "1型糖尿病 肾功能不全 用药"
 ```
 
-### 5.4 启动 API
+### 5.5 启动 API
 
 ```bash
 python scripts/run_api.py
@@ -204,13 +220,13 @@ python scripts/run_api.py
 }
 ```
 
-### 5.5 启动 Streamlit
+### 5.6 启动 Streamlit
 
 ```bash
 streamlit run dia_agent/ui/streamlit_app.py
 ```
 
-### 5.6 自动化评测
+### 5.7 自动化评测
 
 ```bash
 python scripts/run_evaluation.py --rebuild-cases --limit 50

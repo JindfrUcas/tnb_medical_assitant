@@ -46,6 +46,7 @@ def main() -> int:
         persist_dir=args.persist_dir or settings.chroma_persist_dir,
         embedding_model=args.embedding_model or settings.embedding_model,
         collection_name=args.collection or settings.chroma_collection,
+        embedding_device=settings.embedding_device,
     )
     chunks = indexer.build(pdf_paths, reset=args.reset)
     print(f"RAG index build complete. Chunks: {chunks}")

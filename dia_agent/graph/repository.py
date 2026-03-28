@@ -3,6 +3,8 @@
 这里把上层节点依赖的查询能力分别映射到：
 - Neo4j 图数据库
 - 本地 `graph.json`
+
+同时也补充了轻量 GraphRAG 运行时需要的指南图谱查询能力。
 """
 
 from __future__ import annotations
@@ -65,6 +67,90 @@ class Neo4jGuardrailRepository:
         """
         with self._driver.session(database=self._database) as session:
             records = session.run(query, drug_name=drug_name)
+            return [dict(item) for item in records]
+
+
+class Neo4jGuidelineRepository:
+    """基于 Neo4j 的指南证据图查询仓库。"""
+
+    def __init__(self, uri: str, user: str, password: str, database: str = "neo4j"):
+        """创建独立的 Neo4j 驱动，用于查询 chunk 图谱与实体连边。"""
+        self._database = database
+        self._driver = GraphDatabase.driver(uri, auth=(user, password))
+
+    def close(self) -> None:
+        """关闭数据库连接。"""
+        self._driver.close()
+
+    def list_entity_names(self) -> dict[str, list[str]]:
+        """读取当前图中已有的药物 / 疾病 / 指标名称。
+
+        运行时图检索不会让模型自由写 Cypher，而是先在 Python 侧做实体识别，
+        再把识别结果作为受控参数传给固定查询模板。
+        """
+        queries = {
+            "Drug": "MATCH (node:Drug) RETURN node.name AS name ORDER BY node.name",
+            "Disease": "MATCH (node:Disease) RETURN node.name AS name ORDER BY node.name",
+            "Indicator": "MATCH (node:Indicator) RETURN node.name AS name ORDER BY node.name",
+        }
+        results: dict[str, list[str]] = {"Drug": [], "Disease": [], "Indicator": []}
+
+        with self._driver.session(database=self._database) as session:
+            for label, query in queries.items():
+                rows = session.run(query)
+                results[label] = [str(item["name"]).strip() for item in rows if str(item["name"]).strip()]
+        return results
+
+    def fetch_linked_chunks(
+        self,
+        drug_names: list[str],
+        disease_names: list[str],
+        indicator_names: list[str],
+        top_k: int = 4,
+        source: str | None = None,
+        min_hits: int = 1,
+        exclude_keys: list[str] | None = None,
+    ) -> list[dict[str, Any]]:
+        """按实体集合查询已连边的指南 chunk。
+
+        这一步仍然是固定模板查询，不存在“让大模型自己生成 Cypher”的过程。
+        """
+        query = """
+        MATCH (chunk:GuidelineChunk)
+        WHERE ($source IS NULL OR chunk.source = $source)
+          AND (size($exclude_keys) = 0 OR NOT chunk.key IN $exclude_keys)
+        OPTIONAL MATCH (drug:Drug)-[:MENTIONED_IN]->(chunk)
+        WITH chunk, count(DISTINCT CASE WHEN drug.name IN $drug_names THEN drug END) AS drug_hits
+        OPTIONAL MATCH (disease:Disease)-[:MENTIONED_IN]->(chunk)
+        WITH chunk, drug_hits, count(DISTINCT CASE WHEN disease.name IN $disease_names THEN disease END) AS disease_hits
+        OPTIONAL MATCH (indicator:Indicator)-[:MENTIONED_IN]->(chunk)
+        WITH chunk, drug_hits, disease_hits,
+             count(DISTINCT CASE WHEN indicator.name IN $indicator_names THEN indicator END) AS indicator_hits
+        WITH chunk, drug_hits, disease_hits, indicator_hits,
+             drug_hits + disease_hits + indicator_hits AS total_hits
+        WHERE total_hits >= $min_hits
+        RETURN chunk.key AS chunk_key,
+               chunk.source AS source,
+               chunk.content AS content,
+               chunk.chapter AS chapter,
+               chunk.section AS section,
+               chunk.page_start AS page_start,
+               chunk.page_end AS page_end,
+               total_hits AS score
+        ORDER BY total_hits DESC, coalesce(chunk.page_start, 0) ASC, chunk.chunk_index ASC
+        LIMIT $top_k
+        """
+        with self._driver.session(database=self._database) as session:
+            records = session.run(
+                query,
+                drug_names=drug_names,
+                disease_names=disease_names,
+                indicator_names=indicator_names,
+                top_k=max(1, top_k),
+                source=source,
+                min_hits=max(1, min_hits),
+                exclude_keys=exclude_keys or [],
+            )
             return [dict(item) for item in records]
 
 

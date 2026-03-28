@@ -11,13 +11,14 @@ from pathlib import Path
 from langchain_core.language_models.chat_models import BaseChatModel
 
 from dia_agent.config import Settings, get_settings
-from dia_agent.graph.repository import JsonGuardrailRepository, Neo4jGuardrailRepository
+from dia_agent.graph.repository import JsonGuardrailRepository, Neo4jGuardrailRepository, Neo4jGuidelineRepository
 from dia_agent.llm import LLMConfig, build_chat_model
 from dia_agent.nodes.auditor import AuditorNode
+from dia_agent.nodes.evidence import EvidenceAssemblyNode
 from dia_agent.nodes.guardrail import GuardrailNode
 from dia_agent.nodes.perception import PerceptionNode
 from dia_agent.nodes.reasoner import ReActReasonerNode
-from dia_agent.rag.retriever import GuidelineRetriever
+from dia_agent.rag.retriever import GuidelineRetriever, Neo4jGuidelineGraphRetriever
 from dia_agent.schemas import ConsultationOutput
 from dia_agent.workflow.graph import DiaAgentWorkflow
 
@@ -29,6 +30,7 @@ class DiaAgentPipeline:
         """根据配置组装整套问诊链路。"""
         self._settings = settings or get_settings()
         self._repository = self._build_repository()
+        self._guideline_repository = self._build_guideline_repository()
 
         # 语言模型负责文本推理；视觉模型主要用于多模态结构化抽取。
         # 如果没有单独配置视觉模型，就退回复用文本模型。
@@ -38,10 +40,17 @@ class DiaAgentPipeline:
         # 这里把“感知、红线、推理、审计、RAG 检索”几个核心部件拼成一条工作流。
         perception = PerceptionNode(llm_client=vision_client)
         guardrail = GuardrailNode(self._repository)
+        graph_retriever = (
+            Neo4jGuidelineGraphRetriever(self._guideline_repository)
+            if self._guideline_repository is not None
+            else None
+        )
         retriever = GuidelineRetriever(
             persist_dir=self._settings.chroma_persist_dir,
             embedding_model=self._settings.embedding_model,
             collection_name=self._settings.chroma_collection,
+            embedding_device=self._settings.embedding_device,
+            graph_retriever=graph_retriever,
         )
         reasoner = ReActReasonerNode(
             llm_client=llm_client,
@@ -50,11 +59,13 @@ class DiaAgentPipeline:
             max_steps=self._settings.react_max_steps,
             retrieval_k=self._settings.retrieval_k,
         )
+        evidence = EvidenceAssemblyNode(retriever=retriever, retrieval_k=self._settings.retrieval_k)
         auditor = AuditorNode()
 
         self._workflow = DiaAgentWorkflow(
             perception_node=perception,
             guardrail_node=guardrail,
+            evidence_node=evidence,
             reasoner_node=reasoner,
             auditor_node=auditor,
             retriever=retriever,
@@ -67,9 +78,10 @@ class DiaAgentPipeline:
 
     def close(self) -> None:
         """释放底层资源，比如 Neo4j 连接。"""
-        close_method = getattr(self._repository, "close", None)
-        if callable(close_method):
-            close_method()
+        for resource in [self._repository, self._guideline_repository]:
+            close_method = getattr(resource, "close", None)
+            if callable(close_method):
+                close_method()
 
     def _build_repository(self):
         """构建结构化红线数据源。
@@ -91,6 +103,25 @@ class DiaAgentPipeline:
         if not graph_json_path.exists():
             raise FileNotFoundError(f"Missing graph.json at {graph_json_path}")
         return JsonGuardrailRepository(graph_json_path)
+
+    def _build_guideline_repository(self) -> Neo4jGuidelineRepository | None:
+        """构建指南证据图仓库。
+
+        这里是一个纯增量能力：
+        - 没有 Neo4j 凭据时直接关闭。
+        - 有 Neo4j 凭据但库里还没导入 chunk 时，运行时会自动回退到向量检索。
+        """
+        if not self._settings.neo4j_password:
+            return None
+        try:
+            return Neo4jGuidelineRepository(
+                uri=self._settings.neo4j_uri,
+                user=self._settings.neo4j_user,
+                password=self._settings.neo4j_password,
+                database=self._settings.neo4j_database,
+            )
+        except Exception:
+            return None
 
     def _build_llm_client(self) -> BaseChatModel | None:
         """构建文本推理模型客户端。"""
