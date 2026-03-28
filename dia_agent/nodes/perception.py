@@ -16,6 +16,7 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from dia_agent.schemas import PatientState
+from dia_agent.utils import normalize_message_content
 
 
 INDICATOR_PATTERN = re.compile(r"([A-Za-z][A-Za-z0-9_\-/]*)\s*[:：=]\s*(-?\d+(?:\.\d+)?)")
@@ -151,22 +152,7 @@ class PerceptionNode:
 
     def _message_to_text(self, message: Any) -> str:
         """把 LangChain 消息对象中的文本内容提取出来。"""
-        content = getattr(message, "content", "")
-        if isinstance(content, str):
-            return content.strip()
-        if isinstance(content, list):
-            parts: list[str] = []
-            for item in content:
-                if isinstance(item, str):
-                    parts.append(item)
-                    continue
-                if not isinstance(item, dict):
-                    continue
-                text = item.get("text")
-                if text:
-                    parts.append(str(text))
-            return "\n".join(parts).strip()
-        return str(content).strip()
+        return normalize_message_content(getattr(message, "content", ""))
 
     def _to_data_url(self, path: Path) -> str:
         """把本地图片转成 data URL，便于直接发给兼容 OpenAI 的多模态接口。"""

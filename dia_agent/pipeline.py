@@ -22,6 +22,8 @@ from dia_agent.rag.retriever import GuidelineRetriever, Neo4jGuidelineGraphRetri
 from dia_agent.schemas import ConsultationOutput
 from dia_agent.workflow.graph import DiaAgentWorkflow
 
+from neo4j import GraphDatabase
+
 
 class DiaAgentPipeline:
     """Dia-Agent 的顶层调用入口。"""
@@ -29,6 +31,7 @@ class DiaAgentPipeline:
     def __init__(self, settings: Settings | None = None):
         """根据配置组装整套问诊链路。"""
         self._settings = settings or get_settings()
+        self._neo4j_driver = self._build_neo4j_driver()
         self._repository = self._build_repository()
         self._guideline_repository = self._build_guideline_repository()
 
@@ -77,24 +80,37 @@ class DiaAgentPipeline:
         return self._workflow.invoke(raw_input=raw_input, rag_query=rag_query, history_text=history_text)
 
     def close(self) -> None:
-        """释放底层资源，比如 Neo4j 连接。"""
+        """释放底层资源。共享 driver 统一在这里关闭。"""
         for resource in [self._repository, self._guideline_repository]:
             close_method = getattr(resource, "close", None)
             if callable(close_method):
                 close_method()
+        if self._neo4j_driver is not None:
+            self._neo4j_driver.close()
+            self._neo4j_driver = None
+
+    def _build_neo4j_driver(self):
+        """构建共享的 Neo4j driver，供两个 Repository 复用。"""
+        if not self._settings.neo4j_password:
+            return None
+        try:
+            return GraphDatabase.driver(
+                self._settings.neo4j_uri,
+                auth=(self._settings.neo4j_user, self._settings.neo4j_password),
+            )
+        except Exception:
+            return None
 
     def _build_repository(self):
         """构建结构化红线数据源。
 
         优先使用 Neo4j；如果没有配置或连接失败，则回退到本地 `graph.json`。
         """
-        if self._settings.neo4j_password:
+        if self._neo4j_driver is not None:
             try:
                 return Neo4jGuardrailRepository(
-                    uri=self._settings.neo4j_uri,
-                    user=self._settings.neo4j_user,
-                    password=self._settings.neo4j_password,
                     database=self._settings.neo4j_database,
+                    driver=self._neo4j_driver,
                 )
             except Exception:
                 pass
@@ -111,14 +127,12 @@ class DiaAgentPipeline:
         - 没有 Neo4j 凭据时直接关闭。
         - 有 Neo4j 凭据但库里还没导入 chunk 时，运行时会自动回退到向量检索。
         """
-        if not self._settings.neo4j_password:
+        if self._neo4j_driver is None:
             return None
         try:
             return Neo4jGuidelineRepository(
-                uri=self._settings.neo4j_uri,
-                user=self._settings.neo4j_user,
-                password=self._settings.neo4j_password,
                 database=self._settings.neo4j_database,
+                driver=self._neo4j_driver,
             )
         except Exception:
             return None

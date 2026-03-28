@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import json
+from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -19,14 +20,16 @@ from neo4j import GraphDatabase
 class Neo4jGuardrailRepository:
     """基于 Neo4j 的红线规则仓库。"""
 
-    def __init__(self, uri: str, user: str, password: str, database: str = "neo4j"):
-        """创建 Neo4j 驱动，并保存目标数据库名。"""
+    def __init__(self, uri: str = "", user: str = "", password: str = "", database: str = "neo4j", *, driver=None):
+        """创建或复用 Neo4j 驱动。传入 driver 时复用外部连接池。"""
         self._database = database
-        self._driver = GraphDatabase.driver(uri, auth=(user, password))
+        self._driver = driver or GraphDatabase.driver(uri, auth=(user, password))
+        self._owns_driver = driver is None
 
     def close(self) -> None:
-        """关闭数据库连接。"""
-        self._driver.close()
+        """仅在自己创建 driver 时关闭连接。"""
+        if self._owns_driver:
+            self._driver.close()
 
     def contraindications_by_indicator(self, indicator_name: str) -> list[dict[str, Any]]:
         """查询某个指标相关的禁忌药物。"""
@@ -73,14 +76,16 @@ class Neo4jGuardrailRepository:
 class Neo4jGuidelineRepository:
     """基于 Neo4j 的指南证据图查询仓库。"""
 
-    def __init__(self, uri: str, user: str, password: str, database: str = "neo4j"):
-        """创建独立的 Neo4j 驱动，用于查询 chunk 图谱与实体连边。"""
+    def __init__(self, uri: str = "", user: str = "", password: str = "", database: str = "neo4j", *, driver=None):
+        """创建或复用 Neo4j 驱动。传入 driver 时复用外部连接池。"""
         self._database = database
-        self._driver = GraphDatabase.driver(uri, auth=(user, password))
+        self._driver = driver or GraphDatabase.driver(uri, auth=(user, password))
+        self._owns_driver = driver is None
 
     def close(self) -> None:
-        """关闭数据库连接。"""
-        self._driver.close()
+        """仅在自己创建 driver 时关闭连接。"""
+        if self._owns_driver:
+            self._driver.close()
 
     def list_entity_names(self) -> dict[str, list[str]]:
         """读取当前图中已有的药物 / 疾病 / 指标名称。
@@ -158,70 +163,64 @@ class JsonGuardrailRepository:
     """基于本地 JSON 文件的红线规则仓库。"""
 
     def __init__(self, graph_json_path: Path):
-        """读取本地 graph.json，并缓存为内存中的记录列表。"""
+        """读取本地 graph.json，并构建倒排索引加速查询。"""
         payload = json.loads(graph_json_path.read_text(encoding="utf-8-sig"))
         if not isinstance(payload, list):
             raise ValueError("graph.json must be a list")
         self._records: list[dict[str, Any]] = [item for item in payload if isinstance(item, dict)]
+        self._indicator_index: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        self._disease_index: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        self._drug_index: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        self._build_indexes()
 
-    def close(self) -> None:
-        """与 Neo4j 版本保持相同接口；本地文件无需释放资源。"""
-        return None
-
-    def contraindications_by_indicator(self, indicator_name: str) -> list[dict[str, Any]]:
-        """从本地 JSON 中查询某个指标相关禁忌。"""
-        normalized = indicator_name.strip().lower()
-        rows: list[dict[str, Any]] = []
+    def _build_indexes(self) -> None:
+        """在初始化时构建倒排索引，避免每次查询全表扫描。"""
         for record in self._records:
             drug_name = str(record.get("drug_name", "")).strip()
             for item in record.get("contraindications") or []:
                 if not isinstance(item, dict):
                     continue
-                current_name = str(item.get("indicator", "")).strip()
-                if current_name.lower() != normalized:
-                    continue
-                rows.append(
+                indicator_name = str(item.get("indicator", "")).strip()
+                key = indicator_name.lower()
+                self._indicator_index[key].append(
                     {
                         "drug_name": drug_name,
-                        "indicator_name": current_name,
+                        "indicator_name": indicator_name,
                         "indicator_unit": str(item.get("unit", "")).strip(),
                         "operator": str(item.get("operator", "")).strip(),
                         "threshold": item.get("threshold"),
                         "reason": str(item.get("reason", "")).strip(),
                     }
                 )
-        return rows
-
-    def excludes_by_disease(self, disease_name: str) -> list[dict[str, Any]]:
-        """从本地 JSON 中查询某个疾病的排除药物。"""
-        normalized = disease_name.strip().lower()
-        rows: list[dict[str, Any]] = []
-        for record in self._records:
-            drug_name = str(record.get("drug_name", "")).strip()
             for item in record.get("disease_excludes") or []:
-                current_name = str(item).strip()
-                if current_name.lower() != normalized:
-                    continue
-                rows.append({"disease_name": current_name, "drug_name": drug_name})
-        return rows
-
-    def adjustments_by_drug(self, drug_name: str) -> list[dict[str, Any]]:
-        """从本地 JSON 中查询某个药物的剂量调整规则。"""
-        normalized = drug_name.strip().lower()
-        rows: list[dict[str, Any]] = []
-        for record in self._records:
-            current_drug = str(record.get("drug_name", "")).strip()
-            if current_drug.lower() != normalized:
-                continue
+                disease_name = str(item).strip()
+                key = disease_name.lower()
+                self._disease_index[key].append({"disease_name": disease_name, "drug_name": drug_name})
+            drug_key = drug_name.lower()
             for item in record.get("dosage_adjust") or []:
                 if not isinstance(item, dict):
                     continue
-                rows.append(
+                self._drug_index[drug_key].append(
                     {
-                        "drug_name": current_drug,
+                        "drug_name": drug_name,
                         "condition": str(item.get("condition", "")).strip(),
                         "action": str(item.get("action", "")).strip(),
                         "note": str(item.get("note", "")).strip(),
                     }
                 )
-        return rows
+
+    def close(self) -> None:
+        """与 Neo4j 版本保持相同接口；本地文件无需释放资源。"""
+        return None
+
+    def contraindications_by_indicator(self, indicator_name: str) -> list[dict[str, Any]]:
+        """从倒排索引中查询某个指标相关禁忌。"""
+        return list(self._indicator_index.get(indicator_name.strip().lower(), []))
+
+    def excludes_by_disease(self, disease_name: str) -> list[dict[str, Any]]:
+        """从倒排索引中查询某个疾病的排除药物。"""
+        return list(self._disease_index.get(disease_name.strip().lower(), []))
+
+    def adjustments_by_drug(self, drug_name: str) -> list[dict[str, Any]]:
+        """从倒排索引中查询某个药物的剂量调整规则。"""
+        return list(self._drug_index.get(drug_name.strip().lower(), []))

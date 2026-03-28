@@ -262,7 +262,7 @@ class AgentToolbox:
 
     def _list_safe_current_drugs(self) -> str:
         """列出当前用药里尚未命中禁忌的部分。"""
-        forbidden = {item.drug_name.lower() for item in self._guardrail_report.contraindications}
+        forbidden = self._guardrail_report.forbidden_drug_names
         safe_drugs = [
             drug for drug in self._patient_state.current_drugs if drug.strip().lower() not in forbidden
         ]

@@ -10,7 +10,7 @@ class AuditorNode:
 
     def run(self, reasoner_result: ReasonerResult, guardrail_report: GuardrailReport) -> AuditResult:
         """执行审计并返回是否通过。"""
-        forbidden = {item.drug_name.lower() for item in guardrail_report.contraindications}
+        forbidden = guardrail_report.forbidden_drug_names
         violations = [drug for drug in reasoner_result.recommended_drugs if drug.lower() in forbidden]
 
         if violations:

@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Literal
 
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_openai import ChatOpenAI
@@ -19,7 +20,7 @@ class LLMConfig:
     base_url: str
     api_key: str
     model: str
-    wire_api: str = "chat_completions"
+    wire_api: Literal["chat_completions", "responses"] = "chat_completions"
     temperature: float = 0.2
     timeout_sec: int = 60
 

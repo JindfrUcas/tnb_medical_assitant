@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 import json
-from typing import Any, Iterable
+from typing import Any
 
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import HumanMessage, ToolMessage
@@ -17,9 +17,10 @@ from langgraph.prebuilt import create_react_agent
 from pydantic import BaseModel, Field
 
 from dia_agent.agent_tools import AgentToolbox, build_langchain_tools
-from dia_agent.graph.repository import JsonGuardrailRepository, Neo4jGuardrailRepository
+from dia_agent.nodes.guardrail import GuardrailRepository
 from dia_agent.rag.retriever import GuidelineRetriever
-from dia_agent.schemas import EvidenceBundle, GuardrailReport, PatientState, RagSnippet, ReasonerResult
+from dia_agent.schemas import EvidenceBundle, GuardrailReport, PatientState, RagSnippet, ReasonerResult, _normalize_list
+from dia_agent.utils import DEFAULT_RAG_FALLBACK_QUERY, build_default_query, normalize_message_content
 
 
 @dataclass
@@ -40,25 +41,6 @@ class ReasonerStructuredResponse(BaseModel):
     thought_summary: str = Field(default="", description="对本轮决策过程的简要总结。")
 
 
-def _dedupe(items: Iterable[str]) -> list[str]:
-    """按顺序去重，保证输出稳定。"""
-    seen: set[str] = set()
-    ordered: list[str] = []
-    for item in items:
-        token = item.strip()
-        if not token:
-            continue
-        key = token.lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        ordered.append(token)
-    return ordered
-
-
-def _forbidden_drug_set(report: GuardrailReport) -> set[str]:
-    """把禁用药物整理成集合，便于快速判断。"""
-    return {item.drug_name.lower() for item in report.contraindications}
 
 
 def baseline_llm_like_recommendation(patient_state: PatientState) -> str:
@@ -174,7 +156,7 @@ class ReasonerNode:
         feedback: str,
     ) -> str:
         """在没有模型可用时，用模板策略生成保守输出。"""
-        forbidden = _forbidden_drug_set(guardrail_report)
+        forbidden = guardrail_report.forbidden_drug_names
         safe_current_drugs = [
             drug for drug in patient_state.current_drugs if drug.strip().lower() not in forbidden
         ]
@@ -189,7 +171,7 @@ class ReasonerNode:
 
         lines.append("2) 治疗建议")
         if safe_current_drugs:
-            lines.append(f"- 当前可继续药物: {', '.join(_dedupe(safe_current_drugs))}。")
+            lines.append(f"- 当前可继续药物: {', '.join(_normalize_list(safe_current_drugs))}。")
         else:
             lines.append("- 当前药物需全面复核后再决策。")
 
@@ -233,7 +215,7 @@ class ReasonerNode:
         guardrail_report: GuardrailReport,
     ) -> list[str]:
         """从当前药物和基础规则中归纳候选推荐药物。"""
-        forbidden = _forbidden_drug_set(guardrail_report)
+        forbidden = guardrail_report.forbidden_drug_names
         candidates: list[str] = []
         for drug in patient_state.current_drugs:
             if drug.strip().lower() in forbidden:
@@ -244,7 +226,7 @@ class ReasonerNode:
         if hba1c is not None and hba1c >= 9.0:
             candidates.append("个体化胰岛素方案")
 
-        return _dedupe(candidates)
+        return _normalize_list(candidates)
 
 
 class ReActReasonerNode(ReasonerNode):
@@ -253,7 +235,7 @@ class ReActReasonerNode(ReasonerNode):
     def __init__(
         self,
         llm_client: BaseChatModel | None,
-        repository: JsonGuardrailRepository | Neo4jGuardrailRepository,
+        repository: GuardrailRepository,
         retriever: GuidelineRetriever,
         max_steps: int = 4,
         retrieval_k: int = 4,
@@ -428,11 +410,11 @@ class ReActReasonerNode(ReasonerNode):
     def _extract_structured_recommended_drugs(self, payload: Any) -> list[str]:
         """从结构化结果里提取推荐药物列表。"""
         if isinstance(payload, ReasonerStructuredResponse):
-            return _dedupe(payload.recommended_drugs)
+            return _normalize_list(payload.recommended_drugs)
         if isinstance(payload, dict):
             value = payload.get("recommended_drugs")
             if isinstance(value, list):
-                return _dedupe([str(item) for item in value])
+                return _normalize_list([str(item) for item in value])
         return []
 
     def _extract_message_text(self, messages: list[Any]) -> str:
@@ -441,7 +423,7 @@ class ReActReasonerNode(ReasonerNode):
             if isinstance(message, ToolMessage):
                 continue
             content = getattr(message, "content", "")
-            text = self._normalize_message_content(content)
+            text = normalize_message_content(content)
             if text:
                 return text
         return ""
@@ -451,31 +433,11 @@ class ReActReasonerNode(ReasonerNode):
         scratchpad: list[str] = []
         for message in messages:
             role = getattr(message, "type", message.__class__.__name__)
-            content = self._normalize_message_content(getattr(message, "content", ""))
+            content = normalize_message_content(getattr(message, "content", ""))
             if content:
                 scratchpad.append(f"{role}: {content}")
         return scratchpad
 
-    def _normalize_message_content(self, content: Any) -> str:
-        """把 LangChain 消息内容压平成普通文本。"""
-        if isinstance(content, str):
-            return content.strip()
-        if isinstance(content, list):
-            parts: list[str] = []
-            for item in content:
-                if isinstance(item, str):
-                    parts.append(item)
-                    continue
-                if not isinstance(item, dict):
-                    continue
-                text = item.get("text")
-                if text:
-                    parts.append(str(text))
-            return "\n".join(parts).strip()
-        return str(content).strip()
-
     def _build_default_query(self, patient_state: PatientState) -> str:
         """当外部未传入检索词时，根据患者状态拼默认 RAG 查询。"""
-        indicator_tokens = [f"{name}:{value}" for name, value in patient_state.indicators.items()]
-        disease_tokens = patient_state.diseases
-        return " ".join(indicator_tokens + disease_tokens) or "1型糖尿病 指南 用药"
+        return build_default_query(patient_state)

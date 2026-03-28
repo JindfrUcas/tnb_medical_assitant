@@ -13,6 +13,8 @@ from typing import Any
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+_DEFAULT_GUIDELINE_PATHS = [Path("dataset/中国糖尿病防治指南（2024版）.pdf")]
+
 
 class Settings(BaseSettings):
     """Dia-Agent 的运行时配置。
@@ -30,9 +32,7 @@ class Settings(BaseSettings):
 
     graph_json_path: Path = Field(default=Path("dataset/graph.json"))
     guideline_pdf_paths: list[Path] = Field(
-        default_factory=lambda: [
-            Path("dataset/中国糖尿病防治指南（2024版）.pdf"),
-        ]
+        default_factory=lambda: list(_DEFAULT_GUIDELINE_PATHS)
     )
 
     chroma_persist_dir: Path = Field(default=Path("data/chroma"))
@@ -77,9 +77,7 @@ class Settings(BaseSettings):
     def normalize_guideline_pdf_paths(cls, value: Any) -> list[Path]:
         """支持从列表或逗号分隔字符串读取默认指南 PDF 列表。"""
         if value is None or value == "":
-            return [
-                Path("dataset/中国糖尿病防治指南（2024版）.pdf"),
-            ]
+            return list(_DEFAULT_GUIDELINE_PATHS)
         if isinstance(value, str):
             items = [item.strip() for item in value.split(",") if item.strip()]
             return [Path(item) for item in items]

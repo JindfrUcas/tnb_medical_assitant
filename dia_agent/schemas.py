@@ -90,6 +90,11 @@ class GuardrailReport(BaseModel):
     dosage_adjustments: list[DosageAdjustmentHit] = Field(default_factory=list)
     whitepaper: str
 
+    @property
+    def forbidden_drug_names(self) -> set[str]:
+        """禁用药物名称集合（小写），供审计和推理节点快速判断。"""
+        return {item.drug_name.lower() for item in self.contraindications}
+
 
 class RagSnippet(BaseModel):
     """RAG 检索返回的一段指南片段。"""

@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 
 from dia_agent.rag.retriever import GuidelineRetriever
 from dia_agent.schemas import EvidenceBundle, GuardrailReport, PatientState, RagSnippet
+from dia_agent.utils import DEFAULT_RAG_FALLBACK_QUERY
 
 
 @dataclass
@@ -49,7 +50,7 @@ class EvidenceAssemblyNode:
         vector_snippets = self._dedupe_snippets(vector_snippets, top_k=self._retrieval_k * 2)
         merged_snippets = self._dedupe_snippets(
             graph_snippets + vector_snippets,
-            top_k=max(self._retrieval_k, self._retrieval_k * 2),
+            top_k=self._retrieval_k * 2,
         )
 
         summary = self._build_summary(query_plan, graph_snippets, vector_snippets, merged_snippets, feedback)
@@ -99,7 +100,7 @@ class EvidenceAssemblyNode:
                 queries.append(f"{hit.drug_name} 安全替代方案 {hit.trigger_name}")
 
         if not queries:
-            queries.append("1型糖尿病 指南 用药")
+            queries.append(DEFAULT_RAG_FALLBACK_QUERY)
 
         deduped: list[str] = []
         seen: set[str] = set()

@@ -16,6 +16,7 @@ from dia_agent.nodes.perception import PerceptionNode
 from dia_agent.nodes.reasoner import ReasonerNode, ReasonerRunOutput
 from dia_agent.rag.retriever import GuidelineRetriever
 from dia_agent.schemas import ConsultationOutput
+from dia_agent.utils import build_default_query
 from dia_agent.workflow.state import DiaAgentState
 
 
@@ -211,6 +212,4 @@ class DiaAgentWorkflow:
 
     def _build_default_query(self, patient_state) -> str:
         """当用户没提供检索词时，自动从患者状态拼一个 RAG 查询。"""
-        indicator_tokens = [f"{name}:{value}" for name, value in patient_state.indicators.items()]
-        disease_tokens = patient_state.diseases
-        return " ".join(indicator_tokens + disease_tokens) or "1型糖尿病 指南 用药"
+        return build_default_query(patient_state)
