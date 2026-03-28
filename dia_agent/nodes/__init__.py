@@ -3,6 +3,7 @@
 from dia_agent.nodes.auditor import AuditorNode
 from dia_agent.nodes.guardrail import GuardrailNode
 from dia_agent.nodes.perception import PerceptionNode
-from dia_agent.nodes.reasoner import ReActReasonerNode, ReasonerNode
+from dia_agent.nodes.react_controller import ReactControllerNode
+from dia_agent.nodes.reasoner import ReasonerNode
 
-__all__ = ["PerceptionNode", "GuardrailNode", "ReasonerNode", "ReActReasonerNode", "AuditorNode"]
+__all__ = ["PerceptionNode", "GuardrailNode", "ReasonerNode", "ReactControllerNode", "AuditorNode"]

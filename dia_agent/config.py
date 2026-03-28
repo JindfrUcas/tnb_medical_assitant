@@ -56,6 +56,7 @@ class Settings(BaseSettings):
 
     max_reasoner_retries: int = Field(default=3)
     react_max_steps: int = Field(default=4)
+    react_max_audit_retries: int = Field(default=3)
 
     api_title: str = Field(default="Dia-Agent API")
     api_version: str = Field(default="0.1.0")

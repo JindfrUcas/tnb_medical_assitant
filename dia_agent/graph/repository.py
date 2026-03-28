@@ -158,6 +158,146 @@ class Neo4jGuidelineRepository:
             )
             return [dict(item) for item in records]
 
+    def traverse_from_entity(
+        self,
+        entity_name: str,
+        entity_type: str = "Drug",
+        max_hops: int = 2,
+        top_k: int = 5,
+    ) -> dict[str, Any]:
+        """从一个实体出发做 1-2 跳图遍历。"""
+        result: dict[str, Any] = {"chunks": [], "siblings": [], "related_drugs": []}
+
+        query_chunks = """
+        MATCH (e)-[:MENTIONED_IN]->(chunk:GuidelineChunk)
+        WHERE e.name = $entity_name AND $entity_type IN labels(e)
+        RETURN chunk.key AS chunk_key,
+               chunk.source AS source,
+               chunk.content AS content,
+               chunk.chapter AS chapter,
+               chunk.section AS section,
+               chunk.chunk_index AS chunk_index
+        ORDER BY chunk.page_start ASC
+        LIMIT $top_k
+        """
+        with self._driver.session(database=self._database) as session:
+            rows = session.run(query_chunks, entity_name=entity_name, entity_type=entity_type, top_k=top_k)
+            result["chunks"] = [dict(r) for r in rows]
+
+        if max_hops < 2 or not result["chunks"]:
+            return result
+
+        first_chunk_key = result["chunks"][0]["chunk_key"]
+        query_siblings = """
+        MATCH (chunk:GuidelineChunk {key: $chunk_key})
+              <-[:HAS_CHUNK]-(section:GuidelineSection)
+              -[:HAS_CHUNK]->(sibling:GuidelineChunk)
+        WHERE sibling.key <> $chunk_key
+        RETURN sibling.key AS chunk_key,
+               sibling.source AS source,
+               sibling.content AS content,
+               sibling.chapter AS chapter,
+               sibling.section AS section,
+               sibling.chunk_index AS chunk_index
+        ORDER BY sibling.chunk_index ASC
+        LIMIT $top_k
+        """
+        with self._driver.session(database=self._database) as session:
+            rows = session.run(query_siblings, chunk_key=first_chunk_key, top_k=top_k)
+            result["siblings"] = [dict(r) for r in rows]
+
+        if entity_type == "Drug":
+            query_related = """
+            MATCH (d:Drug {name: $entity_name})-[r:CONTRAINDICATED_BY]->(i:Indicator)
+                  <-[r2:CONTRAINDICATED_BY]-(other:Drug)
+            WHERE other.name <> $entity_name
+            RETURN d.name AS source_drug,
+                   i.name AS shared_indicator,
+                   r.operator AS operator,
+                   r.threshold AS threshold,
+                   r.reason AS reason,
+                   collect(DISTINCT other.name) AS related_drugs
+            """
+            with self._driver.session(database=self._database) as session:
+                rows = session.run(query_related, entity_name=entity_name)
+                result["related_drugs"] = [dict(r) for r in rows]
+
+        return result
+
+    def expand_subgraph(
+        self,
+        entity_names: list[str],
+        min_overlap: int = 2,
+        top_k: int = 5,
+    ) -> dict[str, Any]:
+        """给定一组实体，提取它们共同关联的 chunk 和实体间关系路径。"""
+        result: dict[str, Any] = {"shared_chunks": [], "relations": []}
+
+        query_shared = """
+        UNWIND $entity_names AS ename
+        MATCH (e)-[:MENTIONED_IN]->(chunk:GuidelineChunk)
+        WHERE e.name = ename
+        WITH chunk, collect(DISTINCT e.name) AS mentioned_entities,
+             count(DISTINCT e) AS entity_count
+        WHERE entity_count >= $min_overlap
+        RETURN chunk.key AS chunk_key,
+               chunk.source AS source,
+               chunk.content AS content,
+               chunk.chapter AS chapter,
+               chunk.section AS section,
+               mentioned_entities,
+               entity_count
+        ORDER BY entity_count DESC, chunk.page_start ASC
+        LIMIT $top_k
+        """
+        with self._driver.session(database=self._database) as session:
+            rows = session.run(query_shared, entity_names=entity_names, min_overlap=min_overlap, top_k=top_k)
+            result["shared_chunks"] = [dict(r) for r in rows]
+
+        query_relations = """
+        MATCH (a)-[r]-(b)
+        WHERE a.name IN $entity_names AND b.name IN $entity_names
+          AND a.name < b.name
+        RETURN a.name AS from_entity,
+               type(r) AS relation,
+               b.name AS to_entity,
+               properties(r) AS properties
+        LIMIT 20
+        """
+        with self._driver.session(database=self._database) as session:
+            rows = session.run(query_relations, entity_names=entity_names)
+            result["relations"] = [dict(r) for r in rows]
+
+        return result
+
+    def get_chapter_context(
+        self,
+        chunk_key: str,
+        context_window: int = 2,
+    ) -> dict[str, Any]:
+        """沿层级结构回溯，获取 chunk 所在章节标题和相邻 chunk。"""
+        query = """
+        MATCH (chunk:GuidelineChunk {key: $chunk_key})
+              <-[:HAS_CHUNK]-(section:GuidelineSection)
+              <-[:HAS_SECTION]-(chapter:GuidelineChapter)
+              <-[:HAS_CHAPTER]-(doc:GuidelineDocument)
+        OPTIONAL MATCH (section)-[:HAS_CHUNK]->(neighbor:GuidelineChunk)
+        WHERE abs(neighbor.chunk_index - chunk.chunk_index) <= $context_window
+          AND neighbor.key <> $chunk_key
+        WITH doc, chapter, section, chunk,
+             neighbor ORDER BY neighbor.chunk_index ASC
+        RETURN doc.title AS document,
+               chapter.title AS chapter,
+               section.title AS section,
+               chunk.content AS target_content,
+               collect({key: neighbor.key, content: neighbor.content}) AS neighbors
+        """
+        with self._driver.session(database=self._database) as session:
+            rows = list(session.run(query, chunk_key=chunk_key, context_window=context_window))
+            if not rows:
+                return {"document": "", "chapter": "", "section": "", "target_content": "", "neighbors": []}
+            return dict(rows[0])
+
 
 class JsonGuardrailRepository:
     """基于本地 JSON 文件的红线规则仓库。"""

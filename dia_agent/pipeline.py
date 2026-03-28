@@ -1,7 +1,7 @@
 """项目总装配入口。
 
-`DiaAgentPipeline` 负责把配置、图谱仓库、LLM 客户端、RAG 检索器和 LangGraph 工作流装配在一起。
-你可以把它理解成整个项目的“总控制台”。
+`DiaAgentPipeline` 负责把配置、图谱仓库、LLM 客户端、RAG 检索器
+和 ReAct 主控工作流装配在一起。
 """
 
 from __future__ import annotations
@@ -9,20 +9,17 @@ from __future__ import annotations
 from pathlib import Path
 
 from langchain_core.language_models.chat_models import BaseChatModel
+from neo4j import GraphDatabase
 
 from dia_agent.config import Settings, get_settings
 from dia_agent.graph.repository import JsonGuardrailRepository, Neo4jGuardrailRepository, Neo4jGuidelineRepository
 from dia_agent.llm import LLMConfig, build_chat_model
-from dia_agent.nodes.auditor import AuditorNode
-from dia_agent.nodes.evidence import EvidenceAssemblyNode
 from dia_agent.nodes.guardrail import GuardrailNode
 from dia_agent.nodes.perception import PerceptionNode
-from dia_agent.nodes.reasoner import ReActReasonerNode
+from dia_agent.nodes.react_controller import ReactControllerNode
 from dia_agent.rag.retriever import GuidelineRetriever, Neo4jGuidelineGraphRetriever
 from dia_agent.schemas import ConsultationOutput
 from dia_agent.workflow.graph import DiaAgentWorkflow
-
-from neo4j import GraphDatabase
 
 
 class DiaAgentPipeline:
@@ -35,14 +32,12 @@ class DiaAgentPipeline:
         self._repository = self._build_repository()
         self._guideline_repository = self._build_guideline_repository()
 
-        # 语言模型负责文本推理；视觉模型主要用于多模态结构化抽取。
-        # 如果没有单独配置视觉模型，就退回复用文本模型。
         llm_client = self._build_llm_client()
         vision_client = self._build_vision_client() or llm_client
 
-        # 这里把“感知、红线、推理、审计、RAG 检索”几个核心部件拼成一条工作流。
         perception = PerceptionNode(llm_client=vision_client)
         guardrail = GuardrailNode(self._repository)
+
         graph_retriever = (
             Neo4jGuidelineGraphRetriever(self._guideline_repository)
             if self._guideline_repository is not None
@@ -55,24 +50,21 @@ class DiaAgentPipeline:
             embedding_device=self._settings.embedding_device,
             graph_retriever=graph_retriever,
         )
-        reasoner = ReActReasonerNode(
+
+        react_controller = ReactControllerNode(
             llm_client=llm_client,
-            repository=self._repository,
+            guardrail_node=guardrail,
+            guardrail_repo=self._repository,
+            guideline_repo=self._guideline_repository,
             retriever=retriever,
             max_steps=self._settings.react_max_steps,
+            max_audit_retries=self._settings.react_max_audit_retries,
             retrieval_k=self._settings.retrieval_k,
         )
-        evidence = EvidenceAssemblyNode(retriever=retriever, retrieval_k=self._settings.retrieval_k)
-        auditor = AuditorNode()
 
         self._workflow = DiaAgentWorkflow(
             perception_node=perception,
-            guardrail_node=guardrail,
-            evidence_node=evidence,
-            reasoner_node=reasoner,
-            auditor_node=auditor,
-            retriever=retriever,
-            max_retries=self._settings.max_reasoner_retries,
+            react_controller=react_controller,
         )
 
     def consult(self, raw_input: str | dict, rag_query: str = "", history_text: str = "") -> ConsultationOutput:
@@ -80,7 +72,7 @@ class DiaAgentPipeline:
         return self._workflow.invoke(raw_input=raw_input, rag_query=rag_query, history_text=history_text)
 
     def close(self) -> None:
-        """释放底层资源。共享 driver 统一在这里关闭。"""
+        """释放底层资源。"""
         for resource in [self._repository, self._guideline_repository]:
             close_method = getattr(resource, "close", None)
             if callable(close_method):
@@ -90,7 +82,7 @@ class DiaAgentPipeline:
             self._neo4j_driver = None
 
     def _build_neo4j_driver(self):
-        """构建共享的 Neo4j driver，供两个 Repository 复用。"""
+        """构建共享的 Neo4j driver。"""
         if not self._settings.neo4j_password:
             return None
         try:
@@ -102,10 +94,7 @@ class DiaAgentPipeline:
             return None
 
     def _build_repository(self):
-        """构建结构化红线数据源。
-
-        优先使用 Neo4j；如果没有配置或连接失败，则回退到本地 `graph.json`。
-        """
+        """构建结构化红线数据源。"""
         if self._neo4j_driver is not None:
             try:
                 return Neo4jGuardrailRepository(
@@ -114,19 +103,13 @@ class DiaAgentPipeline:
                 )
             except Exception:
                 pass
-
         graph_json_path = Path(self._settings.graph_json_path)
         if not graph_json_path.exists():
             raise FileNotFoundError(f"Missing graph.json at {graph_json_path}")
         return JsonGuardrailRepository(graph_json_path)
 
     def _build_guideline_repository(self) -> Neo4jGuidelineRepository | None:
-        """构建指南证据图仓库。
-
-        这里是一个纯增量能力：
-        - 没有 Neo4j 凭据时直接关闭。
-        - 有 Neo4j 凭据但库里还没导入 chunk 时，运行时会自动回退到向量检索。
-        """
+        """构建指南证据图仓库。"""
         if self._neo4j_driver is None:
             return None
         try:
@@ -152,10 +135,7 @@ class DiaAgentPipeline:
         return build_chat_model(config)
 
     def _build_vision_client(self) -> BaseChatModel | None:
-        """构建视觉模型客户端。
-
-        当前项目的图片能力主要用在 Perception 节点，用于把化验单等图片转成结构化状态。
-        """
+        """构建视觉模型客户端。"""
         base_url = self._settings.vision_base_url or self._settings.llm_base_url
         api_key = self._settings.vision_api_key or self._settings.llm_api_key
         if not base_url or not api_key:
